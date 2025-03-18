@@ -1,15 +1,26 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import localFont from "next/font/local";
+
+import { SidebarProvider } from "@/components/ui/sidebar";
+import { AppSidebar } from "./components/Sidebar";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const neueMontreal = localFont({
+  src: [
+    {
+      path: "./assets/fonts/NeueMontreal-Regular.otf",
+      weight: "400",
+    },
+    {
+      path: "./assets/fonts/NeueMontreal-Medium.otf",
+      weight: "500",
+    },
+    {
+      path: "./assets/fonts/NeueMontreal-Bold.otf",
+      weight: "700",
+    },
+  ],
+  variable: "--font-neue-montreal",
 });
 
 export const metadata: Metadata = {
@@ -25,10 +36,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+      <body className={`${neueMontreal.variable} antialiased`}>
+        <SidebarProvider>
+          <AppSidebar />
+          <main>{children}</main>
+        </SidebarProvider>
       </body>
     </html>
   );
