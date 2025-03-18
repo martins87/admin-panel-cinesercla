@@ -13,6 +13,8 @@ import {
   SidebarMenuItem,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
+import logo from "@/app/assets/icons/logo.svg";
+import home from "@/app/assets/icons/home.svg";
 import cadastro from "@/app/assets/icons/cadastro.svg";
 import dashboard from "@/app/assets/icons/dashboard.svg";
 import settings from "@/app/assets/icons/settings.svg";
@@ -42,9 +44,26 @@ export function AppSidebar() {
     <Sidebar collapsible="icon">
       <SidebarContent className="bg-background-sidebar">
         <SidebarGroup>
-          <SidebarTrigger className="" />
+          <SidebarGroupContent>
+            <SidebarTrigger className="" />
+          </SidebarGroupContent>
         </SidebarGroup>
-        <SidebarGroup className="">
+        <SidebarGroup className="flex items-center justify-center mb-4">
+          <Image src={logo} alt="cinesercla logo" />
+        </SidebarGroup>
+        <SidebarGroup>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              <SidebarMenuButton>
+                <Image src={home} alt="sidebar icon" />
+                <Typography className="text-sm text-white" weight="500">
+                  SITE PÚBLICO
+                </Typography>
+              </SidebarMenuButton>
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+        <SidebarGroup>
           <SidebarGroupLabel>
             <Typography className="text-sm text-neutral/90" weight="500">
               ADMINISTRATIVO
@@ -53,8 +72,8 @@ export function AppSidebar() {
           <SidebarGroupContent>
             <SidebarMenu>
               {items.map((item) => (
-                <SidebarMenuItem key={item.title} className="">
-                  <SidebarMenuButton asChild className="">
+                <SidebarMenuItem key={item.title}>
+                  <SidebarMenuButton asChild>
                     <a href={item.url}>
                       <Image src={item.icon} alt="sidebar icon" />
                       {/* <span>{item.title}</span> */}
