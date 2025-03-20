@@ -23,6 +23,24 @@ const neueMontreal = localFont({
   variable: "--font-neue-montreal",
 });
 
+const proximaNova = localFont({
+  src: [
+    {
+      path: "./assets/fonts/ProximaNova_Regular.ttf",
+      weight: "400",
+    },
+    {
+      path: "./assets/fonts/ProximaNova_Bold.otf",
+      weight: "700",
+    },
+    {
+      path: "./assets/fonts/ProximaNova_ExtraBold.otf",
+      weight: "800",
+    },
+  ],
+  variable: "--font-proxima-nova",
+});
+
 export const metadata: Metadata = {
   title: "Cinesercla | Painel Administrativo",
   description:
@@ -36,7 +54,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${neueMontreal.variable} antialiased`}>
+      <body
+        className={`${neueMontreal.variable} ${proximaNova.variable} antialiased`}
+      >
         <SidebarProvider>
           <AppSidebar />
           <main>{children}</main>
