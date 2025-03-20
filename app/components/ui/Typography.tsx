@@ -2,19 +2,19 @@ import { FC, ReactNode } from "react";
 import { twMerge } from "tailwind-merge";
 
 type TypographyProps = {
-  className?: string;
-  font?: "neue-montreal" | "gellix";
-  weight?: "400" | "500" | "700" | "800";
   children: string | ReactNode;
+  className?: string;
+  font?: "neue-montreal" | "proxima-nova";
+  weight?: "400" | "500" | "700";
   maxChar?: number;
   onClick?: () => void;
 };
 
 const Typography: FC<TypographyProps> = ({
-  className,
-  font = "proxima-nova",
-  weight = "700",
   children,
+  className,
+  font = "neue-montreal",
+  weight = "400",
   maxChar,
   onClick,
 }) => {
@@ -25,11 +25,11 @@ const Typography: FC<TypographyProps> = ({
         font === "neue-montreal"
           ? "font-[family-name:var(--font-neue-montreal)]"
           : "font-[family-name:var(--font-gellix)]",
-        weight === "700"
-          ? "font-bold"
-          : weight === "800"
-          ? "font-extrabold"
-          : weight,
+        weight === "400"
+          ? "font-normal"
+          : weight === "500"
+          ? "font-medium"
+          : "font-bold",
         className
       )}
       onClick={onClick}
