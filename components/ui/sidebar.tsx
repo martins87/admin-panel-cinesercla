@@ -647,7 +647,10 @@ function SidebarMenuSub({ className, ...props }: React.ComponentProps<"ul">) {
       data-slot="sidebar-menu-sub"
       data-sidebar="menu-sub"
       className={cn(
-        "border-sidebar-border mx-3.5 flex min-w-0 translate-x-px flex-col gap-1 border-l px-2.5 py-0.5",
+        // "border-sidebar-border mx-3.5 flex min-w-0 translate-x-px flex-col gap-1 border-l px-2.5 py-0.5",
+        // "mx-3.5 flex min-w-0 translate-x-px flex-col gap-3 px-[26px] py-0.5",
+        // "mx-3.5 flex min-w-0 translate-x-px flex-col gap-0 px-[26px] py-0.5",
+        "mx-0 flex min-w-0 translate-x-px flex-col gap-0 px-[26px] py-0.5",
         "group-data-[collapsible=icon]:hidden",
         className
       )}
@@ -664,7 +667,10 @@ function SidebarMenuSubItem({
     <li
       data-slot="sidebar-menu-sub-item"
       data-sidebar="menu-sub-item"
-      className={cn("group/menu-sub-item relative", className)}
+      className={cn(
+        "group/menu-sub-item relative hover:bg-[#2596be]/20 rounded-lg p-2 hover:cursor-pointer",
+        className
+      )}
       {...props}
     />
   );

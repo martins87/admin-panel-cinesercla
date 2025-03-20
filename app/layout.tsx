@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 
 import { SidebarProvider } from "@/components/ui/sidebar";
-import { AppSidebar } from "./components/Sidebar";
+import { AppSidebar } from "@/app/components/Sidebar";
 import "./globals.css";
 
 const neueMontreal = localFont({

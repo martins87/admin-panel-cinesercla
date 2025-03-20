@@ -24,7 +24,7 @@ const Typography: FC<TypographyProps> = ({
         "text-black/90",
         font === "neue-montreal"
           ? "font-[family-name:var(--font-neue-montreal)]"
-          : "font-[family-name:var(--font-gellix)]",
+          : "font-[family-name:var(--font-proxima-nova)]",
         weight === "400"
           ? "font-normal"
           : weight === "500"

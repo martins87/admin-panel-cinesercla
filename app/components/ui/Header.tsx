@@ -10,12 +10,17 @@ type HeaderProps = {
 
 const Header: FC<HeaderProps> = ({ title, subtitle }) => {
   return (
-    <Centered className="gap-y-4" direction="col" items="start" justify="start">
+    <Centered
+      className="gap-10"
+      direction="col"
+      items="start"
+      justify="between"
+    >
       <Typography className="text-5xl" weight="500">
         {title}
       </Typography>
       {subtitle && (
-        <Typography className="text-lg" weight="400">
+        <Typography className="text-xl" weight="400">
           {subtitle}
         </Typography>
       )}
