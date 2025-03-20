@@ -1,6 +1,7 @@
 // import { Calendar, Home, Inbox } from "lucide-react";
 
 import Image from "next/image";
+import Link from "next/link";
 
 import {
   Sidebar,
@@ -8,6 +9,7 @@ import {
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
+  SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
@@ -24,7 +26,7 @@ import Typography from "./ui/Typography";
 const items = [
   {
     title: "DASHBOARD",
-    url: "#",
+    url: "/dashboard",
     icon: dashboard,
   },
   {
@@ -42,15 +44,17 @@ const items = [
 export function AppSidebar() {
   return (
     <Sidebar collapsible="icon">
-      <SidebarContent className="bg-background-sidebar">
+      <SidebarHeader className="bg-background-sidebar">
+        <SidebarTrigger />
         <SidebarGroup>
-          <SidebarGroupContent>
-            <SidebarTrigger className="" />
+          <SidebarGroupContent className="flex items-center justify-center">
+            <Link href="/">
+              <Image src={logo} alt="cinesercla logo" />
+            </Link>
           </SidebarGroupContent>
         </SidebarGroup>
-        <SidebarGroup className="flex items-center justify-center mb-4">
-          <Image src={logo} alt="cinesercla logo" />
-        </SidebarGroup>
+      </SidebarHeader>
+      <SidebarContent className="bg-background-sidebar">
         <SidebarGroup>
           <SidebarGroupContent>
             <SidebarMenu>
@@ -62,8 +66,6 @@ export function AppSidebar() {
               </SidebarMenuButton>
             </SidebarMenu>
           </SidebarGroupContent>
-        </SidebarGroup>
-        <SidebarGroup>
           <SidebarGroupLabel>
             <Typography className="text-sm text-neutral/90" weight="500">
               ADMINISTRATIVO
@@ -74,13 +76,13 @@ export function AppSidebar() {
               {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
-                    <a href={item.url}>
+                    <Link href={item.url}>
                       <Image src={item.icon} alt="sidebar icon" />
                       {/* <span>{item.title}</span> */}
                       <Typography className="text-sm text-white" weight="500">
                         {item.title}
                       </Typography>
-                    </a>
+                    </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
