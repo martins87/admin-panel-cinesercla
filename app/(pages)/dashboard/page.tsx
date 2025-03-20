@@ -1,15 +1,15 @@
-import Centered from "@/app/components/ui/Centered";
-import Typography from "@/app/components/ui/Typography";
-import React from "react";
+import Page from "@/app/components/ui/Page";
+import Header from "@/app/components/ui/Header";
 
-const page = () => {
+const DashboardPage = () => {
   return (
-    <Centered direction="col" items="start">
-      <Typography className="text-5xl" weight="500">
-        Dashboard
-      </Typography>
-    </Centered>
+    <Page>
+      <Header
+        title="Dashboard"
+        subtitle="Acompanhe e analise o desempenho dos filmes e interações do público"
+      />
+    </Page>
   );
 };
 
-export default page;
+export default DashboardPage;
