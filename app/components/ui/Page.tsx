@@ -35,7 +35,11 @@ const Page: FC<PageProps> = ({ children, title, subtitle, className }) => {
           </Typography>
         )}
       </Centered>
-      <Centered className="h-full border rounded-lg bg-white">
+      <Centered
+        className="h-full border rounded-lg bg-white p-4"
+        items="start"
+        justify="start"
+      >
         {children}
       </Centered>
       <Footer />
