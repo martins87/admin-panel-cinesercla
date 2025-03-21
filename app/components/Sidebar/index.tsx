@@ -1,5 +1,3 @@
-// import { Calendar, Home, Inbox } from "lucide-react";
-
 import Image from "next/image";
 import Link from "next/link";
 
@@ -70,6 +68,16 @@ const items = [
     title: "OPERAÇÕES",
     url: "#",
     icon: settings,
+    subItems: [
+      {
+        title: "NEWSLETTER",
+        url: "/operacoes/newsletter",
+      },
+      {
+        title: "CONTATOS",
+        url: "/operacoes/contatos",
+      },
+    ],
   },
 ];
 
@@ -89,7 +97,7 @@ export function AppSidebar() {
 
       <SidebarContent className="bg-background-sidebar">
         <SidebarGroup>
-          <SidebarGroupContent>
+          <SidebarGroupContent className="mb-2">
             <SidebarMenu>
               <SidebarMenuButton>
                 <Image src={home} alt="sidebar icon" />
@@ -100,32 +108,17 @@ export function AppSidebar() {
             </SidebarMenu>
           </SidebarGroupContent>
 
-          <SidebarGroupLabel>
+          <SidebarGroupLabel className="mb-2">
             <Typography className="text-sm text-neutral/90" weight="500">
               ADMINISTRATIVO
             </Typography>
           </SidebarGroupLabel>
 
           <SidebarGroupContent>
-            {/* <SidebarMenu>
-              {items.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <Link href={item.url}>
-                      <Image src={item.icon} alt="sidebar icon" />
-                      <Typography className="text-sm text-white" weight="500">
-                        {item.title}
-                      </Typography>
-                    </Link>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu> */}
-
             <SidebarMenu>
               {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild className="mb-4">
+                  <SidebarMenuButton asChild className="mb-2">
                     <Link href={item.url}>
                       <Image src={item.icon} alt="sidebar icon" />
                       <Typography className="text-sm text-white" weight="500">
