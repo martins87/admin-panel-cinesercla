@@ -15,71 +15,10 @@ import {
   SidebarMenuSubItem,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
+import Typography from "../ui/Typography";
 import logo from "@/app/assets/icons/logo.svg";
 import home from "@/app/assets/icons/home.svg";
-import cadastro from "@/app/assets/icons/cadastro.svg";
-import dashboard from "@/app/assets/icons/dashboard.svg";
-import settings from "@/app/assets/icons/settings.svg";
-import Typography from "../ui/Typography";
-
-// Menu items.
-const items = [
-  {
-    title: "DASHBOARD",
-    url: "/dashboard",
-    icon: dashboard,
-  },
-  {
-    title: "CADASTRO",
-    url: "#",
-    icon: cadastro,
-    subItems: [
-      {
-        title: "BANNERS",
-        url: "/cadastro/banners",
-      },
-      {
-        title: "BOMBONIERE",
-        url: "/cadastro/bomboniere",
-      },
-      {
-        title: "FILMES",
-        url: "/cadastro/filmes",
-      },
-      {
-        title: "PERGUNTAS FREQUENTES",
-        url: "/cadastro/perguntas-frequentes",
-      },
-      {
-        title: "UNIDADES",
-        url: "/cadastro/unidades",
-      },
-      {
-        title: "TRABALHE CONOSCO",
-        url: "/cadastro/trabalhe-conosco",
-      },
-      {
-        title: "LEIS",
-        url: "/cadastro/leis",
-      },
-    ],
-  },
-  {
-    title: "OPERAÇÕES",
-    url: "#",
-    icon: settings,
-    subItems: [
-      {
-        title: "NEWSLETTER",
-        url: "/operacoes/newsletter",
-      },
-      {
-        title: "CONTATOS",
-        url: "/operacoes/contatos",
-      },
-    ],
-  },
-];
+import { sidebarMenuItems } from "@/app/constants/sidebarMenuItems";
 
 export function AppSidebar() {
   return (
@@ -109,14 +48,14 @@ export function AppSidebar() {
           </SidebarGroupContent>
 
           <SidebarGroupLabel className="mb-2">
-            <Typography className="text-sm text-neutral/90" weight="500">
+            <Typography className="text-sm text-neutral/95" weight="500">
               ADMINISTRATIVO
             </Typography>
           </SidebarGroupLabel>
 
           <SidebarGroupContent>
             <SidebarMenu>
-              {items.map((item) => (
+              {sidebarMenuItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild className="mb-2">
                     <Link href={item.url}>
@@ -131,7 +70,7 @@ export function AppSidebar() {
                       <SidebarMenuSubItem key={subItem.title}>
                         <Link href={subItem.url}>
                           <Typography
-                            className="text-sm text-white/70 tracking-wider"
+                            className="text-sm text-white/70 tracking-wider hover:text-white transition-colors ease-in-out duration-200"
                             weight="400"
                           >
                             {subItem.title}
