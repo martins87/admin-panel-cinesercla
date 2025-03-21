@@ -55,7 +55,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${neueMontreal.variable} ${proximaNova.variable} antialiased`}
+        className={`${neueMontreal.variable} ${proximaNova.variable} antialiased bg-[#f8f9fa]`}
       >
         <SidebarProvider>
           <AppSidebar />

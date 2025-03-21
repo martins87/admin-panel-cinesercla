@@ -1,13 +1,16 @@
 import Page from "@/app/components/ui/Page";
-import Header from "@/app/components/ui/Header";
+import PageContent from "@/app/components/ui/PageContent";
+import Typography from "@/app/components/ui/Typography";
 
 const BannersPage = () => {
   return (
-    <Page>
-      <Header
-        title="Lista de Banners"
-        subtitle="Visualize e gerencie todos os banners cadastrados"
-      />
+    <Page
+      title="Lista de Banners"
+      subtitle="Visualize e gerencie todos os banners cadastrados"
+    >
+      <PageContent>
+        <Typography>teste</Typography>
+      </PageContent>
     </Page>
   );
 };
