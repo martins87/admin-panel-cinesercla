@@ -21,7 +21,7 @@ const Page: FC<PageProps> = ({ children, title, subtitle, className }) => {
       )}
     >
       <Centered
-        className="gap-y-4"
+        className="gap-y-4 mb-10"
         direction="col"
         items="start"
         justify="between"
