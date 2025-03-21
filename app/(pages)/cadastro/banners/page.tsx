@@ -7,7 +7,7 @@ const BannersPage = () => {
       title="Lista de Banners"
       subtitle="Visualize e gerencie todos os banners cadastrados"
     >
-      <Typography>teste</Typography>
+      <Typography>BannersPage</Typography>
     </Page>
   );
 };

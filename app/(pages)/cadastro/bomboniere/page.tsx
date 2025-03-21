@@ -1,4 +1,5 @@
 import Page from "@/app/components/ui/Page";
+import Typography from "@/app/components/ui/Typography";
 
 const BombonierePage = () => {
   return (
@@ -6,7 +7,7 @@ const BombonierePage = () => {
       title="Lista de Produtos da Bomboniere"
       subtitle="Gerencie os produtos disponíveis para venda no cinema"
     >
-      BombonierePage
+      <Typography>BombonierePage</Typography>
     </Page>
   );
 };

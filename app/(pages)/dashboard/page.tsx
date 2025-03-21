@@ -1,4 +1,5 @@
 import Page from "@/app/components/ui/Page";
+import Typography from "@/app/components/ui/Typography";
 
 const DashboardPage = () => {
   return (
@@ -6,7 +7,7 @@ const DashboardPage = () => {
       title="Dashboard"
       subtitle="Acompanhe e analise o desempenho dos filmes e interações do público"
     >
-      DashboardPage
+      <Typography>DashboardPage</Typography>
     </Page>
   );
 };

@@ -1,4 +1,5 @@
 import Page from "@/app/components/ui/Page";
+import Typography from "@/app/components/ui/Typography";
 
 const NewsletterPage = () => {
   return (
@@ -6,7 +7,7 @@ const NewsletterPage = () => {
       title="Usuários da Newsletter"
       subtitle="Visualize e gerencie os assinantes da newsletter"
     >
-      NewsletterPage
+      <Typography>NewsletterPage</Typography>
     </Page>
   );
 };

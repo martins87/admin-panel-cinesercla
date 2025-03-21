@@ -1,4 +1,5 @@
 import Page from "@/app/components/ui/Page";
+import Typography from "@/app/components/ui/Typography";
 
 const TrabalheConoscoPage = () => {
   return (
@@ -6,7 +7,7 @@ const TrabalheConoscoPage = () => {
       title="Lista de Funcionários"
       subtitle="Visualize e gerencie os functionários que compartilham seus depoimentos"
     >
-      TrabalheConoscoPage
+      <Typography>TrabalheConoscoPage</Typography>
     </Page>
   );
 };

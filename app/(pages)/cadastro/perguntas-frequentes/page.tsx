@@ -1,4 +1,5 @@
 import Page from "@/app/components/ui/Page";
+import Typography from "@/app/components/ui/Typography";
 
 const PerguntasFrequentesPage = () => {
   return (
@@ -6,7 +7,7 @@ const PerguntasFrequentesPage = () => {
       title="Lista de Perguntas Frequentes"
       subtitle="Visualize e gerencie todas as perguntas frequentes"
     >
-      PerguntasFrequentesPage
+      <Typography>PerguntasFrequentesPage</Typography>
     </Page>
   );
 };

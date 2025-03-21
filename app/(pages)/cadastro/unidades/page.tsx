@@ -1,4 +1,5 @@
 import Page from "@/app/components/ui/Page";
+import Typography from "@/app/components/ui/Typography";
 
 const UnidadesPage = () => {
   return (
@@ -6,7 +7,7 @@ const UnidadesPage = () => {
       title="Lista de Unidades"
       subtitle="Lista de Unidades / Predefinições de Salas & Promoções"
     >
-      UnidadesPage
+      <Typography>UnidadesPage</Typography>
     </Page>
   );
 };

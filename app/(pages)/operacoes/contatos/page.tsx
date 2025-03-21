@@ -1,4 +1,5 @@
 import Page from "@/app/components/ui/Page";
+import Typography from "@/app/components/ui/Typography";
 
 const ContatosPage = () => {
   return (
@@ -6,7 +7,7 @@ const ContatosPage = () => {
       title="Lista de Contatos"
       subtitle="Visualize e gerencie todos os contatos recebidos"
     >
-      ContatosPage
+      <Typography>ContatosPage</Typography>
     </Page>
   );
 };
