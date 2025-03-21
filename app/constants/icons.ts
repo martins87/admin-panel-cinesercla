@@ -3,17 +3,17 @@ import arrowLeft from "@/app/assets/icons/arrowLeft.svg";
 import arrowRight from "@/app/assets/icons/arrowRight.svg";
 import arrowUp from "@/app/assets/icons/arrowUp.svg";
 import arrowUpRight from "@/app/assets/icons/arrowUpRight.svg";
-// import bell from "@/app/assets/icons/bell.svg";
+import bell from "@/app/assets/icons/bell.svg";
 import cadastro from "@/app/assets/icons/cadastro.svg";
-// import calendar from "@/app/assets/icons/calendar.svg";
+import calendar from "@/app/assets/icons/calendar.svg";
 import chevronDown from "@/app/assets/icons/chevronDown.svg";
 import chevronLeft from "@/app/assets/icons/chevronLeft.svg";
 import chevronRight from "@/app/assets/icons/chevronRight.svg";
 import chevronUp from "@/app/assets/icons/chevronUp.svg";
-// import close from "@/app/assets/icons/close.svg";
+import close from "@/app/assets/icons/close.svg";
 import dashboard from "@/app/assets/icons/dashboard.svg";
-// import download from "@/app/assets/icons/download.svg";
-// import edit from "@/app/assets/icons/edit.svg";
+import download from "@/app/assets/icons/download.svg";
+import edit from "@/app/assets/icons/edit.svg";
 import eye from "@/app/assets/icons/eye.svg";
 import filter from "@/app/assets/icons/filter.svg";
 import help from "@/app/assets/icons/help.svg";
@@ -41,17 +41,17 @@ export {
   arrowRight,
   arrowUp,
   arrowUpRight,
-  // bell,
+  bell,
   cadastro,
-  // calendar,
+  calendar,
   chevronDown,
   chevronLeft,
   chevronRight,
   chevronUp,
-  // close,
+  close,
   dashboard,
-  // download,
-  // edit,
+  download,
+  edit,
   eye,
   filter,
   help,
