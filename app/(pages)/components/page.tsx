@@ -17,6 +17,11 @@ const ComponentsPage = () => {
             IconButtonProps 
           </Typography>
         </Link>
+        <Link href="/components/confirmation-modal">
+          <Typography className="text-xl text-[#0057FC] hover:underline">
+            ConfirmationModalProps 
+          </Typography>
+        </Link>
       </Centered>
     </Page>
   );
