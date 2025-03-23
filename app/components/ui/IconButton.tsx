@@ -1,13 +1,14 @@
 "use client";
 
-import Image, { StaticImageData } from "next/image";
-import { twMerge } from "tailwind-merge";
-import Typography from "./Typography";
 import { ReactNode } from "react";
+import { StaticImport } from "next/dist/shared/lib/get-img-props";
+import Image from "next/image";
+import { twMerge } from "tailwind-merge";
 
-// Tipo para as props do IconButton
+import Typography from "./Typography";
+
 type IconButtonProps = {
-  icon: StaticImageData | string; // Aceita tanto importação estática quanto URL
+  icon: StaticImport | string; // Aceita tanto importação estática quanto URL
   label?: string | ReactNode;
   primary?: boolean;
   secondary?: boolean;
@@ -33,7 +34,6 @@ const IconButton = ({
   rounded,
   tooltip,
 }: IconButtonProps) => {
-  // Define tamanhos do botão baseado no prop size
   const sizeClasses = {
     sm: "h-8 w-8 p-1",
     md: "h-10 w-10 p-2",
@@ -44,7 +44,6 @@ const IconButton = ({
     <button
       className={twMerge(
         "group flex items-center justify-center transition-colors ease-in-out duration-200 hover:cursor-pointer",
-        // Variações de cores baseadas nos props
         primary
           ? "bg-[#0057FC] text-white hover:bg-[#0057FC]/90 border-0"
           : secondary
@@ -52,11 +51,8 @@ const IconButton = ({
           : tertiary
           ? "bg-white text-gray-700 border border-[#CED4DA] hover:bg-white/90"
           : "",
-        // Estado desabilitado
         disabled && "bg-[#E9ECEF] hover:bg-[#E9ECEF] hover:cursor-not-allowed",
-        // Tamanho do botão
         sizeClasses[size],
-        // Formato do botão (arredondado ou com cantos suaves)
         rounded ? "rounded-full" : "rounded-lg",
         className
       )}

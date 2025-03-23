@@ -1,15 +1,17 @@
 "use client";
 
+import { FC } from "react";
+import { StaticImport } from "next/dist/shared/lib/get-img-props";
+
 import Page from "@/app/components/ui/Page";
 import Centered from "@/app/components/ui/Centered";
 import ComponentSample from "@/app/components/ui/ComponentSample";
+import IconButton from "@/app/components/ui/IconButton";
 import { edit } from "@/app/constants/icons";
-import { FC } from "react";
-import IconButton from "@/app/components/ui/IconButtonProps";
 
 const SizeGroup: FC<{
   label: string;
-  icon: any; 
+  icon: StaticImport;
   variant: "primary" | "secondary" | "tertiary";
 }> = ({ label, icon, variant }) => {
   const variantProps = {
@@ -22,9 +24,9 @@ const SizeGroup: FC<{
     <div className="flex flex-col gap-2">
       <h3 className="text-sm text-gray-700 font-semibold">{label}</h3>
       <div className="flex gap-4 justify-center flex-wrap">
-        <IconButton icon={edit} size="sm" tooltip="Small" {...variantProps} />
-        <IconButton icon={edit} size="md" tooltip="Medium" {...variantProps} />
-        <IconButton icon={edit} size="lg" tooltip="Large" {...variantProps} />
+        <IconButton icon={icon} size="sm" tooltip="Small" {...variantProps} />
+        <IconButton icon={icon} size="md" tooltip="Medium" {...variantProps} />
+        <IconButton icon={icon} size="lg" tooltip="Large" {...variantProps} />
       </div>
     </div>
   );
@@ -45,7 +47,7 @@ const IconButtonPage = () => {
                 <IconButton icon={edit} primary tooltip="Excluir" />
               </div>
             </ComponentSample>
-            
+
             <ComponentSample label="Secondary">
               <div className="flex gap-4 justify-center flex-wrap">
                 <IconButton icon={edit} secondary tooltip="Buscar" />
@@ -53,7 +55,7 @@ const IconButtonPage = () => {
                 <IconButton icon={edit} secondary tooltip="Configurações" />
               </div>
             </ComponentSample>
-            
+
             <ComponentSample label="Tertiary">
               <div className="flex gap-4 justify-center flex-wrap">
                 <IconButton icon={edit} tertiary tooltip="Menu" />
@@ -92,9 +94,24 @@ const IconButtonPage = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <ComponentSample label="Disabled">
               <div className="flex gap-4 justify-center flex-wrap">
-                <IconButton icon={edit} primary disabled tooltip="Adicionar (desabilitado)" />
-                <IconButton icon={edit} secondary disabled tooltip="Editar (desabilitado)" />
-                <IconButton icon={edit} tertiary disabled tooltip="Excluir (desabilitado)" />
+                <IconButton
+                  icon={edit}
+                  primary
+                  disabled
+                  tooltip="Adicionar (desabilitado)"
+                />
+                <IconButton
+                  icon={edit}
+                  secondary
+                  disabled
+                  tooltip="Editar (desabilitado)"
+                />
+                <IconButton
+                  icon={edit}
+                  tertiary
+                  disabled
+                  tooltip="Excluir (desabilitado)"
+                />
               </div>
             </ComponentSample>
           </div>
