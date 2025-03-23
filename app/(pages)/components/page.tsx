@@ -12,6 +12,11 @@ const ComponentsPage = () => {
             Button
           </Typography>
         </Link>
+        <Link href="/components/icon-button">
+          <Typography className="text-xl text-[#0057FC] hover:underline">
+            IconButton
+          </Typography>
+        </Link>
       </Centered>
     </Page>
   );
