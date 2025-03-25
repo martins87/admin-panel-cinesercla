@@ -3,20 +3,32 @@ import Centered from "@/app/components/ui/Centered";
 import Typography from "@/app/components/ui/Typography";
 import Link from "next/link";
 
+const componentsList = [
+  {
+    label: "Button",
+    path: "/components/button",
+  },
+  {
+    label: "IconButton",
+    path: "/components/icon-button",
+  },
+  {
+    label: "Switch",
+    path: "/components/switch",
+  },
+];
+
 const ComponentsPage = () => {
   return (
     <Page title="Components">
       <Centered className="gap-y-2" direction="col" items="start">
-        <Link href="/components/button">
-          <Typography className="text-xl text-[#0057FC] hover:underline">
-            Button
-          </Typography>
-        </Link>
-        <Link href="/components/icon-button">
-          <Typography className="text-xl text-[#0057FC] hover:underline">
-            IconButton
-          </Typography>
-        </Link>
+        {componentsList.map((component) => (
+          <Link key={component.path} href={component.path}>
+            <Typography className="text-xl text-[#0057FC] hover:underline">
+              {component.label}
+            </Typography>
+          </Link>
+        ))}
       </Centered>
     </Page>
   );
