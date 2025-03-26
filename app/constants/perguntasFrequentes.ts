@@ -10,6 +10,8 @@ export const perguntasFrequentes: Pergunta[] = [
     cliques: "1087",
     ordem: "1",
     categoria: "ingressos",
+    principalDuvida: true,
+    ordemPrincipalDuvida: "1",
     ativa: true,
   },
   {
@@ -21,6 +23,8 @@ export const perguntasFrequentes: Pergunta[] = [
     cliques: "345",
     ordem: "2",
     categoria: "ingressos",
+    principalDuvida: true,
+    ordemPrincipalDuvida: "3",
     ativa: true,
   },
   {
@@ -32,6 +36,8 @@ export const perguntasFrequentes: Pergunta[] = [
     cliques: "152",
     ordem: "3",
     categoria: "ingressos",
+    principalDuvida: true,
+    ordemPrincipalDuvida: "2",
     ativa: true,
   },
   {
@@ -46,6 +52,8 @@ export const perguntasFrequentes: Pergunta[] = [
     cliques: "965",
     ordem: "4",
     categoria: "ingressos",
+    principalDuvida: false,
+    ordemPrincipalDuvida: "-",
     ativa: true,
   },
   {
@@ -59,6 +67,8 @@ export const perguntasFrequentes: Pergunta[] = [
     cliques: "1087",
     ordem: "1",
     categoria: "meia-entrada",
+    principalDuvida: true,
+    ordemPrincipalDuvida: "4",
     ativa: true,
   },
   {
@@ -73,6 +83,8 @@ export const perguntasFrequentes: Pergunta[] = [
     cliques: "345",
     ordem: "2",
     categoria: "meia-entrada",
+    principalDuvida: true,
+    ordemPrincipalDuvida: "5",
     ativa: true,
   },
   {
@@ -85,6 +97,8 @@ export const perguntasFrequentes: Pergunta[] = [
     cliques: "1087",
     ordem: "1",
     categoria: "filmes-e-sessoes",
+    principalDuvida: false,
+    ordemPrincipalDuvida: "-",
     ativa: true,
   },
   {
@@ -97,6 +111,8 @@ export const perguntasFrequentes: Pergunta[] = [
     cliques: "345",
     ordem: "2",
     categoria: "filmes-e-sessoes",
+    principalDuvida: false,
+    ordemPrincipalDuvida: "-",
     ativa: true,
   },
   {
@@ -110,6 +126,8 @@ export const perguntasFrequentes: Pergunta[] = [
     cliques: "152",
     ordem: "3",
     categoria: "filmes-e-sessoes",
+    principalDuvida: false,
+    ordemPrincipalDuvida: "-",
     ativa: true,
   },
   {
@@ -122,6 +140,8 @@ export const perguntasFrequentes: Pergunta[] = [
     cliques: "965",
     ordem: "4",
     categoria: "filmes-e-sessoes",
+    principalDuvida: false,
+    ordemPrincipalDuvida: "-",
     ativa: true,
   },
   {
@@ -135,6 +155,8 @@ export const perguntasFrequentes: Pergunta[] = [
     cliques: "152",
     ordem: "5",
     categoria: "filmes-e-sessoes",
+    principalDuvida: false,
+    ordemPrincipalDuvida: "-",
     ativa: true,
   },
   {
@@ -151,6 +173,8 @@ export const perguntasFrequentes: Pergunta[] = [
     cliques: "965",
     ordem: "6",
     categoria: "filmes-e-sessoes",
+    principalDuvida: false,
+    ordemPrincipalDuvida: "-",
     ativa: true,
   },
   {
@@ -163,6 +187,8 @@ export const perguntasFrequentes: Pergunta[] = [
     cliques: "152",
     ordem: "7",
     categoria: "filmes-e-sessoes",
+    principalDuvida: false,
+    ordemPrincipalDuvida: "-",
     ativa: true,
   },
   {
@@ -175,6 +201,8 @@ export const perguntasFrequentes: Pergunta[] = [
     cliques: "955",
     ordem: "1",
     categoria: "promocoes-e-beneficios",
+    principalDuvida: false,
+    ordemPrincipalDuvida: "-",
     ativa: true,
   },
   {
@@ -189,6 +217,8 @@ export const perguntasFrequentes: Pergunta[] = [
     cliques: "141",
     ordem: "2",
     categoria: "promocoes-e-beneficios",
+    principalDuvida: true,
+    ordemPrincipalDuvida: "6",
     ativa: true,
   },
   {
@@ -204,6 +234,8 @@ export const perguntasFrequentes: Pergunta[] = [
     cliques: "200",
     ordem: "2",
     categoria: "bomboniere",
+    principalDuvida: false,
+    ordemPrincipalDuvida: "-",
     ativa: true,
   },
   {
@@ -216,6 +248,8 @@ export const perguntasFrequentes: Pergunta[] = [
     cliques: "435",
     ordem: "2",
     categoria: "salas-e-tecnologias",
+    principalDuvida: false,
+    ordemPrincipalDuvida: "-",
     ativa: true,
   },
   {
@@ -230,6 +264,8 @@ export const perguntasFrequentes: Pergunta[] = [
     cliques: "200",
     ordem: "1",
     categoria: "formas-de-pagamento",
+    principalDuvida: false,
+    ordemPrincipalDuvida: "-",
     ativa: true,
   },
   {
@@ -242,6 +278,8 @@ export const perguntasFrequentes: Pergunta[] = [
     cliques: "456",
     ordem: "2",
     categoria: "formas-de-pagamento",
+    principalDuvida: false,
+    ordemPrincipalDuvida: "-",
     ativa: true,
   },
   {
@@ -254,6 +292,8 @@ export const perguntasFrequentes: Pergunta[] = [
     cliques: "123",
     ordem: "3",
     categoria: "formas-de-pagamento",
+    principalDuvida: false,
+    ordemPrincipalDuvida: "-",
     ativa: true,
   },
 ];
