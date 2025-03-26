@@ -6,5 +6,7 @@ export type Pergunta = {
   cliques: string;
   ordem: string;
   categoria: string;
+  principalDuvida: boolean;
+  ordemPrincipalDuvida: string;
   ativa: boolean;
 };

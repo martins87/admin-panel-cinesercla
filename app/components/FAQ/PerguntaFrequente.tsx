@@ -7,7 +7,7 @@ import IconButton from "@/app/components/ui/IconButton";
 import Centered from "@/app/components/ui/Centered";
 import Typography from "@/app/components/ui/Typography";
 import { Pergunta } from "@/app/types/Pergunta";
-import { edit } from "@/app/constants/icons";
+import { arrowDown, arrowUp, edit, trash } from "@/app/constants/icons";
 
 type PerguntaFrequenteProps = {
   pergunta: Pergunta;
@@ -22,13 +22,18 @@ const PerguntaFrequente: FC<PerguntaFrequenteProps> = ({ pergunta }) => {
       <Typography>{pergunta.cadastro}</Typography>
       <Typography>{pergunta.cliques}</Typography>
       <Typography>{pergunta.ordem}</Typography>
-      <IconButton
-        tertiary
-        icon={edit}
-        onClick={() =>
-          router.push(`/cadastro/perguntas-frequentes/editar/${pergunta.id}`)
-        }
-      />
+      <Centered className="flex-1 ml-auto gap-x-2" justify="end">
+        <IconButton tertiary icon={arrowDown} />
+        <IconButton tertiary icon={arrowUp} />
+        <IconButton
+          tertiary
+          icon={edit}
+          onClick={() =>
+            router.push(`/cadastro/perguntas-frequentes/editar/${pergunta.id}`)
+          }
+        />
+        <IconButton tertiary icon={trash} />
+      </Centered>
     </Centered>
   );
 };
