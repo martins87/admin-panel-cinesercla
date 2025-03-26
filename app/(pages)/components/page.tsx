@@ -22,6 +22,11 @@ const ComponentsPage = () => {
             ConfirmationModalProps 
           </Typography>
         </Link>
+        <Link href="/components/search-bar">
+          <Typography className="text-xl text-[#0057FC] hover:underline">
+            SearchBar 
+          </Typography>
+        </Link>
       </Centered>
     </Page>
   );
