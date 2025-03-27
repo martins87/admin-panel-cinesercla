@@ -1,19 +1,25 @@
 "use client";
 
-import { ChangeEvent, FC, useState } from "react";
+import { ChangeEvent, Dispatch, FC, SetStateAction } from "react";
 import { twMerge } from "tailwind-merge";
 
 import Centered from "./Centered";
 
 type InputProps = {
   placeholder: string;
+  value: string | number;
+  setValue: Dispatch<SetStateAction<string>>;
   className?: string;
   inputClassName?: string;
 };
 
-const Input: FC<InputProps> = ({ placeholder, className, inputClassName }) => {
-  const [value, setValue] = useState<string>("");
-
+const Input: FC<InputProps> = ({
+  placeholder,
+  value,
+  setValue,
+  className,
+  inputClassName,
+}) => {
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) =>
     setValue(e.target.value);
 

@@ -1,5 +1,20 @@
 import { Pergunta } from "../types/Pergunta";
 
+export const categorias = [
+  { label: "Ingressos", value: "ingressos" },
+  { label: "Meia-Entrada", value: "meia-entrada" },
+  { label: "Filmes e Sessões", value: "filmes-e-sessoes" },
+  { label: "Promoções e Benefícios", value: "promocoes-e-beneficios" },
+  { label: "Bomboniere", value: "bomboniere" },
+  { label: "Salas e Tecnologias", value: "salas-e-tecnologias" },
+  { label: "Formas de Pagamento", value: "formas-de-pagamento" },
+];
+
+export const opcoes = [
+  { label: "Sim", value: true },
+  { label: "Não", value: false },
+];
+
 export const perguntasFrequentes: Pergunta[] = [
   {
     id: "3c8c6911-3d67-48f3-8efa-9b66c30139f8",

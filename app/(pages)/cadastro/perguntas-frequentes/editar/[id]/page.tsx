@@ -11,14 +11,18 @@ import { Switch } from "@/components/ui/switch";
 import Input from "@/app/components/ui/Input";
 import Button from "@/app/components/ui/Button";
 import FAQInput from "@/app/components/FAQ/FAQInput";
+import ComboBox from "@/app/components/ui/ComboBox";
+import { categorias, opcoes } from "@/app/constants/perguntasFrequentes";
 
 // @ts-expect-error:next-line
 const EditarPerguntasFrequentePage = ({ params }) => {
   const id = params.id;
   console.log("id", id);
-  const [categoria, setCategoria] = useState<string>("");
+  const [categoria, setCategoria] = useState<string | boolean>("");
   const [ordem, setOrdem] = useState<string>("");
-  const [isPrincipalDuvida, setIsPrincipalDuvida] = useState<boolean>(false);
+  const [isPrincipalDuvida, setIsPrincipalDuvida] = useState<string | boolean>(
+    false
+  );
   const [ordemPrincipalDuvida, setOrdemPrincipalDuvida] = useState<string>("-");
   const [pergunta, setPergunta] = useState<string>("");
   const [resposta, setResposta] = useState<string>("");
@@ -47,23 +51,45 @@ const EditarPerguntasFrequentePage = ({ params }) => {
         </Centered>
         <Centered className="grid grid-cols-2 gap-x-4 gap-y-4">
           <FAQInput label="Selecione uma Categoria" obrigatoria>
-            <Input placeholder={categoria} />
+            <ComboBox
+              value={categoria}
+              setValue={setCategoria}
+              list={categorias}
+              label="Selecione"
+            />
           </FAQInput>
           <FAQInput label="Ordem dentro do Grupo" obrigatoria>
-            <Input placeholder={ordem} />
+            <Input placeholder={ordem} value={ordem} setValue={setOrdem} />
           </FAQInput>
           <FAQInput label="Agrupar nas Principais Dúvidas?">
-            <Input placeholder={isPrincipalDuvida ? "Sim" : "Não"} />
+            <ComboBox
+              value={isPrincipalDuvida ? "Sim" : "Não"}
+              setValue={setIsPrincipalDuvida}
+              list={opcoes}
+              label={isPrincipalDuvida ? "Sim" : "Não"}
+            />
           </FAQInput>
           <FAQInput label="Ordem Entre as Principais Dúvidas">
-            <Input placeholder={ordemPrincipalDuvida} />
+            <Input
+              placeholder={ordemPrincipalDuvida}
+              value={ordemPrincipalDuvida}
+              setValue={setOrdemPrincipalDuvida}
+            />
           </FAQInput>
         </Centered>
         <FAQInput label="Digite uma Pergunta" obrigatoria>
-          <Input placeholder={pergunta} />
+          <Input
+            placeholder={pergunta}
+            value={pergunta}
+            setValue={setPergunta}
+          />
         </FAQInput>
         <FAQInput label="Digite uma Resposta" obrigatoria>
-          <Input placeholder={resposta} />
+          <Input
+            placeholder={resposta}
+            value={resposta}
+            setValue={setResposta}
+          />
         </FAQInput>
         <Centered className="gap-x-2" justify="end">
           <Button label="SALVAR" primary />
