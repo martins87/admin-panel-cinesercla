@@ -6,10 +6,10 @@ import Typography from "./Typography";
 import { chevronDown } from "@/app/constants/icons";
 
 type ComboBoxProps = {
+  label: string;
   list: { value: string | boolean; label: string }[];
   value: string | boolean;
   setValue: Dispatch<SetStateAction<string | boolean>>;
-  label: string;
 };
 
 const ComboBox: FC<ComboBoxProps> = ({ list, value, setValue, label }) => {
@@ -23,7 +23,9 @@ const ComboBox: FC<ComboBoxProps> = ({ list, value, setValue, label }) => {
         direction="col"
       >
         <Centered className="px-2 py-0 hover:cursor-pointer" justify="between">
-          <Typography>{show ? label : value}</Typography>
+          <Typography>
+            {show ? label : list.find((item) => item.value === value)?.label}
+          </Typography>
           <Image src={chevronDown} alt="arrow down" />
         </Centered>
         {show && (

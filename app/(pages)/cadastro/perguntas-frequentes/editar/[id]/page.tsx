@@ -17,7 +17,6 @@ import { categorias, opcoes } from "@/app/constants/perguntasFrequentes";
 // @ts-expect-error:next-line
 const EditarPerguntasFrequentePage = ({ params }) => {
   const id = params.id;
-  console.log("id", id);
   const [categoria, setCategoria] = useState<string | boolean>("");
   const [ordem, setOrdem] = useState<string>("");
   const [isPrincipalDuvida, setIsPrincipalDuvida] = useState<string | boolean>(
@@ -52,10 +51,10 @@ const EditarPerguntasFrequentePage = ({ params }) => {
         <Centered className="grid grid-cols-2 gap-x-4 gap-y-4">
           <FAQInput label="Selecione uma Categoria" obrigatoria>
             <ComboBox
+              label="Selecione"
+              list={categorias}
               value={categoria}
               setValue={setCategoria}
-              list={categorias}
-              label="Selecione"
             />
           </FAQInput>
           <FAQInput label="Ordem dentro do Grupo" obrigatoria>
@@ -63,10 +62,10 @@ const EditarPerguntasFrequentePage = ({ params }) => {
           </FAQInput>
           <FAQInput label="Agrupar nas Principais Dúvidas?">
             <ComboBox
-              value={isPrincipalDuvida ? "Sim" : "Não"}
-              setValue={setIsPrincipalDuvida}
-              list={opcoes}
               label={isPrincipalDuvida ? "Sim" : "Não"}
+              list={opcoes}
+              value={isPrincipalDuvida}
+              setValue={setIsPrincipalDuvida}
             />
           </FAQInput>
           <FAQInput label="Ordem Entre as Principais Dúvidas">
