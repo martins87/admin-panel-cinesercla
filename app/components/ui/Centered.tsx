@@ -1,4 +1,4 @@
-import { FC, ReactNode } from "react";
+import { forwardRef, ReactNode } from "react";
 import { twMerge } from "tailwind-merge";
 
 type CenteredProps = {
@@ -10,40 +10,38 @@ type CenteredProps = {
   onClick?: () => void;
 };
 
-const Centered: FC<CenteredProps> = ({
-  children,
-  className,
-  direction,
-  items,
-  justify,
-  onClick,
-}) => {
-  return (
-    <div
-      className={twMerge(
-        "w-full flex",
-        items === "start"
-          ? "items-start"
-          : items === "end"
-          ? "items-end"
-          : "items-center",
-        direction === "col" ? "flex-col" : "flex-row",
-        justify === "start"
-          ? "justify-start"
-          : justify === "end"
-          ? "justify-end"
-          : justify === "between"
-          ? "justify-between"
-          : justify === "around"
-          ? "justify-around"
-          : "justify-center",
-        className
-      )}
-      onClick={onClick}
-    >
-      {children}
-    </div>
-  );
-};
+const Centered = forwardRef<HTMLDivElement, CenteredProps>(
+  ({ children, className, direction, items, justify, onClick }, ref) => {
+    return (
+      <div
+        ref={ref}
+        className={twMerge(
+          "w-full flex",
+          items === "start"
+            ? "items-start"
+            : items === "end"
+            ? "items-end"
+            : "items-center",
+          direction === "col" ? "flex-col" : "flex-row",
+          justify === "start"
+            ? "justify-start"
+            : justify === "end"
+            ? "justify-end"
+            : justify === "between"
+            ? "justify-between"
+            : justify === "around"
+            ? "justify-around"
+            : "justify-center",
+          className
+        )}
+        onClick={onClick}
+      >
+        {children}
+      </div>
+    );
+  }
+);
+
+Centered.displayName = "Centered";
 
 export default Centered;
