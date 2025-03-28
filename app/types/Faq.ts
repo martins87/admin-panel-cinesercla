@@ -1,5 +1,5 @@
-export type Pergunta = {
-  id: string;
+export type Faq = {
+  _id: string;
   pergunta: string;
   resposta: string;
   cadastro: string;

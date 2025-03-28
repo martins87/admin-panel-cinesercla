@@ -1,21 +1,24 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
+import { Faq } from "@/app/types/Faq";
 import Page from "@/app/components/ui/Page";
 import Centered from "@/app/components/ui/Centered";
 import Typography from "@/app/components/ui/Typography";
-import { Pergunta } from "@/app/types/Pergunta";
-import { getPerguntaById } from "@/lib/utils";
 import { Switch } from "@/components/ui/switch";
 import Input from "@/app/components/ui/Input";
 import Button from "@/app/components/ui/Button";
-import FAQInput from "@/app/components/FAQ/FAQInput";
 import ComboBox from "@/app/components/ui/ComboBox";
+import FAQInput from "@/app/components/FAQ/FAQInput";
 import { categorias, opcoes } from "@/app/constants/faq";
+import { useFaqStore } from "@/app/store/faq";
 
 // @ts-expect-error:next-line
 const EditarPerguntasFrequentePage = ({ params }) => {
+  const router = useRouter();
+  const { getFaqById } = useFaqStore();
   const id = params.id;
   const [categoria, setCategoria] = useState<string | boolean>("");
   const [ordem, setOrdem] = useState<string>("");
@@ -27,16 +30,21 @@ const EditarPerguntasFrequentePage = ({ params }) => {
   const [resposta, setResposta] = useState<string>("");
 
   useEffect(() => {
-    const p: Pergunta | undefined = getPerguntaById(id);
-    if (p) {
-      setCategoria(p.categoria);
-      setOrdem(p.ordem);
-      setIsPrincipalDuvida(p.principalDuvida);
-      setOrdemPrincipalDuvida(p.ordemPrincipalDuvida);
-      setPergunta(p.pergunta);
-      setResposta(p.resposta);
-    } else console.log("Could not get pergunta");
-  }, [id]);
+    const faq: Faq | undefined = getFaqById(id);
+
+    if (faq) {
+      setCategoria(faq.categoria);
+      setOrdem(faq.ordem);
+      setIsPrincipalDuvida(faq.principalDuvida);
+      setOrdemPrincipalDuvida(faq.ordemPrincipalDuvida);
+      setPergunta(faq.pergunta);
+      setResposta(faq.resposta);
+    } else {
+      router.push("/cadastro/perguntas-frequentes");
+    }
+  }, [id, getFaqById, router]);
+
+  const handleCancelar = () => router.back();
 
   return (
     <Page
@@ -93,7 +101,7 @@ const EditarPerguntasFrequentePage = ({ params }) => {
         <Centered className="gap-x-2" justify="end">
           <Button label="SALVAR" primary />
           <Button label="SALVAR E SAIR" secondary />
-          <Button label="CANCELAR" secondary />
+          <Button label="CANCELAR" secondary onClick={handleCancelar} />
         </Centered>
       </Centered>
     </Page>

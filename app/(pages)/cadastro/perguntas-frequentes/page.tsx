@@ -1,18 +1,32 @@
-import { Pergunta } from "@/app/types/Pergunta";
+"use client";
+
+import { useEffect } from "react";
+
+import { Faq } from "@/app/types/Faq";
+import { useFaqStore } from "@/app/store/faq";
 import Page from "@/app/components/ui/Page";
-import PerguntaFrequente from "@/app/components/FAQ/PerguntaFrequente";
 import Centered from "@/app/components/ui/Centered";
-import { perguntasFrequentes } from "@/app/constants/faq";
+import PerguntaFrequente from "@/app/components/FAQ/PerguntaFrequente";
 
 const PerguntasFrequentesPage = () => {
+  const { faqList, fetchFaqList } = useFaqStore();
+
+  useEffect(() => {
+    const fetchFaq = async () => {
+      await fetchFaqList();
+    };
+
+    fetchFaq();
+  }, [fetchFaqList]);
+
   return (
     <Page
       title="Lista de Perguntas Frequentes"
       subtitle="Visualize e gerencie todas as perguntas frequentes"
     >
       <Centered direction="col" className="gap-y-4">
-        {perguntasFrequentes.map((pergunta: Pergunta, index: number) => (
-          <PerguntaFrequente key={index} pergunta={pergunta} />
+        {faqList.map((faq: Faq, index: number) => (
+          <PerguntaFrequente key={index} faq={faq} />
         ))}
       </Centered>
     </Page>
