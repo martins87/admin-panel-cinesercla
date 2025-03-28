@@ -12,7 +12,7 @@ import Input from "@/app/components/ui/Input";
 import Button from "@/app/components/ui/Button";
 import FAQInput from "@/app/components/FAQ/FAQInput";
 import ComboBox from "@/app/components/ui/ComboBox";
-import { categorias, opcoes } from "@/app/constants/perguntasFrequentes";
+import { categorias, opcoes } from "@/app/constants/faq";
 
 // @ts-expect-error:next-line
 const EditarPerguntasFrequentePage = ({ params }) => {

@@ -1,8 +1,8 @@
-import Page from "@/app/components/ui/Page";
-import { perguntasFrequentes } from "@/app/constants/perguntasFrequentes";
-import PerguntaFrequente from "../../../components/FAQ/PerguntaFrequente";
 import { Pergunta } from "@/app/types/Pergunta";
+import Page from "@/app/components/ui/Page";
+import PerguntaFrequente from "@/app/components/FAQ/PerguntaFrequente";
 import Centered from "@/app/components/ui/Centered";
+import { perguntasFrequentes } from "@/app/constants/faq";
 
 const PerguntasFrequentesPage = () => {
   return (
