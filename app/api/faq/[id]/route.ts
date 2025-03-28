@@ -7,7 +7,7 @@ export async function GET(
   request: NextRequest,
   context: { params: { id: string } }
 ) {
-  const { id } = context.params;
+  const { id } = await context.params;
 
   try {
     await connectToDatabase();
@@ -29,7 +29,7 @@ export async function PUT(
   request: NextRequest,
   context: { params: { id: string } }
 ) {
-  const { id } = context.params;
+  const { id } = await context.params;
   const body = await request.json();
 
   try {
