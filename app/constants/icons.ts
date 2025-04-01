@@ -20,6 +20,7 @@ import help from "@/app/assets/icons/help.svg";
 import home from "@/app/assets/icons/home.svg";
 import logOut from "@/app/assets/icons/logOut.svg";
 import logo from "@/app/assets/icons/logo.svg";
+import logoBig from "@/app/assets/icons/logo-big.svg";
 import mail from "@/app/assets/icons/mail.svg";
 import password from "@/app/assets/icons/password.svg";
 import pieChart from "@/app/assets/icons/pieChart.svg";
@@ -58,6 +59,7 @@ export {
   home,
   logOut,
   logo,
+  logoBig,
   mail,
   password,
   pieChart,
