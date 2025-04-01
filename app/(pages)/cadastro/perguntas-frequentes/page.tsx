@@ -17,7 +17,7 @@ const FaqPage = () => {
     };
 
     fetchFaq();
-  }, [fetchFaqList]);
+  }, [faqList, fetchFaqList]);
 
   return (
     <Page

@@ -7,6 +7,7 @@ type FaqStore = {
   hasFetched: boolean;
   fetchFaqList: () => Promise<void>;
   getFaqById: (id: string) => Faq | undefined;
+  updateFaqList: (faq: Faq) => void;
 };
 
 export const useFaqStore = create<FaqStore>((set, get) => ({
@@ -20,4 +21,11 @@ export const useFaqStore = create<FaqStore>((set, get) => ({
     set({ faqList: list, hasFetched: true });
   },
   getFaqById: (id: string) => get().faqList.find((faq: Faq) => faq._id === id),
+  updateFaqList: (updatedFaq: Faq) => {
+    set((state) => ({
+      faqList: state.faqList.map((faq) =>
+        faq._id === updatedFaq._id ? updatedFaq : faq
+      ),
+    }));
+  },
 }));

@@ -24,7 +24,7 @@ const EditarPerguntasFrequentePage = ({
   const router = useRouter();
   // @ts-expect-error:next-line
   const { id } = use(params);
-  const { getFaqById } = useFaqStore();
+  const { getFaqById, updateFaqList } = useFaqStore();
   const [categoria, setCategoria] = useState<string | boolean>("");
   const [ordem, setOrdem] = useState<string>("");
   const [principalDuvida, setPrincipalDuvida] = useState<string | boolean>(
@@ -73,6 +73,10 @@ const EditarPerguntasFrequentePage = ({
 
       if (updatedFaq) {
         console.log("FAQ updated successfully:", updatedFaq);
+
+        // Updates Zustand store
+        updateFaqList(updatedFaq);
+
         router.push("/cadastro/perguntas-frequentes"); // Redirect on success
       } else {
         console.error("Failed to update FAQ.");
