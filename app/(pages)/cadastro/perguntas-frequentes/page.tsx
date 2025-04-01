@@ -8,7 +8,7 @@ import Page from "@/app/components/ui/Page";
 import Centered from "@/app/components/ui/Centered";
 import PerguntaFrequente from "@/app/components/FAQ/PerguntaFrequente";
 
-const PerguntasFrequentesPage = () => {
+const FaqPage = () => {
   const { faqList, fetchFaqList } = useFaqStore();
 
   useEffect(() => {
@@ -33,4 +33,4 @@ const PerguntasFrequentesPage = () => {
   );
 };
 
-export default PerguntasFrequentesPage;
+export default FaqPage;

@@ -14,6 +14,13 @@ export async function GET(
 
     const faq = await Faq.findById(id);
 
+    if (!faq) {
+      return NextResponse.json(
+        { error: `FAQ with ID ${id} not found` },
+        { status: 404 }
+      );
+    }
+
     return NextResponse.json(faq);
   } catch (error) {
     console.error(`Error fetching FAQ ${id}:`, error);
@@ -30,7 +37,15 @@ export async function PUT(
   { params }: { params: Promise<{ id: string }> }
 ) {
   const { id } = await params;
+
   const body = await request.json();
+
+  if (!body || Object.keys(body).length === 0) {
+    return NextResponse.json(
+      { error: "Request body is empty" },
+      { status: 400 }
+    );
+  }
 
   try {
     await connectToDatabase();
@@ -38,7 +53,10 @@ export async function PUT(
     const updatedFaq = await Faq.findByIdAndUpdate(id, body, { new: true });
 
     if (!updatedFaq) {
-      return NextResponse.json({ error: "FAQ not found" }, { status: 404 });
+      return NextResponse.json(
+        { error: `FAQ with ID ${id} not found` },
+        { status: 404 }
+      );
     }
 
     return NextResponse.json(updatedFaq);
