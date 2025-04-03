@@ -32,6 +32,11 @@ const ComponentsPage = () => {
             DataTable
           </Typography>
         </Link>
+        <Link href="/components/custom-accordion">
+          <Typography className="text-xl text-[#0057FC] hover:underline">
+            CustomAccordion
+          </Typography>
+        </Link>
       </Centered>
     </Page>
   );
