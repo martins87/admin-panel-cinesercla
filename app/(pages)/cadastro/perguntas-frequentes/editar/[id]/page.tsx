@@ -102,7 +102,7 @@ const EditarPerguntasFrequentePage = ({
       >
         <Centered className="gap-y-4" direction="col">
           <Centered className="gap-x-2" items="center" justify="start">
-            <Typography>Ativa</Typography>
+            <Typography weight="500">Ativa</Typography>
             <Switch value={ativa} setValue={setAtiva} />
           </Centered>
           <Centered className="grid grid-cols-2 gap-x-4 gap-y-4">

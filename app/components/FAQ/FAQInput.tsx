@@ -11,7 +11,7 @@ type FAQInputProps = {
 const FAQInput: FC<FAQInputProps> = ({ label, children, obrigatoria }) => {
   return (
     <Centered direction="col" items="start">
-      <Typography>
+      <Typography weight="500" className="tracking-wide">
         {label}
         {obrigatoria && <span className="text-red-500">*</span>}
       </Typography>
