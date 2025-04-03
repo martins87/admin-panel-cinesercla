@@ -92,7 +92,7 @@ const EditarPerguntasFrequentePage = ({
     }
   };
 
-  const handleCancelar = () => router.back();
+  const handleVoltar = () => router.back();
 
   return (
     <>
@@ -158,7 +158,7 @@ const EditarPerguntasFrequentePage = ({
               secondary
               onClick={() => setSalvarESairModalOpen(true)}
             />
-            <Button label="CANCELAR" secondary onClick={handleCancelar} />
+            <Button label="VOLTAR" secondary onClick={handleVoltar} />
           </Centered>
         </Centered>
       </Page>

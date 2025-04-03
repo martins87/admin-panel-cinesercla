@@ -12,12 +12,11 @@ const FaqPage = () => {
   const { faqList, fetchFaqList } = useFaqStore();
 
   useEffect(() => {
-    const fetchFaq = async () => {
-      await fetchFaqList();
-    };
+    // TODO treat database fetch error here
+    const fetchFaq = async () => await fetchFaqList();
 
     fetchFaq();
-  }, [faqList, fetchFaqList]);
+  }, [fetchFaqList]);
 
   return (
     <Page
