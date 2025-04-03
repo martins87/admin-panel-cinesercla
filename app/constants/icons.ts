@@ -14,6 +14,7 @@ import close from "@/app/assets/icons/close.svg";
 import dashboard from "@/app/assets/icons/dashboard.svg";
 import download from "@/app/assets/icons/download.svg";
 import edit from "@/app/assets/icons/edit.svg";
+import voice from "@/app/assets/icons/voice.svg";
 import eye from "@/app/assets/icons/eye.svg";
 import filter from "@/app/assets/icons/filter.svg";
 import help from "@/app/assets/icons/help.svg";
@@ -52,6 +53,7 @@ export {
   dashboard,
   download,
   edit,
+  voice,
   eye,
   filter,
   help,
