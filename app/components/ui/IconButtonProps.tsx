@@ -13,7 +13,8 @@ type IconButtonProps = {
   secondary?: boolean;
   tertiary?: boolean;
   className?: string;
-  onClick?: () => void;
+  // onClick?: () => void;
+  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
   disabled?: boolean;
   size?: "sm" | "md" | "lg";
   rounded?: boolean;
