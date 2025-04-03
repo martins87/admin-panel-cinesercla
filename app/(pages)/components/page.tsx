@@ -27,6 +27,11 @@ const ComponentsPage = () => {
             SearchBar 
           </Typography>
         </Link>
+        <Link href="/components/data-table">
+          <Typography className="text-xl text-[#0057FC] hover:underline">
+            DataTable
+          </Typography>
+        </Link>
       </Centered>
     </Page>
   );
