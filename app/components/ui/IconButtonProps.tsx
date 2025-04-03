@@ -5,9 +5,8 @@ import { twMerge } from "tailwind-merge";
 import Typography from "./Typography";
 import { ReactNode } from "react";
 
-// Tipo para as props do IconButton
 type IconButtonProps = {
-  icon: StaticImageData | string; // Aceita tanto importação estática quanto URL
+  icon: StaticImageData | string;
   label?: string | ReactNode;
   primary?: boolean;
   secondary?: boolean;
