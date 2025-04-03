@@ -37,6 +37,11 @@ const ComponentsPage = () => {
             CustomAccordion
           </Typography>
         </Link>
+        <Link href="/components/movie-details">
+          <Typography className="text-xl text-[#0057FC] hover:underline">
+            Movie Details
+          </Typography>
+        </Link>
       </Centered>
     </Page>
   );
