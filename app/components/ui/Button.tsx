@@ -13,7 +13,8 @@ type ButtonProps = {
   tertiary?: boolean;
   className?: string;
   icon?: StaticImport;
-  onClick?: () => void;
+  // onClick?: () => void;
+  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
   full?: boolean;
   disabled?: boolean;
 };
