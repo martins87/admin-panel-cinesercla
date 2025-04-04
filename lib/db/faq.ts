@@ -6,7 +6,7 @@ if (!API_BASE_URL) {
   throw new Error("Missing API_BASE_URL in environment variables.");
 }
 
-export const getFaqList = async (): Promise<Faq[] | null> => {
+export const getFaqList = async (): Promise<Faq[]> => {
   try {
     const response = await fetch(`${API_BASE_URL}/api/faq/`, {
       cache: "no-store",
@@ -20,7 +20,7 @@ export const getFaqList = async (): Promise<Faq[] | null> => {
   } catch (error) {
     console.log("Error retrieving faq list", error);
 
-    return null;
+    return [];
   }
 };
 
