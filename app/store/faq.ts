@@ -9,6 +9,7 @@ type FaqStore = {
   getFaqById: (id: string) => Faq | undefined;
   updateFaqList: (faq: Faq) => void;
   addFaq: (faq: Faq) => void;
+  removeFaq: (id: string) => void;
 };
 
 export const useFaqStore = create<FaqStore>((set, get) => ({
@@ -32,6 +33,11 @@ export const useFaqStore = create<FaqStore>((set, get) => ({
   addFaq: (newFaq: Faq) => {
     set((state) => ({
       faqList: [...state.faqList, newFaq],
+    }));
+  },
+  removeFaq: (id: string) => {
+    set((state) => ({
+      faqList: state.faqList.filter((faq) => faq._id !== id),
     }));
   },
 }));

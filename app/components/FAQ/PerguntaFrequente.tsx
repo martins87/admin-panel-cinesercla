@@ -1,6 +1,6 @@
 "use client";
 
-import { FC } from "react";
+import { Dispatch, FC, SetStateAction } from "react";
 import { useRouter } from "next/navigation";
 
 import IconButton from "@/app/components/ui/IconButton";
@@ -11,10 +11,21 @@ import { arrowDown, arrowUp, edit, trash } from "@/app/constants/icons";
 
 type PerguntaFrequenteProps = {
   faq: Faq;
+  setModalOpen: Dispatch<SetStateAction<boolean>>;
+  setToDeleteFaqId: Dispatch<SetStateAction<string>>;
 };
 
-const PerguntaFrequente: FC<PerguntaFrequenteProps> = ({ faq }) => {
+const PerguntaFrequente: FC<PerguntaFrequenteProps> = ({
+  faq,
+  setModalOpen,
+  setToDeleteFaqId,
+}) => {
   const router = useRouter();
+
+  const handleDelete = () => {
+    setToDeleteFaqId(faq._id!);
+    setModalOpen(true);
+  };
 
   return (
     <Centered className="gap-x-4 border rounded-lg p-4" justify="start">
@@ -32,7 +43,7 @@ const PerguntaFrequente: FC<PerguntaFrequenteProps> = ({ faq }) => {
             router.push(`/cadastro/perguntas-frequentes/editar/${faq._id}`)
           }
         />
-        <IconButton tertiary icon={trash} />
+        <IconButton tertiary icon={trash} onClick={handleDelete} />
       </Centered>
     </Centered>
   );

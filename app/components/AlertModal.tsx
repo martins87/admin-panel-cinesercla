@@ -51,7 +51,7 @@ const AlertModal = ({
       onClick={handleOutsideClick}
     >
       <Centered
-        className="w-fit bg-white rounded-lg px-20 py-8 gap-y-10"
+        className="w-fit bg-white rounded-lg px-20 py-8 gap-y-14"
         direction="col"
       >
         <Image src={logoBig} alt="Logo" />
@@ -63,7 +63,7 @@ const AlertModal = ({
           title
         )}
         {typeof message === "string" ? (
-          <Typography className="text-xl text-[#343A40] -mt-9" weight="400">
+          <Typography className="text-xl text-[#343A40] -mt-12" weight="400">
             {message}
           </Typography>
         ) : (

@@ -63,3 +63,20 @@ export const createFaq = async (faq: Omit<Faq, "_id">): Promise<Faq | null> => {
     return null;
   }
 };
+
+export const deleteFaq = async (id: string): Promise<boolean> => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/api/faq/${id}`, {
+      method: "DELETE",
+    });
+
+    if (response.status !== 200) {
+      throw new Error(`Failed to delete FAQ. Status: ${response.status}`);
+    }
+
+    return true;
+  } catch (error) {
+    console.log("Error deleting faq", error);
+    return false;
+  }
+};

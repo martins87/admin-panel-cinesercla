@@ -69,3 +69,35 @@ export async function PUT(
     );
   }
 }
+
+export async function DELETE(
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  const { id } = await params;
+
+  try {
+    await connectToDatabase();
+
+    const deletedFaq = await Faq.findByIdAndDelete(id);
+
+    if (!deletedFaq) {
+      return NextResponse.json(
+        { error: `FAQ with ID ${id} not found` },
+        { status: 404 }
+      );
+    }
+
+    return NextResponse.json(
+      { message: `FAQ with ID ${id} deleted successfully` },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error(`Error deleting FAQ ${id}:`, error);
+
+    return NextResponse.json(
+      { error: `Failed to delete FAQ ${id}` },
+      { status: 500 }
+    );
+  }
+}
