@@ -46,12 +46,14 @@ const EditarPerguntasFrequentePage = ({
     const faq: Faq | undefined = getFaqById(id);
 
     if (faq) {
-      setCategoria(faq.categoria);
-      setOrdem(faq.ordem);
-      setPrincipalDuvida(!!faq.principalDuvida);
-      setOrdemPrincipalDuvida(faq.ordemPrincipalDuvida);
       setPergunta(faq.pergunta);
       setResposta(faq.resposta);
+      setCadastro(faq.cadastro);
+      setCliques(faq.cliques);
+      setOrdem(faq.ordem);
+      setCategoria(faq.categoria);
+      setPrincipalDuvida(!!faq.principalDuvida);
+      setOrdemPrincipalDuvida(faq.ordemPrincipalDuvida);
       setAtiva(!!faq.ativa);
     } else {
       router.push("/cadastro/perguntas-frequentes");
@@ -66,7 +68,7 @@ const EditarPerguntasFrequentePage = ({
       cadastro,
       cliques,
       ordem,
-      categoria,
+      categoria: String(categoria),
       principalDuvida: !!principalDuvida,
       ordemPrincipalDuvida,
       ativa,
@@ -81,9 +83,7 @@ const EditarPerguntasFrequentePage = ({
         // Updates Zustand store
         updateFaqList(updatedFaq);
 
-        if (sair) {
-          router.push("/cadastro/perguntas-frequentes");
-        }
+        if (sair) router.push("/cadastro/perguntas-frequentes");
       } else {
         console.error("Failed to update FAQ.");
       }

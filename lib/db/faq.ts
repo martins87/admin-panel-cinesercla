@@ -43,3 +43,23 @@ export const updateFaq = async (faq: Faq): Promise<Faq | null> => {
     return null;
   }
 };
+
+export const createFaq = async (faq: Omit<Faq, "_id">): Promise<Faq | null> => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/api/faq/`, {
+      method: "POST",
+      headers: { "Content-type": "application/json" },
+      body: JSON.stringify(faq),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to create FAQ. Status: ${response.status}`);
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.log("Error creating faq", error);
+
+    return null;
+  }
+};

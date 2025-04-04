@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
+import { Faq } from "@/app/types/Faq";
 import Page from "@/app/components/ui/Page";
 import Centered from "@/app/components/ui/Centered";
 import Typography from "@/app/components/ui/Typography";
@@ -13,9 +14,13 @@ import FAQInput from "@/app/components/FAQ/FAQInput";
 import ComboBox from "@/app/components/ui/ComboBox";
 import Input from "@/app/components/ui/Input";
 import { categorias, opcoes } from "@/app/constants/faq";
+import { getFormattedDate } from "@/lib/utils";
+import { createFaq } from "@/lib/db/faq";
+import { useFaqStore } from "@/app/store/faq";
 
 const NovaPerguntasFrequentePage = () => {
   const router = useRouter();
+  const { addFaq } = useFaqStore();
   const [categoria, setCategoria] = useState<string | boolean>("");
   const [ordem, setOrdem] = useState<string>("");
   const [principalDuvida, setPrincipalDuvida] = useState<string | boolean>(
@@ -31,9 +36,32 @@ const NovaPerguntasFrequentePage = () => {
   const [salvarESairModalOpen, setSalvarESairModalOpen] =
     useState<boolean>(false);
 
-  const handleSalvar = (sair?: boolean) => {
-    if (sair) {
-      router.push("/cadastro/perguntas-frequentes");
+  const handleSalvar = async (sair?: boolean) => {
+    const newFaq: Faq = {
+      pergunta,
+      resposta,
+      cadastro: getFormattedDate(),
+      cliques: "0",
+      ordem,
+      categoria: String(categoria),
+      principalDuvida: !!principalDuvida,
+      ordemPrincipalDuvida,
+      ativa,
+    };
+
+    try {
+      const createdFaq = await createFaq(newFaq);
+
+      if (createdFaq) {
+        // Updates the local state with the new FAQ
+        addFaq(createdFaq);
+        console.log("FAQ created successfully:", createdFaq);
+        if (sair) router.push("/cadastro/perguntas-frequentes");
+      } else {
+        console.error("Failed to create FAQ.");
+      }
+    } catch (error) {
+      console.error("Error creating FAQ:", error);
     }
   };
 

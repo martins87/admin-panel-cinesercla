@@ -8,6 +8,7 @@ type FaqStore = {
   fetchFaqList: () => Promise<void>;
   getFaqById: (id: string) => Faq | undefined;
   updateFaqList: (faq: Faq) => void;
+  addFaq: (faq: Faq) => void;
 };
 
 export const useFaqStore = create<FaqStore>((set, get) => ({
@@ -26,6 +27,11 @@ export const useFaqStore = create<FaqStore>((set, get) => ({
       faqList: state.faqList.map((faq) =>
         faq._id === updatedFaq._id ? updatedFaq : faq
       ),
+    }));
+  },
+  addFaq: (newFaq: Faq) => {
+    set((state) => ({
+      faqList: [...state.faqList, newFaq],
     }));
   },
 }));
