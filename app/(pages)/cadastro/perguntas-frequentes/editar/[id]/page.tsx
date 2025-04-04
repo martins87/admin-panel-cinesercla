@@ -1,7 +1,7 @@
 "use client";
 
-import { use, useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { useParams, useRouter } from "next/navigation";
 
 import { Faq } from "@/app/types/Faq";
 import { useFaqStore } from "@/app/store/faq";
@@ -17,14 +17,10 @@ import AlertModal from "@/app/components/AlertModal";
 import { categorias, opcoes } from "@/app/constants/faq";
 import { updateFaq } from "@/lib/db/faq";
 
-const EditarPerguntasFrequentePage = ({
-  params,
-}: {
-  params: { id: string };
-}) => {
+const EditarPerguntasFrequentePage = () => {
+  const params = useParams();
   const router = useRouter();
-  // @ts-expect-error:next-line
-  const { id } = use(params);
+  const { id } = params as { id: string };
   const { getFaqById, updateFaqList } = useFaqStore();
   const [categoria, setCategoria] = useState<string | boolean>("");
   const [ordem, setOrdem] = useState<string>("");
