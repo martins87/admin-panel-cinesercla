@@ -35,6 +35,8 @@ import trash from "@/app/assets/icons/trash.svg";
 import upload from "@/app/assets/icons/upload.svg";
 import user from "@/app/assets/icons/user.svg";
 import users from "@/app/assets/icons/users.svg";
+// Header temporário
+import header from "@/app/assets/icons/Header.png";
 
 export {
   arrowDown,
@@ -74,4 +76,5 @@ export {
   upload,
   user,
   users,
+  header
 };
