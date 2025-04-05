@@ -42,6 +42,11 @@ const ComponentsPage = () => {
             Movie Details
           </Typography>
         </Link>
+        <Link href="/components/image-upload-card">
+          <Typography className="text-xl text-[#0057FC] hover:underline">
+           Image Upload Card
+          </Typography>
+        </Link>
       </Centered>
     </Page>
   );
