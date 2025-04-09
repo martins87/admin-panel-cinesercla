@@ -152,7 +152,7 @@ const NovoFilmePage = () => {
                     className="w-[548px] h-[395px] object-cover bg-red-100"
                     priority
                   />
-                  <Centered className="absolute w-fit top-0 right-0 bg-red-600 px-3 py-1 rounded hover:bg-red-700">
+                  <Centered className="absolute w-fit top-0 right-0 bg-red-600 px-3 py-1 rounded hover:bg-red-700 hover:cursor-pointer">
                     <Typography className="text-white" weight="500">
                       Apagar
                     </Typography>

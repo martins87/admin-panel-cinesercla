@@ -6,7 +6,7 @@ export const useMovies = (query: string, enabled: boolean = false) => {
   const encodedQuery = encodeQueryString(query);
 
   return useQuery({
-    queryKey: ["movies"],
+    queryKey: ["movies", encodedQuery],
     queryFn: () => getMovies(encodedQuery),
     staleTime: 60000,
     enabled: !!query && enabled,
