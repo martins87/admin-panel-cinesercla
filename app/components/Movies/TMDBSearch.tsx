@@ -2,39 +2,38 @@
 
 import { Dispatch, FC, SetStateAction, useEffect, useState } from "react";
 
-import { close } from "@/app/constants/icons";
+import { TMDBMovie } from "@/app/types/tmdbMovie";
 import Centered from "../ui/Centered";
 import IconButton from "../ui/IconButton";
 import Typography from "../ui/Typography";
 import Search from "../Search";
 import Button from "../ui/Button";
 import TMDBResultList from "./TMDBResultList";
-import { TMDBMovie } from "@/app/types/tmdbMovie";
 import TMDBResultPlaceholder from "./TMDBResultPlaceholder";
 import { useMovies } from "@/app/hooks/useMovies";
+import { close } from "@/app/constants/icons";
 
 type TMDBSearchProps = {
   setOpen: Dispatch<SetStateAction<boolean>>;
 };
 
 const TMDBSearch: FC<TMDBSearchProps> = ({ setOpen }) => {
-  const handleClose = () => setOpen(false);
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [triggerSearch, setTriggerSearch] = useState<boolean>(false);
-  const { data /**isLoading, error*/ } = useMovies(searchTerm, triggerSearch);
   const [resultList, setResultList] = useState<TMDBMovie[]>([]);
+  const { data, isLoading /**error*/ } = useMovies(searchTerm, triggerSearch);
+  const [totalResults, setTotalResults] = useState<number>(0);
+
+  const handleClose = () => setOpen(false);
 
   const handleSearch = () => {
     setResultList([]);
     setTriggerSearch(true);
   };
 
-  if (data && resultList.length === 0) {
-    setResultList(data.results); // assuming TMDB API returns data.results
-  }
-
   useEffect(() => {
     if (data) {
+      setTotalResults(data.total_results);
       setResultList(data.results);
       setTriggerSearch(false);
     }
@@ -58,11 +57,20 @@ const TMDBSearch: FC<TMDBSearchProps> = ({ setOpen }) => {
         setSearchTerm={setSearchTerm}
         onClickFn={() => handleSearch()}
       />
-      {resultList.length > 0 ? (
+      {searchTerm === "" ? (
+        <TMDBResultPlaceholder />
+      ) : isLoading ? (
+        <Typography className="text-lg mt-4">
+          Carregando resultados...
+        </Typography>
+      ) : totalResults > 0 ? (
         <TMDBResultList list={resultList} />
       ) : (
-        <TMDBResultPlaceholder />
+        <Typography className="text-lg mt-4">
+          Nenhum filme encontrado.
+        </Typography>
       )}
+
       <Button
         label="Inserir informações manualmente"
         className="uppercase ml-auto mt-auto min-h-12"

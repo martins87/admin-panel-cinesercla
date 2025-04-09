@@ -16,7 +16,6 @@ export const getMovies = async (query: string) => {
 
   // TODO threat errors
   const data = await response.json();
-  console.log("data", data);
 
   // transform data if necessary
   return data;
@@ -29,7 +28,6 @@ export const getMovie = async (id: string) => {
 
   // TODO threat errors
   const data = await response.json();
-  console.log("data", data);
 
   // transform data if necessary
   return data;
