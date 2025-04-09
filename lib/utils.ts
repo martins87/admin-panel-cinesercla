@@ -12,3 +12,13 @@ export const getFormattedDate = (): string => {
     year: "numeric",
   }).format(new Date());
 };
+
+export const encodeQueryString = (query: string) => {
+  return encodeURIComponent(query).replace(/%20/g, "+");
+};
+
+export const formatRuntime = (minutes: number) => {
+  const hours = Math.floor(minutes / 60);
+  const mins = minutes % 60;
+  return `${hours}h${mins}m`;
+};

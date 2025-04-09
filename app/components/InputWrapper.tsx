@@ -2,13 +2,17 @@ import Centered from "@/app/components/ui/Centered";
 import Typography from "@/app/components/ui/Typography";
 import React, { FC, ReactNode } from "react";
 
-type FAQInputProps = {
+type InputWrapperProps = {
   label: string;
   children: ReactNode;
   obrigatoria?: boolean;
 };
 
-const FAQInput: FC<FAQInputProps> = ({ label, children, obrigatoria }) => {
+const InputWrapper: FC<InputWrapperProps> = ({
+  label,
+  children,
+  obrigatoria,
+}) => {
   return (
     <Centered direction="col" items="start">
       <Typography weight="500" className="tracking-wide">
@@ -20,4 +24,4 @@ const FAQInput: FC<FAQInputProps> = ({ label, children, obrigatoria }) => {
   );
 };
 
-export default FAQInput;
+export default InputWrapper;

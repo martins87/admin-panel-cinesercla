@@ -1,5 +1,8 @@
-import type { Metadata } from "next";
+"use client";
+
+// import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/app/components/Sidebar";
@@ -41,11 +44,13 @@ const proximaNova = localFont({
   variable: "--font-proxima-nova",
 });
 
-export const metadata: Metadata = {
-  title: "Cinesercla | Painel Administrativo",
-  description:
-    "CINESERCLA é um dos mais tradicionais grupos de cinemas do Brasil e mantém uma política de crescimento, com qualidade e eficiência em todos os seus complexos.",
-};
+// export const metadata: Metadata = {
+//   title: "Cinesercla | Painel Administrativo",
+//   description:
+//     "CINESERCLA é um dos mais tradicionais grupos de cinemas do Brasil e mantém uma política de crescimento, com qualidade e eficiência em todos os seus complexos.",
+// };
+
+const queryClient = new QueryClient();
 
 export default function RootLayout({
   children,
@@ -57,10 +62,12 @@ export default function RootLayout({
       <body
         className={`${neueMontreal.variable} ${proximaNova.variable} antialiased bg-[#f8f9fa]`}
       >
-        <SidebarProvider>
-          <AppSidebar />
-          <main className="flex-1">{children}</main>
-        </SidebarProvider>
+        <QueryClientProvider client={queryClient}>
+          <SidebarProvider>
+            <AppSidebar />
+            <main className="flex-1">{children}</main>
+          </SidebarProvider>
+        </QueryClientProvider>
       </body>
     </html>
   );

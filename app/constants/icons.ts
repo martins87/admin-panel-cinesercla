@@ -26,6 +26,7 @@ import password from "@/app/assets/icons/password.svg";
 import pieChart from "@/app/assets/icons/pieChart.svg";
 import plus from "@/app/assets/icons/plus.svg";
 import search from "@/app/assets/icons/search.svg";
+import searchGray from "@/app/assets/icons/search-gray.svg";
 import settings from "@/app/assets/icons/settings.svg";
 import signUp from "@/app/assets/icons/signUp.svg";
 import sort from "@/app/assets/icons/sort.svg";
@@ -65,6 +66,7 @@ export {
   pieChart,
   plus,
   search,
+  searchGray,
   settings,
   signUp,
   sort,

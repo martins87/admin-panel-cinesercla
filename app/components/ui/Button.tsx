@@ -12,10 +12,12 @@ type ButtonProps = {
   secondary?: boolean;
   tertiary?: boolean;
   className?: string;
+  textClassname?: string;
   icon?: StaticImport;
   onClick?: () => void;
   full?: boolean;
   disabled?: boolean;
+  blue?: boolean;
 };
 
 const Button: FC<ButtonProps> = ({
@@ -24,10 +26,12 @@ const Button: FC<ButtonProps> = ({
   secondary,
   tertiary,
   className,
+  textClassname,
   icon,
   onClick,
   full,
   disabled,
+  blue,
 }) => {
   return (
     <button
@@ -38,10 +42,11 @@ const Button: FC<ButtonProps> = ({
           : secondary
           ? "bg-white border border-[#CED4DA] hover:bg-black/5"
           : tertiary
-          ? "bg-white text-gray-700 border border-[#CED4DA] hover:bg-white/90"
+          ? "bg-white text-gray-700 border border-[#CED4DA] hover:bg-[#CED4DA]/20"
           : "",
         disabled && "bg-[#E9ECEF] hover:bg-[#E9ECEF] hover:cursor-not-allowed",
         full && "w-full",
+        blue && "border-[#0057FC] hover:bg-[#0057FC]/10",
         className
       )}
       onClick={onClick}
@@ -55,9 +60,11 @@ const Button: FC<ButtonProps> = ({
             : secondary
             ? "text-black"
             : tertiary
-            ? "text-gray-700"
+            ? "text-[#212529]"
             : "",
-          disabled && "text-[#ADB5BD]"
+          disabled && "text-[#ADB5BD]",
+          blue && "text-[#0057FC]",
+          textClassname
         )}
       >
         {label}
