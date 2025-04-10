@@ -17,19 +17,26 @@ type TMDBSearchProps = {
   setOpen: Dispatch<SetStateAction<boolean>>;
 };
 
+
 const TMDBSearch: FC<TMDBSearchProps> = ({ setOpen }) => {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [triggerSearch, setTriggerSearch] = useState<boolean>(false);
   const [resultList, setResultList] = useState<TMDBMovie[]>([]);
-  const { data, isLoading /**error*/ } = useMovies(searchTerm, triggerSearch);
+  const { data, isLoading } = useMovies(searchTerm, triggerSearch);
   const [totalResults, setTotalResults] = useState<number>(0);
 
   const handleClose = () => setOpen(false);
 
-  const handleSearch = () => {
-    setResultList([]);
-    setTriggerSearch(true);
-  };
+  useEffect(() => {
+    if (searchTerm.trim() === "") return;
+
+    const delayDebounce = setTimeout(() => {
+      setResultList([]);
+      setTriggerSearch(true);
+    }, 500); // 100ms
+
+    return () => clearTimeout(delayDebounce);
+  }, [searchTerm]);
 
   useEffect(() => {
     if (data) {
@@ -55,7 +62,6 @@ const TMDBSearch: FC<TMDBSearchProps> = ({ setOpen }) => {
       <Search
         searchTerm={searchTerm}
         setSearchTerm={setSearchTerm}
-        onClickFn={() => handleSearch()}
       />
       {searchTerm === "" ? (
         <TMDBResultPlaceholder />
@@ -64,7 +70,12 @@ const TMDBSearch: FC<TMDBSearchProps> = ({ setOpen }) => {
           Carregando resultados...
         </Typography>
       ) : totalResults > 0 ? (
-        <TMDBResultList list={resultList} />
+        <div
+          id="results-wrapper"
+          className="w-full overflow-y-auto max-h-[60vh]" // ou [70vh], dependendo do quanto cabe no seu modal
+        >
+          <TMDBResultList list={resultList} />
+        </div>
       ) : (
         <Typography className="text-lg mt-4">
           Nenhum filme encontrado.
