@@ -10,7 +10,7 @@ import Search from "../Search";
 import Button from "../ui/Button";
 import TMDBResultList from "./TMDBResultList";
 import TMDBResultPlaceholder from "./TMDBResultPlaceholder";
-import { useMovies } from "@/app/hooks/useMovies";
+import { useTMDBMovies } from "@/app/hooks/useTMDBMovies";
 import { close } from "@/app/constants/icons";
 
 type TMDBSearchProps = {
@@ -21,7 +21,10 @@ const TMDBSearch: FC<TMDBSearchProps> = ({ setOpen }) => {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [triggerSearch, setTriggerSearch] = useState<boolean>(false);
   const [resultList, setResultList] = useState<TMDBMovie[]>([]);
-  const { data, isLoading /**error*/ } = useMovies(searchTerm, triggerSearch);
+  const { data, isLoading /**error*/ } = useTMDBMovies(
+    searchTerm,
+    triggerSearch
+  );
   const [totalResults, setTotalResults] = useState<number>(0);
 
   const handleClose = () => setOpen(false);

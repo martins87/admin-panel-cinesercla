@@ -5,26 +5,26 @@ import { useParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 
+import { classificacaoOpcoes, situacaoOpcoes } from "@/app/types/movie";
+import { TMDBMovie } from "@/app/types/tmdbMovie";
+import { useTMDBMovie } from "@/app/hooks/useTMDBMovie";
+import { formatRuntime, getFormattedDate } from "@/lib/utils";
 import Page from "@/app/components/ui/Page";
 import Centered from "@/app/components/ui/Centered";
 import Typography from "@/app/components/ui/Typography";
 import Button from "@/app/components/ui/Button";
-import AlertModal from "@/app/components/AlertModal";
 import Switch from "@/components/ui/switch";
 import ComboBox from "@/app/components/ui/ComboBox";
 import Input from "@/app/components/ui/Input";
-import { formatRuntime, getFormattedDate } from "@/lib/utils";
-import { upload } from "@/app/constants/icons";
-import { classificacaoOpcoes, situacaoOpcoes } from "@/app/types/movie";
-import { TMDBMovie } from "@/app/types/tmdbMovie";
+import AlertModal from "@/app/components/AlertModal";
 import InputWrapper from "@/app/components/InputWrapper";
-import { useMovie } from "@/app/hooks/useMovie";
+import { upload } from "@/app/constants/icons";
 
 const NovoFilmePage = () => {
   const router = useRouter();
   const params = useParams();
   const { id } = params as { id: string };
-  const { data, isLoading } = useMovie(id);
+  const { data, isLoading } = useTMDBMovie(id);
 
   const [title, setTitle] = useState<string>("");
   const [originalTitle, setOriginalTitle] = useState<string>("");

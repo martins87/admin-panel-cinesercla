@@ -1,24 +1,23 @@
-export interface Movie {
-  title: string;
-  originalTitle: string;
-  releaseDate: string;
-  situacao: string;
-  classificacao: string;
-  ordem: string;
-  tags: string[];
-  genre: string[];
-  diretor: string;
-  runtime: string;
-  distribuidora: string;
-  cast: string[];
-  trailerDublado: string;
-  trailerLegendado: string;
-  overview: string;
+export type Movie = {
+  _id: string;
+  tmdbId: number;
+  cadastro: string;
   ativo: boolean;
-  imagens: string[];
-  posterPath: string;
-  backdropPath: string;
-}
+  adult: boolean;
+  backdrop_path: string;
+  genres: string; // Salvar como string
+  original_language: string;
+  original_title: string;
+  overview: string;
+  popularity: number;
+  poster_path: string;
+  // production_companies: string,
+  release_date: string;
+  runtime: number;
+  title: string;
+  vote_average: number;
+  vote_count: number;
+};
 
 export const situacaoOpcoes = [
   { value: "Em Breve", label: "Em Breve" },
