@@ -1,6 +1,8 @@
+import { FC } from "react";
+
 import { TMDBMovie } from "@/app/types/tmdbMovie";
 import TMDBResult from "./TMDBResult";
-import { FC } from "react";
+import VerticalScroll from "../ui/VerticalScroll";
 
 type TMDBResultListProps = {
   list: TMDBMovie[];
@@ -8,11 +10,11 @@ type TMDBResultListProps = {
 
 const TMDBResultList: FC<TMDBResultListProps> = ({ list }) => {
   return (
-    <div className="w-full min-h-[160px] overflow-y-scroll flex flex-col gap-y-2">
+    <VerticalScroll>
       {list.map((movie) => (
         <TMDBResult key={movie.id} result={movie} />
       ))}
-    </div>
+    </VerticalScroll>
   );
 };
 
