@@ -3,14 +3,15 @@
 import { Dispatch, FC, SetStateAction, useEffect, useState } from "react";
 
 import { TMDBMovie } from "@/app/types/tmdbMovie";
+import { useTMDBMovies } from "@/app/hooks/useTMDBMovies";
 import Centered from "../ui/Centered";
 import IconButton from "../ui/IconButton";
 import Typography from "../ui/Typography";
-import Search from "../Search";
 import Button from "../ui/Button";
+import Search from "../Search";
 import TMDBResultList from "./TMDBResultList";
 import TMDBResultPlaceholder from "./TMDBResultPlaceholder";
-import { useTMDBMovies } from "@/app/hooks/useTMDBMovies";
+import TMDBNoResult from "./TMDBNoResult";
 import { close } from "@/app/constants/icons";
 
 type TMDBSearchProps = {
@@ -69,9 +70,7 @@ const TMDBSearch: FC<TMDBSearchProps> = ({ setOpen }) => {
       ) : totalResults > 0 ? (
         <TMDBResultList list={resultList} />
       ) : (
-        <Typography className="text-lg mt-4">
-          Nenhum filme encontrado.
-        </Typography>
+        <TMDBNoResult />
       )}
 
       <Button
