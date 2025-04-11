@@ -23,3 +23,25 @@ export const getMovies = async (): Promise<Movie[]> => {
     return [];
   }
 };
+
+export const createMovie = async (
+  movie: Omit<Movie, "_id">
+): Promise<Movie | null> => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/api/movies/`, {
+      method: "POST",
+      headers: { "Content-type": "application/json" },
+      body: JSON.stringify(movie),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to create movie. Status: ${response.status}`);
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.log("Error creating movie", error);
+
+    return null;
+  }
+};

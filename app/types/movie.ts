@@ -1,22 +1,22 @@
 export type Movie = {
-  _id: string;
+  _id?: string;
   tmdbId: number;
   cadastro: string;
   ativo: boolean;
-  adult: boolean;
+  adult?: boolean;
   backdrop_path: string;
   genres: string; // Salvar como string
-  original_language: string;
+  original_language?: string;
   original_title: string;
   overview: string;
-  popularity: number;
+  popularity?: number;
   poster_path: string;
   // production_companies: string,
   release_date: string;
   runtime: number;
   title: string;
-  vote_average: number;
-  vote_count: number;
+  vote_average?: number;
+  vote_count?: number;
 };
 
 export const situacaoOpcoes = [

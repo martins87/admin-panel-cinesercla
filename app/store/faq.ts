@@ -15,6 +15,7 @@ type FaqStore = {
 export const useFaqStore = create<FaqStore>((set, get) => ({
   faqList: [],
   hasFetched: false,
+
   fetchFaqList: async () => {
     if (get().hasFetched) return;
 
@@ -22,7 +23,9 @@ export const useFaqStore = create<FaqStore>((set, get) => ({
 
     set({ faqList: list, hasFetched: true });
   },
+
   getFaqById: (id: string) => get().faqList.find((faq: Faq) => faq._id === id),
+
   updateFaqList: (updatedFaq: Faq) => {
     set((state) => ({
       faqList: state.faqList.map((faq) =>
@@ -30,11 +33,13 @@ export const useFaqStore = create<FaqStore>((set, get) => ({
       ),
     }));
   },
+
   addFaq: (newFaq: Faq) => {
     set((state) => ({
       faqList: [...state.faqList, newFaq],
     }));
   },
+
   removeFaq: (id: string) => {
     set((state) => ({
       faqList: state.faqList.filter((faq) => faq._id !== id),

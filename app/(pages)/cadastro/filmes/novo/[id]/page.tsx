@@ -5,7 +5,7 @@ import { useParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 
-import { classificacaoOpcoes, situacaoOpcoes } from "@/app/types/movie";
+import { classificacaoOpcoes, Movie, situacaoOpcoes } from "@/app/types/movie";
 import { TMDBMovie } from "@/app/types/tmdbMovie";
 import { useTMDBMovie } from "@/app/hooks/useTMDBMovie";
 import { formatRuntime, getFormattedDate } from "@/lib/utils";
@@ -19,16 +19,19 @@ import Input from "@/app/components/ui/Input";
 import AlertModal from "@/app/components/AlertModal";
 import InputWrapper from "@/app/components/InputWrapper";
 import { upload } from "@/app/constants/icons";
+import { createMovie } from "@/app/services/movies";
+import { useMovieStore } from "@/app/store/movies";
 
 const NovoFilmePage = () => {
   const router = useRouter();
   const params = useParams();
+  const { addMovie } = useMovieStore();
   const { id } = params as { id: string };
   const { data, isLoading } = useTMDBMovie(id);
-
+  const [tmdbId, setTmdbId] = useState<number>(0);
   const [title, setTitle] = useState<string>("");
   const [originalTitle, setOriginalTitle] = useState<string>("");
-  const [releaseDate, setReleaseDate] = useState<string>(getFormattedDate());
+  const [releaseDate, setReleaseDate] = useState<string>("");
   const [situacao, setSituacao] = useState<string | boolean>("Em Breve");
   const [classificacao, setClassificacao] = useState<string | boolean>(
     "Não Definida"
@@ -39,13 +42,14 @@ const NovoFilmePage = () => {
   const [genre, setGenre] = useState<string>("");
   const [diretor, setDiretor] = useState<string>("");
   const [runtime, setRuntime] = useState<string>("");
+  const [runtimeNum, setRuntimeNum] = useState<number>(0);
   const [distribuidora, setDistribuidora] = useState<string>("");
   const [cast /** , setCast*/] = useState<string[]>([]);
   const [trailerDublado, setTrailerDublado] = useState<string>("");
   const [trailerLegendado, setTrailerLegendado] = useState<string>("");
   const [overview, setOverview] = useState<string>("");
   const [ativo, setAtivo] = useState<boolean>(true);
-  // const [posterPath, setPosterPath] = useState<string>("");
+  const [posterPath, setPosterPath] = useState<string>("");
   const [backdropPath, setBackdropPath] = useState<string>("");
   // const [tmdbSearch, setTmdbSearch] = useState<string>("");
   const [salvarModalOpen, setSalvarModalOpen] = useState<boolean>(false);
@@ -58,6 +62,7 @@ const NovoFilmePage = () => {
     const result = data as TMDBMovie;
     console.log("result", result);
 
+    setTmdbId(result.id);
     setBackdropPath(result.backdrop_path);
     setGenre(
       result.genres
@@ -66,9 +71,10 @@ const NovoFilmePage = () => {
     );
     setOriginalTitle(result.original_title);
     setOverview(result.overview);
-    // setPosterPath(result.poster_path);
+    setPosterPath(result.poster_path);
     setReleaseDate(result.release_date);
     setRuntime(formatRuntime(result.runtime));
+    setRuntimeNum(result.runtime);
     setTitle(result.title);
   }, [data]);
 
@@ -83,35 +89,40 @@ const NovoFilmePage = () => {
     setTags(tags.filter((t) => t !== tag));
   };
 
-  const handleSalvar = async () =>
-    // sair?: boolean
-    {
-      // const newMovie: Movie = {
-      //   title,
-      //   originalTitle,
-      //   releaseDate,
-      //   situacao: situacao as string, // change
-      //   classificacao: classificacao as string, // change
-      //   ordem, // change
-      //   tags,
-      //   genre,
-      //   diretor, // change
-      //   runtime,
-      //   distribuidora, // change
-      //   cast,
-      //   trailerDublado, // change
-      //   trailerLegendado, // change
-      //   overview,
-      //   ativo,
-      //   imagens: [],
-      // };
-      // try {
-      //   console.log("Movie data to save:", newMovie);
-      //   if (sair) router.push("/cadastro/filmes");
-      // } catch (error) {
-      //   console.error("Error creating movie:", error);
-      // }
+  const handleSalvar = async (sair?: boolean) => {
+    const newMovie: Movie = {
+      tmdbId,
+      title,
+      cadastro: getFormattedDate(),
+      backdrop_path: backdropPath,
+      poster_path: posterPath,
+      original_title: originalTitle,
+      release_date: releaseDate,
+      genres: genre,
+      // diretor, // change
+      runtime: runtimeNum, // change
+      // cast,
+      // trailerDublado, // change
+      // trailerLegendado, // change
+      overview,
+      ativo,
     };
+
+    try {
+      const createdMovie = await createMovie(newMovie);
+
+      if (createdMovie) {
+        // Updates the local state with the new movie
+        addMovie(createdMovie);
+        console.log("Movie created successfully:", createdMovie);
+        if (sair) router.push("/cadastro/filmes");
+      } else {
+        console.error("Failed to create Movie.");
+      }
+    } catch (error) {
+      console.error("Error creating Movie:", error);
+    }
+  };
 
   const handleVoltar = () => router.push("/cadastro/filmes");
 
@@ -149,7 +160,7 @@ const NovoFilmePage = () => {
                     height={1080}
                     src={`https://image.tmdb.org/t/p/original${backdropPath}`}
                     alt="Imagem"
-                    className="w-[548px] h-[395px] object-cover bg-red-100"
+                    className="w-[548px] h-[395px] object-cover"
                     priority
                   />
                   <Centered className="absolute w-fit top-0 right-0 bg-red-600 px-3 py-1 rounded hover:bg-red-700 hover:cursor-pointer">
@@ -362,8 +373,7 @@ const NovoFilmePage = () => {
         message="Ao confirmar, ação não poderá ser desfeita."
         confirmLabel="SALVAR"
         onCancel={() => setSalvarModalOpen(false)}
-        // onConfirm={() => handleSalvar(false)}
-        onConfirm={() => handleSalvar()}
+        onConfirm={() => handleSalvar(false)}
         hideOnOutsideClick={true}
       />
       <AlertModal
@@ -372,8 +382,7 @@ const NovoFilmePage = () => {
         message="Ao confirmar, ação não poderá ser desfeita."
         confirmLabel="SALVAR E SAIR"
         onCancel={() => setSalvarESairModalOpen(false)}
-        // onConfirm={() => handleSalvar(true)}
-        onConfirm={() => handleSalvar()}
+        onConfirm={() => handleSalvar(true)}
         hideOnOutsideClick={true}
       />
     </>
