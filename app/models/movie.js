@@ -28,6 +28,6 @@ const movieSchema = new Schema(
   { timestamps: true, collection: "movie" }
 );
 
-const Movie = mongoose.models.Faq || mongoose.model("Movie", movieSchema);
+const Movie = mongoose.models.Movie || mongoose.model("Movie", movieSchema);
 
 export default Movie;

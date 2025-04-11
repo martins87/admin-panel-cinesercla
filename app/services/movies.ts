@@ -45,3 +45,20 @@ export const createMovie = async (
     return null;
   }
 };
+
+export const deleteMovie = async (id: string): Promise<boolean> => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/api/movies/${id}`, {
+      method: "DELETE",
+    });
+
+    if (response.status !== 200) {
+      throw new Error(`Failed to delete movie. Status: ${response.status}`);
+    }
+
+    return true;
+  } catch (error) {
+    console.log("Error deleting movie", error);
+    return false;
+  }
+};

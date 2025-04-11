@@ -64,7 +64,7 @@ const FaqPage = () => {
         isOpen={deleteModalOpen}
         title="Deseja mesmo excluir?"
         message="Ao confirmar, ação não poderá ser desfeita."
-        confirmLabel="SALVAR"
+        confirmLabel="EXCLUIR"
         onCancel={() => setDeleteModalOpen(false)}
         onConfirm={handleDelete}
         hideOnOutsideClick={true}

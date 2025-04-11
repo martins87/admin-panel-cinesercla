@@ -9,18 +9,27 @@ import IconButton from "../ui/IconButton";
 import { arrowDown, arrowUp, edit, trash } from "@/app/constants/icons";
 import Button from "../ui/Button";
 import { Movie } from "@/app/types/movie";
-import { FC } from "react";
+import { Dispatch, FC, SetStateAction } from "react";
 
 type MovieRowProps = {
   movie: Movie;
+  setModalOpen: Dispatch<SetStateAction<boolean>>;
+  setToDeleteId: Dispatch<SetStateAction<string>>;
 };
 
-const MovieRow: FC<MovieRowProps> = ({ movie }) => {
+const MovieRow: FC<MovieRowProps> = ({
+  movie,
+  setModalOpen,
+  setToDeleteId,
+}) => {
   const router = useRouter();
 
   const handleEdit = () => router.push(`/cadastro/filmes/novo/${movie.tmdbId}`);
 
-  const handleDelete = () => {};
+  const handleDelete = () => {
+    setToDeleteId(movie._id!);
+    setModalOpen(true);
+  };
 
   return (
     <Centered className="h-auto border border-[#CED4DA] rounded-lg pl-2 pr-4 py-2 gap-x-10">

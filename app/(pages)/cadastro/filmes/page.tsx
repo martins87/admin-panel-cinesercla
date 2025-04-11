@@ -9,10 +9,14 @@ import Centered from "@/app/components/ui/Centered";
 import Page from "@/app/components/ui/Page";
 import TMDBSearch from "@/app/components/Movies/TMDBSearch";
 import MovieRow from "@/app/components/Movies/MovieRow";
+import AlertModal from "@/app/components/AlertModal";
+import { deleteMovie } from "@/app/services/movies";
 
 const FilmesPage = () => {
-  const [modalOpen, setModalOpen] = useState<boolean>(false);
-  const { movieList, fetchMovieList } = useMovieStore();
+  const { movieList, fetchMovieList, removeMovie } = useMovieStore();
+  const [tmdbModalOpen, setTmdbModalOpen] = useState<boolean>(false);
+  const [deleteModalOpen, setDeleteModalOpen] = useState<boolean>(false);
+  const [toDeleteId, setToDeleteId] = useState<string>("");
 
   useEffect(() => {
     const fetchMovies = async () => {
@@ -26,7 +30,18 @@ const FilmesPage = () => {
     fetchMovies();
   }, [fetchMovieList]);
 
-  const handleClick = () => setModalOpen(true);
+  const handleDelete = async () => {
+    setDeleteModalOpen(false);
+    setToDeleteId("");
+
+    // TODO add loading...
+    const deletedMovie = await deleteMovie(toDeleteId);
+
+    // TODO handle error
+    if (deletedMovie) removeMovie(toDeleteId);
+  };
+
+  const handleClick = () => setTmdbModalOpen(true);
 
   return (
     <>
@@ -39,13 +54,27 @@ const FilmesPage = () => {
 
         <Centered direction="col" className="gap-y-2">
           {movieList.map((movie) => (
-            <MovieRow key={movie._id} movie={movie} />
+            <MovieRow
+              key={movie._id}
+              movie={movie}
+              setModalOpen={setDeleteModalOpen}
+              setToDeleteId={setToDeleteId}
+            />
           ))}
         </Centered>
       </Page>
-      <Modal open={modalOpen}>
-        <TMDBSearch setOpen={setModalOpen} />
+      <Modal open={tmdbModalOpen}>
+        <TMDBSearch setOpen={setTmdbModalOpen} />
       </Modal>
+      <AlertModal
+        isOpen={deleteModalOpen}
+        title="Deseja mesmo excluir?"
+        message="Ao confirmar, ação não poderá ser desfeita."
+        confirmLabel="EXCLUIR"
+        onCancel={() => setDeleteModalOpen(false)}
+        onConfirm={handleDelete}
+        hideOnOutsideClick={true}
+      />
     </>
   );
 };
