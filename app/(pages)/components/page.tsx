@@ -16,6 +16,10 @@ const componentsList = [
     label: "Switch",
     path: "/components/switch",
   },
+  {
+    label: "ModalImage",
+    path: "/components/modal-images",
+  },
 ];
 
 const ComponentsPage = () => {
