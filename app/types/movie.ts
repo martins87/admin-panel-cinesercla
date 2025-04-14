@@ -14,15 +14,17 @@ export type Movie = {
   // production_companies: string,
   release_date: string;
   runtime: number;
+  situacao: string;
   title: string;
   vote_average?: number;
   vote_count?: number;
 };
 
 export const situacaoOpcoes = [
-  { value: "Em Breve", label: "Em Breve" },
-  { value: "Em Cartaz", label: "Em Cartaz" },
-  { value: "Encerrado", label: "Encerrado" },
+  { value: "pre-venda", label: "Pré Venda" },
+  { value: "em-breve", label: "Em Breve" },
+  { value: "em-cartaz", label: "Em Cartaz" },
+  { value: "encerrado", label: "Encerrado" },
 ];
 
 export const classificacaoOpcoes = [

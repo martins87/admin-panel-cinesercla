@@ -75,6 +75,7 @@ const NovoFilmePage = () => {
     setReleaseDate(result.release_date);
     setRuntime(formatRuntime(result.runtime));
     setRuntimeNum(result.runtime);
+    setSituacao(result.status);
     setTitle(result.title);
   }, [data]);
 
@@ -102,11 +103,14 @@ const NovoFilmePage = () => {
       // diretor, // change
       runtime: runtimeNum, // change
       // cast,
+      situacao: situacao as string,
       // trailerDublado, // change
       // trailerLegendado, // change
       overview,
       ativo,
     };
+
+    console.log("new movie", newMovie);
 
     try {
       const createdMovie = await createMovie(newMovie);

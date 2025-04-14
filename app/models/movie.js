@@ -21,6 +21,7 @@ const movieSchema = new Schema(
     // production_companies: String,
     release_date: String,
     runtime: Number,
+    situacao: String,
     title: String,
     vote_average: Number,
     vote_count: Number,

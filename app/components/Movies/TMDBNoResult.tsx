@@ -13,7 +13,7 @@ const TMDBNoResult = () => (
     >
       Nenhum resultado encontrado
     </Typography>
-    <Typography className="w-4/5 text-lg text-[#99A0A6] text-center">
+    <Typography className="w-4/5 text-lg text-[#99A0A6] text-center -mt-2">
       Verifique os termos digitados e tente novamente
     </Typography>
   </Centered>
