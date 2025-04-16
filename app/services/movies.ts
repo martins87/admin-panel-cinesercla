@@ -1,14 +1,8 @@
 import { Movie } from "@/app/types/movie";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
-
-if (!API_BASE_URL) {
-  throw new Error("Missing API_BASE_URL in environment variables.");
-}
-
 export const getMovies = async (): Promise<Movie[]> => {
   try {
-    const response = await fetch(`${API_BASE_URL}/api/movies/`, {
+    const response = await fetch("/api/movies/", {
       cache: "no-store",
     });
 
@@ -28,7 +22,7 @@ export const createMovie = async (
   movie: Omit<Movie, "_id">
 ): Promise<Movie | null> => {
   try {
-    const response = await fetch(`${API_BASE_URL}/api/movies/`, {
+    const response = await fetch("/api/movies/", {
       method: "POST",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify(movie),
@@ -46,9 +40,29 @@ export const createMovie = async (
   }
 };
 
+export const editMovie = async (movie: Movie): Promise<Movie | null> => {
+  try {
+    const response = await fetch(`/api/movies/${movie.tmdbId}`, {
+      method: "PUT",
+      headers: { "Content-type": "application/json" },
+      body: JSON.stringify(movie),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to edit movie. Status: ${response.status}`);
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.log("Error editing movie", error);
+
+    return null;
+  }
+};
+
 export const deleteMovie = async (id: string): Promise<boolean> => {
   try {
-    const response = await fetch(`${API_BASE_URL}/api/movies/${id}`, {
+    const response = await fetch(`/api/movies/${id}`, {
       method: "DELETE",
     });
 

@@ -24,7 +24,8 @@ const MovieRow: FC<MovieRowProps> = ({
 }) => {
   const router = useRouter();
 
-  const handleEdit = () => router.push(`/cadastro/filmes/novo/${movie.tmdbId}`);
+  const handleEdit = () =>
+    router.push(`/cadastro/filmes/editar/${movie.tmdbId}`);
 
   const handleDelete = () => {
     setToDeleteId(movie._id!);
