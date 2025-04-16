@@ -20,7 +20,7 @@ import InputWrapper from "@/app/components/InputWrapper";
 import { useMovieStore } from "@/app/store/movies";
 import { editMovie } from "@/app/services/movies";
 import Modal from "@/app/components/Modal";
-import PosterImages from "@/app/components/Movies/PosterImages";
+import ImagePicker from "@/app/components/Movies/ImagePicker";
 import { upload } from "@/app/constants/icons";
 
 const NovoFilmePage = () => {
@@ -64,7 +64,9 @@ const NovoFilmePage = () => {
   const [salvarESairModalOpen, setSalvarESairModalOpen] =
     useState<boolean>(false);
   const [posterModalOpen, setPosterModalOpen] = useState<boolean>(false);
+  const [backdropModalOpen, setBackdropModalOpen] = useState<boolean>(false);
   const [posterImages, setPosterImages] = useState([]);
+  const [backdropImages, setBackdropImages] = useState([]);
 
   useEffect(() => {
     if (!movie) return;
@@ -85,6 +87,7 @@ const NovoFilmePage = () => {
   useEffect(() => {
     if (images) {
       setPosterImages(images.posters);
+      setBackdropImages(images.backdrops);
     }
   }, [images]);
 
@@ -190,11 +193,12 @@ const NovoFilmePage = () => {
                   className="w-auto h-[395px] object-cover"
                   priority
                 />
-                <Centered className="absolute w-fit top-0 right-0 bg-red-600 px-3 py-1 rounded hover:bg-red-700 hover:cursor-pointer">
-                  <Typography className="text-white" weight="500">
-                    Apagar
-                  </Typography>
-                </Centered>
+                <Button
+                  className="absolute w-fit top-0 right-0 px-4 hover:bg-white/90"
+                  label="ALTERAR"
+                  secondary
+                  onClick={() => setBackdropModalOpen(true)}
+                />
               </div>
               <Typography className="text-[#6C757D]" weight="500">
                 TAMANHO RECOMENDADO: XXXpx
@@ -393,10 +397,18 @@ const NovoFilmePage = () => {
       </Page>
 
       <Modal open={posterModalOpen}>
-        <PosterImages
+        <ImagePicker
           handleCloseFn={() => setPosterModalOpen(false)}
           images={posterImages}
           setPosterPath={setPosterPath}
+        />
+      </Modal>
+      <Modal open={backdropModalOpen}>
+        <ImagePicker
+          handleCloseFn={() => setBackdropModalOpen(false)}
+          images={backdropImages}
+          setPosterPath={setBackdropPath}
+          backdrop
         />
       </Modal>
 

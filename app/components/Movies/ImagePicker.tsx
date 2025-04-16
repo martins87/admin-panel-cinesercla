@@ -12,16 +12,18 @@ import VerticalScroll from "../ui/VerticalScroll";
 import IconButton from "../ui/IconButton";
 import { close } from "@/app/constants/icons";
 
-type PosterImagesProps = {
+type ImagePickerProps = {
   handleCloseFn: () => void;
   images: TMDBImage[];
   setPosterPath: Dispatch<SetStateAction<string>>;
+  backdrop?: boolean;
 };
 
-const PosterImages: FC<PosterImagesProps> = ({
+const ImagePicker: FC<ImagePickerProps> = ({
   handleCloseFn,
   images,
   setPosterPath,
+  backdrop = false,
 }) => {
   console.log("images", images);
   const [selectedPath, setSelectedPath] = useState<string>("");
@@ -47,7 +49,11 @@ const PosterImages: FC<PosterImagesProps> = ({
         <IconButton icon={close} tertiary onClick={handleCloseFn} />
       </Centered>
       <VerticalScroll className="h-full">
-        <Centered className="grid grid-cols-4 gap-2">
+        <Centered
+          className={twMerge(
+            backdrop ? "grid grid-cols-2 gap-2" : "grid grid-cols-4 gap-2"
+          )}
+        >
           {images.map((image, index) => (
             <Centered
               key={index}
@@ -56,7 +62,8 @@ const PosterImages: FC<PosterImagesProps> = ({
             >
               <Image
                 className={twMerge(
-                  "w-[263px] h-[395px] object-cover rounded-sm border-2 border-white",
+                  "object-cover rounded-sm border-2 border-white",
+                  backdrop ? "w-full h-[200px]" : "w-[263px] h-[395px]",
                   selectedPath === image.file_path ? "border-blue-500" : ""
                 )}
                 width={720}
@@ -82,4 +89,4 @@ const PosterImages: FC<PosterImagesProps> = ({
   );
 };
 
-export default PosterImages;
+export default ImagePicker;
