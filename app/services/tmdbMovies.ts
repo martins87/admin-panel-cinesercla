@@ -32,3 +32,15 @@ export const getTMDBMovie = async (id: string) => {
   // transform data if necessary
   return data;
 };
+
+export const getTMDBMovieImages = async (id: string) => {
+  const response = await fetch(
+    `${TMDB_API_BASE_URL}movie/${id}/images?api_key=${TMDB_API_KEY}`
+  );
+
+  // TODO threat errors
+  const data = await response.json();
+
+  // transform data if necessary
+  return data;
+};

@@ -7,6 +7,7 @@ import Image from "next/image";
 
 import { classificacaoOpcoes, Movie, situacaoOpcoes } from "@/app/types/movie";
 import { formatRuntime, getFormattedDate } from "@/lib/utils";
+import { useTMDBMovieImages } from "@/app/hooks/useTMDBMovieImages";
 import Page from "@/app/components/ui/Page";
 import Centered from "@/app/components/ui/Centered";
 import Typography from "@/app/components/ui/Typography";
@@ -16,16 +17,22 @@ import ComboBox from "@/app/components/ui/ComboBox";
 import Input from "@/app/components/ui/Input";
 import AlertModal from "@/app/components/AlertModal";
 import InputWrapper from "@/app/components/InputWrapper";
-import { upload } from "@/app/constants/icons";
 import { useMovieStore } from "@/app/store/movies";
 import { editMovie } from "@/app/services/movies";
+import Modal from "@/app/components/Modal";
+import PosterImages from "@/app/components/Movies/PosterImages";
+import { upload } from "@/app/constants/icons";
 
 const NovoFilmePage = () => {
   const router = useRouter();
   const params = useParams();
-  const { getMovieById, updateMovieList } = useMovieStore();
   const { id } = params as { id: string };
-  // const { data, isLoading } = useTMDBMovie(id);
+  const {
+    data: images,
+    // isLoading
+  } = useTMDBMovieImages(id);
+  console.log("movie images", images);
+  const { getMovieById, updateMovieList } = useMovieStore();
   const movie = getMovieById(+id);
   console.log("movie gotten from store", movie);
 
@@ -56,6 +63,8 @@ const NovoFilmePage = () => {
   const [salvarModalOpen, setSalvarModalOpen] = useState<boolean>(false);
   const [salvarESairModalOpen, setSalvarESairModalOpen] =
     useState<boolean>(false);
+  const [posterModalOpen, setPosterModalOpen] = useState<boolean>(false);
+  const [posterImages, setPosterImages] = useState([]);
 
   useEffect(() => {
     if (!movie) return;
@@ -72,6 +81,12 @@ const NovoFilmePage = () => {
     setSituacao(movie.situacao);
     setTitle(movie.title);
   }, [movie]);
+
+  useEffect(() => {
+    if (images) {
+      setPosterImages(images.posters);
+    }
+  }, [images]);
 
   const handleAddTag = () => {
     if (tagInput && !tags.includes(tagInput)) {
@@ -136,40 +151,62 @@ const NovoFilmePage = () => {
       >
         <Centered className="gap-y-6" direction="col">
           {/* Image upload section */}
-          <Centered justify="start">
-            {[0].map((_, index) => (
-              <Centered
-                key={index}
-                className="relative w-fit gap-y-2"
-                direction="col"
-              >
-                <div className="relative aspect-video w-full rounded-lg overflow-hidden">
-                  <Image
-                    width={1920}
-                    height={1080}
-                    src={`https://image.tmdb.org/t/p/original${backdropPath}`}
-                    alt="Imagem"
-                    className="w-[548px] h-[395px] object-cover"
-                    priority
-                  />
-                  <Centered className="absolute w-fit top-0 right-0 bg-red-600 px-3 py-1 rounded hover:bg-red-700 hover:cursor-pointer">
-                    <Typography className="text-white" weight="500">
-                      Apagar
-                    </Typography>
-                  </Centered>
-                </div>
-                <Typography className="text-[#6C757D]" weight="500">
-                  TAMANHO RECOMENDADO: XXXpx
-                </Typography>
-                <Button
-                  label="ENVIAR IMAGEM"
-                  tertiary
-                  icon={upload}
-                  className="w-full"
-                  textClassname="font-medium"
+          <Centered className="gap-x-4" justify="start">
+            <Centered className="relative w-fit gap-y-2" direction="col">
+              <div className="relative w-full rounded-lg overflow-hidden">
+                <Image
+                  width={720}
+                  height={1080}
+                  src={`https://image.tmdb.org/t/p/original${posterPath}`}
+                  alt="Imagem"
+                  className="w-auto h-[395px] object-cover"
+                  priority
                 />
-              </Centered>
-            ))}
+                <Button
+                  className="absolute w-fit top-0 right-0 px-4 hover:bg-white/90"
+                  label="ALTERAR"
+                  secondary
+                  onClick={() => setPosterModalOpen(true)}
+                />
+              </div>
+              <Typography className="text-[#6C757D]" weight="500">
+                TAMANHO RECOMENDADO: XXXpx
+              </Typography>
+              <Button
+                label="ENVIAR IMAGEM"
+                tertiary
+                icon={upload}
+                className="w-full"
+                textClassname="font-medium"
+              />
+            </Centered>
+            <Centered className="relative w-fit gap-y-2" direction="col">
+              <div className="relative aspect-video w-full rounded-lg overflow-hidden">
+                <Image
+                  width={1920}
+                  height={1080}
+                  src={`https://image.tmdb.org/t/p/original${backdropPath}`}
+                  alt="Imagem"
+                  className="w-auto h-[395px] object-cover"
+                  priority
+                />
+                <Centered className="absolute w-fit top-0 right-0 bg-red-600 px-3 py-1 rounded hover:bg-red-700 hover:cursor-pointer">
+                  <Typography className="text-white" weight="500">
+                    Apagar
+                  </Typography>
+                </Centered>
+              </div>
+              <Typography className="text-[#6C757D]" weight="500">
+                TAMANHO RECOMENDADO: XXXpx
+              </Typography>
+              <Button
+                label="ENVIAR IMAGEM"
+                tertiary
+                icon={upload}
+                className="w-full"
+                textClassname="font-medium"
+              />
+            </Centered>
           </Centered>
 
           <div className="w-full border-t border-gray-200 my-2"></div>
@@ -311,6 +348,15 @@ const NovoFilmePage = () => {
             </InputWrapper>
           </Centered>
 
+          {/* Synopsis */}
+          <InputWrapper label="Sinopse">
+            <Input
+              placeholder="Escreva a sinopse do filme"
+              value={overview}
+              setValue={setOverview}
+            />
+          </InputWrapper>
+
           {/* Trailers */}
           <Centered className="grid grid-cols-2 gap-x-4 gap-y-4">
             <InputWrapper label="Trailer Dublado">
@@ -329,15 +375,6 @@ const NovoFilmePage = () => {
             </InputWrapper>
           </Centered>
 
-          {/* Synopsis */}
-          <InputWrapper label="Sinopse">
-            <Input
-              placeholder="Escreva a sinopse do filme"
-              value={overview}
-              setValue={setOverview}
-            />
-          </InputWrapper>
-
           {/* Action buttons */}
           <Centered className="gap-x-2" justify="end">
             <Button
@@ -354,6 +391,14 @@ const NovoFilmePage = () => {
           </Centered>
         </Centered>
       </Page>
+
+      <Modal open={posterModalOpen}>
+        <PosterImages
+          handleCloseFn={() => setPosterModalOpen(false)}
+          images={posterImages}
+          setPosterPath={setPosterPath}
+        />
+      </Modal>
 
       {/* Confirmation modals */}
       <AlertModal

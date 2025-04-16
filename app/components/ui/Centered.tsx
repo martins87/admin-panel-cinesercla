@@ -2,7 +2,7 @@ import { forwardRef, ReactNode } from "react";
 import { twMerge } from "tailwind-merge";
 
 type CenteredProps = {
-  children: ReactNode;
+  children?: ReactNode;
   className?: string;
   items?: "center" | "start" | "end";
   direction?: "row" | "col";
