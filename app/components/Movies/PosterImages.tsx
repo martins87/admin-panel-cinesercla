@@ -2,6 +2,7 @@
 
 import { Dispatch, FC, SetStateAction, useState } from "react";
 import Image from "next/image";
+import { twMerge } from "tailwind-merge";
 
 import { TMDBImage } from "@/app/types/tmdbImage";
 import Button from "../ui/Button";
@@ -54,7 +55,10 @@ const PosterImages: FC<PosterImagesProps> = ({
               onClick={() => handleImageClick(image.file_path)}
             >
               <Image
-                className="w-[263px] h-[395px] object-cover rounded-sm"
+                className={twMerge(
+                  "w-[263px] h-[395px] object-cover rounded-sm border-2 border-white",
+                  selectedPath === image.file_path ? "border-blue-500" : ""
+                )}
                 width={720}
                 height={1080}
                 src={`https://image.tmdb.org/t/p/original${image.file_path}`}
@@ -67,7 +71,12 @@ const PosterImages: FC<PosterImagesProps> = ({
       </VerticalScroll>
       <Centered justify="between">
         <Typography className="text-base">{`${images.length} resultados encontrados`}</Typography>
-        <Button label="SELECIONAR IMAGEM" primary onClick={handleClick} />
+        <Button
+          label="SELECIONAR IMAGEM"
+          primary
+          onClick={handleClick}
+          disabled={selectedPath === ""}
+        />
       </Centered>
     </Centered>
   );
