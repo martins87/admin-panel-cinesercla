@@ -1,3 +1,5 @@
+import { TMDBVideo } from "../types/tmdbVideo";
+
 const TMDB_API_BASE_URL = process.env.NEXT_PUBLIC_TMDB_API_BASE_URL;
 const TMDB_API_KEY = process.env.NEXT_PUBLIC_TMDB_API_KEY;
 
@@ -43,4 +45,20 @@ export const getTMDBMovieImages = async (id: string) => {
 
   // transform data if necessary
   return data;
+};
+
+export const getTMDBMovieVideos = async (id: string) => {
+  const response = await fetch(
+    `${TMDB_API_BASE_URL}movie/${id}/videos?api_key=${TMDB_API_KEY}&language=pt-BR`
+  );
+
+  // TODO threat errors
+  const data = await response.json();
+
+  const videos = data.results.filter(
+    (video: TMDBVideo) => video.type === "Trailer" && video.site === "YouTube"
+  );
+
+  // return data.results;
+  return videos;
 };

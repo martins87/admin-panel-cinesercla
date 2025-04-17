@@ -25,6 +25,12 @@ const movieSchema = new Schema(
     title: String,
     vote_average: Number,
     vote_count: Number,
+    trailers: [
+      {
+        name: { type: String, required: true },
+        key: { type: String, required: true },
+      },
+    ],
   },
   { timestamps: true, collection: "movie" }
 );

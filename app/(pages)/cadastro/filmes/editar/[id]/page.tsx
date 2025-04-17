@@ -6,8 +6,10 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 
 import { classificacaoOpcoes, Movie, situacaoOpcoes } from "@/app/types/movie";
+import { TMDBVideo } from "@/app/types/tmdbVideo";
 import { formatRuntime, getFormattedDate } from "@/lib/utils";
 import { useTMDBMovieImages } from "@/app/hooks/useTMDBMovieImages";
+import { useTMDBMovieVideos } from "@/app/hooks/useTMDBMovieVideos";
 import Page from "@/app/components/ui/Page";
 import Centered from "@/app/components/ui/Centered";
 import Typography from "@/app/components/ui/Typography";
@@ -31,7 +33,12 @@ const NovoFilmePage = () => {
     data: images,
     // isLoading
   } = useTMDBMovieImages(id);
-  console.log("movie images", images);
+  console.log("imagens", images);
+  const {
+    data: trailers,
+    // isLoading
+  } = useTMDBMovieVideos(id);
+  console.log("trailers", trailers);
   const { getMovieById, updateMovieList } = useMovieStore();
   const movie = getMovieById(+id);
   console.log("movie gotten from store", movie);
@@ -67,6 +74,7 @@ const NovoFilmePage = () => {
   const [backdropModalOpen, setBackdropModalOpen] = useState<boolean>(false);
   const [posterImages, setPosterImages] = useState([]);
   const [backdropImages, setBackdropImages] = useState([]);
+  const [videos, setVideos] = useState<{ name: string; key: string }[]>([]);
 
   useEffect(() => {
     if (!movie) return;
@@ -91,6 +99,35 @@ const NovoFilmePage = () => {
     }
   }, [images]);
 
+  useEffect(() => {
+    const videosArr: { name: string; key: string }[] = [];
+    const trailerDublado = trailers?.find((trailer: TMDBVideo) => {
+      const trailerName = trailer.name.toLowerCase();
+      return trailerName.includes("dublado") || trailerName.includes("dub");
+    });
+    if (trailerDublado) {
+      setTrailerDublado(trailerDublado.key);
+      videosArr.push({
+        name: trailerDublado.name,
+        key: trailerDublado.key,
+      });
+    }
+
+    const trailerLegendado = trailers?.find((trailer: TMDBVideo) => {
+      const trailerName = trailer.name.toLowerCase();
+      return trailerName.includes("legendado") || trailerName.includes("leg");
+    });
+    if (trailerLegendado) {
+      setTrailerLegendado(trailerLegendado.key);
+      videosArr.push({
+        name: trailerLegendado.name,
+        key: trailerLegendado.key,
+      });
+    }
+
+    setVideos(videosArr);
+  }, [trailers]);
+
   const handleAddTag = () => {
     if (tagInput && !tags.includes(tagInput)) {
       setTags([...tags, tagInput]);
@@ -103,7 +140,7 @@ const NovoFilmePage = () => {
   };
 
   const handleSalvar = async (sair?: boolean) => {
-    const newMovie: Movie = {
+    const movieToUpdate: Movie = {
       tmdbId,
       title,
       cadastro: getFormattedDate(),
@@ -120,12 +157,13 @@ const NovoFilmePage = () => {
       // trailerLegendado, // change
       overview,
       ativo,
+      trailers: videos,
     };
 
-    console.log("edited movie", newMovie);
+    console.log("edited movie", movieToUpdate);
 
     try {
-      const editedMovie = await editMovie(newMovie);
+      const editedMovie = await editMovie(movieToUpdate);
 
       if (editedMovie) {
         // Updates the local state with the new movie

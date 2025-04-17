@@ -7,8 +7,10 @@ import Image from "next/image";
 
 import { classificacaoOpcoes, Movie, situacaoOpcoes } from "@/app/types/movie";
 import { TMDBMovie } from "@/app/types/tmdbMovie";
+import { TMDBVideo } from "@/app/types/tmdbVideo";
 import { useTMDBMovie } from "@/app/hooks/useTMDBMovie";
 import { useTMDBMovieImages } from "@/app/hooks/useTMDBMovieImages";
+import { useTMDBMovieVideos } from "@/app/hooks/useTMDBMovieVideos";
 import { formatRuntime, getFormattedDate } from "@/lib/utils";
 import Page from "@/app/components/ui/Page";
 import Centered from "@/app/components/ui/Centered";
@@ -35,6 +37,11 @@ const NovoFilmePage = () => {
     data: images,
     // isLoading
   } = useTMDBMovieImages(id);
+  const {
+    data: trailers,
+    // isLoading
+  } = useTMDBMovieVideos(id);
+  console.log("trailers", trailers);
   const [tmdbId, setTmdbId] = useState<number>(0);
   const [title, setTitle] = useState<string>("");
   const [originalTitle, setOriginalTitle] = useState<string>("");
@@ -66,6 +73,7 @@ const NovoFilmePage = () => {
   const [backdropModalOpen, setBackdropModalOpen] = useState<boolean>(false);
   const [posterImages, setPosterImages] = useState([]);
   const [backdropImages, setBackdropImages] = useState([]);
+  const [videos, setVideos] = useState<{ name: string; key: string }[]>([]);
 
   useEffect(() => {
     if (!movie) return;
@@ -97,6 +105,35 @@ const NovoFilmePage = () => {
     }
   }, [images]);
 
+  useEffect(() => {
+    const videosArr: { name: string; key: string }[] = [];
+    const trailerDublado = trailers?.find((trailer: TMDBVideo) => {
+      const trailerName = trailer.name.toLowerCase();
+      return trailerName.includes("dublado") || trailerName.includes("dub");
+    });
+    if (trailerDublado) {
+      setTrailerDublado(trailerDublado.key);
+      videosArr.push({
+        name: trailerDublado.name,
+        key: trailerDublado.key,
+      });
+    }
+
+    const trailerLegendado = trailers?.find((trailer: TMDBVideo) => {
+      const trailerName = trailer.name.toLowerCase();
+      return trailerName.includes("legendado") || trailerName.includes("leg");
+    });
+    if (trailerLegendado) {
+      setTrailerLegendado(trailerLegendado.key);
+      videosArr.push({
+        name: trailerLegendado.name,
+        key: trailerLegendado.key,
+      });
+    }
+
+    setVideos(videosArr);
+  }, [trailers]);
+
   const handleAddTag = () => {
     if (tagInput && !tags.includes(tagInput)) {
       setTags([...tags, tagInput]);
@@ -126,6 +163,7 @@ const NovoFilmePage = () => {
       // trailerLegendado, // change
       overview,
       ativo,
+      trailers: videos,
     };
 
     console.log("new movie", newMovie);
@@ -367,6 +405,15 @@ const NovoFilmePage = () => {
             </InputWrapper>
           </Centered>
 
+          {/* Synopsis */}
+          <InputWrapper label="Sinopse">
+            <Input
+              placeholder="Escreva a sinopse do filme"
+              value={overview}
+              setValue={setOverview}
+            />
+          </InputWrapper>
+
           {/* Trailers */}
           <Centered className="grid grid-cols-2 gap-x-4 gap-y-4">
             <InputWrapper label="Trailer Dublado">
@@ -384,15 +431,6 @@ const NovoFilmePage = () => {
               />
             </InputWrapper>
           </Centered>
-
-          {/* Synopsis */}
-          <InputWrapper label="Sinopse">
-            <Input
-              placeholder="Escreva a sinopse do filme"
-              value={overview}
-              setValue={setOverview}
-            />
-          </InputWrapper>
 
           {/* Action buttons */}
           <Centered className="gap-x-2" justify="end">

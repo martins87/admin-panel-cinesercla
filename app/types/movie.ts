@@ -18,6 +18,10 @@ export type Movie = {
   title: string;
   vote_average?: number;
   vote_count?: number;
+  trailers: {
+    name: string;
+    key: string;
+  }[];
 };
 
 export const situacaoOpcoes = [
