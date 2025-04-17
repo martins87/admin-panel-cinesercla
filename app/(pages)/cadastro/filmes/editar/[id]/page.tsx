@@ -149,7 +149,7 @@ const NovoFilmePage = () => {
   return (
     <>
       <Page
-        title={`Novo Filme: ${title}`}
+        title={`Editar Filme: ${title}`}
         subtitle="Cadastre e gerencie novos filmes exibidos no cinema"
       >
         <Centered className="gap-y-6" direction="col">

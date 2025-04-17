@@ -8,6 +8,7 @@ import Image from "next/image";
 import { classificacaoOpcoes, Movie, situacaoOpcoes } from "@/app/types/movie";
 import { TMDBMovie } from "@/app/types/tmdbMovie";
 import { useTMDBMovie } from "@/app/hooks/useTMDBMovie";
+import { useTMDBMovieImages } from "@/app/hooks/useTMDBMovieImages";
 import { formatRuntime, getFormattedDate } from "@/lib/utils";
 import Page from "@/app/components/ui/Page";
 import Centered from "@/app/components/ui/Centered";
@@ -18,16 +19,22 @@ import ComboBox from "@/app/components/ui/ComboBox";
 import Input from "@/app/components/ui/Input";
 import AlertModal from "@/app/components/AlertModal";
 import InputWrapper from "@/app/components/InputWrapper";
-import { upload } from "@/app/constants/icons";
 import { createMovie } from "@/app/services/movies";
 import { useMovieStore } from "@/app/store/movies";
+import Modal from "@/app/components/Modal";
+import ImagePicker from "@/app/components/Movies/ImagePicker";
+import { upload } from "@/app/constants/icons";
 
 const NovoFilmePage = () => {
   const router = useRouter();
   const params = useParams();
   const { addMovie } = useMovieStore();
   const { id } = params as { id: string };
-  const { data, isLoading } = useTMDBMovie(id);
+  const { data: movie, isLoading } = useTMDBMovie(id);
+  const {
+    data: images,
+    // isLoading
+  } = useTMDBMovieImages(id);
   const [tmdbId, setTmdbId] = useState<number>(0);
   const [title, setTitle] = useState<string>("");
   const [originalTitle, setOriginalTitle] = useState<string>("");
@@ -55,11 +62,15 @@ const NovoFilmePage = () => {
   const [salvarModalOpen, setSalvarModalOpen] = useState<boolean>(false);
   const [salvarESairModalOpen, setSalvarESairModalOpen] =
     useState<boolean>(false);
+  const [posterModalOpen, setPosterModalOpen] = useState<boolean>(false);
+  const [backdropModalOpen, setBackdropModalOpen] = useState<boolean>(false);
+  const [posterImages, setPosterImages] = useState([]);
+  const [backdropImages, setBackdropImages] = useState([]);
 
   useEffect(() => {
-    if (!data) return;
+    if (!movie) return;
 
-    const result = data as TMDBMovie;
+    const result = movie as TMDBMovie;
     console.log("result", result);
 
     setTmdbId(result.id);
@@ -77,7 +88,14 @@ const NovoFilmePage = () => {
     setRuntimeNum(result.runtime);
     setSituacao(result.status);
     setTitle(result.title);
-  }, [data]);
+  }, [movie]);
+
+  useEffect(() => {
+    if (images) {
+      setPosterImages(images.posters);
+      setBackdropImages(images.backdrops);
+    }
+  }, [images]);
 
   const handleAddTag = () => {
     if (tagInput && !tags.includes(tagInput)) {
@@ -134,7 +152,7 @@ const NovoFilmePage = () => {
   //   console.log("Searching TMDB for:", tmdbSearch);
   // };
 
-  if (isLoading || !data)
+  if (isLoading || !movie)
     return (
       <Centered className="h-screen">
         <Typography className="text-2xl" weight="400">
@@ -151,40 +169,63 @@ const NovoFilmePage = () => {
       >
         <Centered className="gap-y-6" direction="col">
           {/* Image upload section */}
-          <Centered justify="start">
-            {[0].map((_, index) => (
-              <Centered
-                key={index}
-                className="relative w-fit gap-y-2"
-                direction="col"
-              >
-                <div className="relative aspect-video w-full rounded-lg overflow-hidden">
-                  <Image
-                    width={1920}
-                    height={1080}
-                    src={`https://image.tmdb.org/t/p/original${backdropPath}`}
-                    alt="Imagem"
-                    className="w-[548px] h-[395px] object-cover"
-                    priority
-                  />
-                  <Centered className="absolute w-fit top-0 right-0 bg-red-600 px-3 py-1 rounded hover:bg-red-700 hover:cursor-pointer">
-                    <Typography className="text-white" weight="500">
-                      Apagar
-                    </Typography>
-                  </Centered>
-                </div>
-                <Typography className="text-[#6C757D]" weight="500">
-                  TAMANHO RECOMENDADO: XXXpx
-                </Typography>
-                <Button
-                  label="ENVIAR IMAGEM"
-                  tertiary
-                  icon={upload}
-                  className="w-full"
-                  textClassname="font-medium"
+          <Centered className="gap-x-4" justify="start">
+            <Centered className="relative w-fit gap-y-2" direction="col">
+              <div className="relative w-full rounded-lg overflow-hidden">
+                <Image
+                  width={720}
+                  height={1080}
+                  src={`https://image.tmdb.org/t/p/original${posterPath}`}
+                  alt="Imagem"
+                  className="w-auto h-[395px] object-cover"
+                  priority
                 />
-              </Centered>
-            ))}
+                <Button
+                  className="absolute w-fit top-0 right-0 px-4 hover:bg-white/90"
+                  label="ALTERAR"
+                  secondary
+                  onClick={() => setPosterModalOpen(true)}
+                />
+              </div>
+              <Typography className="text-[#6C757D]" weight="500">
+                TAMANHO RECOMENDADO: XXXpx
+              </Typography>
+              <Button
+                label="ENVIAR IMAGEM"
+                tertiary
+                icon={upload}
+                className="w-full"
+                textClassname="font-medium"
+              />
+            </Centered>
+            <Centered className="relative w-fit gap-y-2" direction="col">
+              <div className="relative aspect-video w-full rounded-lg overflow-hidden">
+                <Image
+                  width={1920}
+                  height={1080}
+                  src={`https://image.tmdb.org/t/p/original${backdropPath}`}
+                  alt="Imagem"
+                  className="w-[548px] h-[395px] object-cover"
+                  priority
+                />
+                <Button
+                  className="absolute w-fit top-0 right-0 px-4 hover:bg-white/90"
+                  label="ALTERAR"
+                  secondary
+                  onClick={() => setBackdropModalOpen(true)}
+                />
+              </div>
+              <Typography className="text-[#6C757D]" weight="500">
+                TAMANHO RECOMENDADO: XXXpx
+              </Typography>
+              <Button
+                label="ENVIAR IMAGEM"
+                tertiary
+                icon={upload}
+                className="w-full"
+                textClassname="font-medium"
+              />
+            </Centered>
           </Centered>
 
           <div className="w-full border-t border-gray-200 my-2"></div>
@@ -369,6 +410,22 @@ const NovoFilmePage = () => {
           </Centered>
         </Centered>
       </Page>
+
+      <Modal open={posterModalOpen}>
+        <ImagePicker
+          handleCloseFn={() => setPosterModalOpen(false)}
+          images={posterImages}
+          setPosterPath={setPosterPath}
+        />
+      </Modal>
+      <Modal open={backdropModalOpen}>
+        <ImagePicker
+          handleCloseFn={() => setBackdropModalOpen(false)}
+          images={backdropImages}
+          setPosterPath={setBackdropPath}
+          backdrop
+        />
+      </Modal>
 
       {/* Confirmation modals */}
       <AlertModal
