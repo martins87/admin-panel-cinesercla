@@ -31,6 +31,7 @@ const movieSchema = new Schema(
         key: { type: String, required: true },
       },
     ],
+    cast: String,
   },
   { timestamps: true, collection: "movie" }
 );

@@ -22,6 +22,7 @@ export type Movie = {
     name: string;
     key: string;
   }[];
+  cast: string;
 };
 
 export const situacaoOpcoes = [

@@ -1,4 +1,5 @@
 import { TMDBVideo } from "../types/tmdbVideo";
+import { TMDBCast } from "../types/tmdbCast";
 
 const TMDB_API_BASE_URL = process.env.NEXT_PUBLIC_TMDB_API_BASE_URL;
 const TMDB_API_KEY = process.env.NEXT_PUBLIC_TMDB_API_KEY;
@@ -31,7 +32,6 @@ export const getTMDBMovie = async (id: string) => {
   // TODO threat errors
   const data = await response.json();
 
-  // transform data if necessary
   return data;
 };
 
@@ -43,7 +43,6 @@ export const getTMDBMovieImages = async (id: string) => {
   // TODO threat errors
   const data = await response.json();
 
-  // transform data if necessary
   return data;
 };
 
@@ -59,6 +58,21 @@ export const getTMDBMovieVideos = async (id: string) => {
     (video: TMDBVideo) => video.type === "Trailer" && video.site === "YouTube"
   );
 
-  // return data.results;
   return videos;
+};
+
+export const getTMDBMovieCast = async (id: string) => {
+  const response = await fetch(
+    `${TMDB_API_BASE_URL}movie/${id}/credits?api_key=${TMDB_API_KEY}`
+  );
+
+  // TODO threat errors
+  const data = await response.json();
+
+  const castList = data.cast
+    .filter((person: TMDBCast) => person.known_for_department === "Acting")
+    .map((person: TMDBCast) => person.name)
+    .slice(0, 6);
+
+  return castList;
 };

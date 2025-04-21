@@ -10,6 +10,7 @@ import { TMDBVideo } from "@/app/types/tmdbVideo";
 import { formatRuntime, getFormattedDate } from "@/lib/utils";
 import { useTMDBMovieImages } from "@/app/hooks/useTMDBMovieImages";
 import { useTMDBMovieVideos } from "@/app/hooks/useTMDBMovieVideos";
+import { useTMDBMovieCast } from "@/app/hooks/useTMDBMovieCast";
 import Page from "@/app/components/ui/Page";
 import Centered from "@/app/components/ui/Centered";
 import Typography from "@/app/components/ui/Typography";
@@ -39,6 +40,11 @@ const NovoFilmePage = () => {
     // isLoading
   } = useTMDBMovieVideos(id);
   console.log("trailers", trailers);
+  const {
+    data: actors,
+    // isLoading
+  } = useTMDBMovieCast(id);
+  console.log("actors", actors);
   const { getMovieById, updateMovieList } = useMovieStore();
   const movie = getMovieById(+id);
   console.log("movie gotten from store", movie);
@@ -59,7 +65,7 @@ const NovoFilmePage = () => {
   const [runtime, setRuntime] = useState<string>("");
   const [runtimeNum, setRuntimeNum] = useState<number>(0);
   const [distribuidora, setDistribuidora] = useState<string>("");
-  const [cast /** , setCast*/] = useState<string[]>([]);
+  const [cast, setCast] = useState<string>("");
   const [trailerDublado, setTrailerDublado] = useState<string>("");
   const [trailerLegendado, setTrailerLegendado] = useState<string>("");
   const [overview, setOverview] = useState<string>("");
@@ -101,6 +107,7 @@ const NovoFilmePage = () => {
 
   useEffect(() => {
     const videosArr: { name: string; key: string }[] = [];
+
     const trailerDublado = trailers?.find((trailer: TMDBVideo) => {
       const trailerName = trailer.name.toLowerCase();
       return trailerName.includes("dublado") || trailerName.includes("dub");
@@ -128,6 +135,12 @@ const NovoFilmePage = () => {
     setVideos(videosArr);
   }, [trailers]);
 
+  useEffect(() => {
+    if (actors) {
+      setCast(actors.join(", "));
+    }
+  }, [actors]);
+
   const handleAddTag = () => {
     if (tagInput && !tags.includes(tagInput)) {
       setTags([...tags, tagInput]);
@@ -151,7 +164,7 @@ const NovoFilmePage = () => {
       genres: genre,
       // diretor, // change
       runtime: runtimeNum, // change
-      // cast,
+      cast,
       situacao: situacao as string,
       // trailerDublado, // change
       // trailerLegendado, // change
@@ -384,7 +397,7 @@ const NovoFilmePage = () => {
             <InputWrapper label="Elenco">
               <Input
                 placeholder="Elenco do Filme"
-                value={cast.join(", ")}
+                value={cast || ""}
                 setValue={() => {}} // change
               />
             </InputWrapper>

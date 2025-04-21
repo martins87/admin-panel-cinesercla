@@ -11,6 +11,9 @@ import { TMDBVideo } from "@/app/types/tmdbVideo";
 import { useTMDBMovie } from "@/app/hooks/useTMDBMovie";
 import { useTMDBMovieImages } from "@/app/hooks/useTMDBMovieImages";
 import { useTMDBMovieVideos } from "@/app/hooks/useTMDBMovieVideos";
+import { useTMDBMovieCast } from "@/app/hooks/useTMDBMovieCast";
+import { createMovie } from "@/app/services/movies";
+import { useMovieStore } from "@/app/store/movies";
 import { formatRuntime, getFormattedDate } from "@/lib/utils";
 import Page from "@/app/components/ui/Page";
 import Centered from "@/app/components/ui/Centered";
@@ -21,8 +24,6 @@ import ComboBox from "@/app/components/ui/ComboBox";
 import Input from "@/app/components/ui/Input";
 import AlertModal from "@/app/components/AlertModal";
 import InputWrapper from "@/app/components/InputWrapper";
-import { createMovie } from "@/app/services/movies";
-import { useMovieStore } from "@/app/store/movies";
 import Modal from "@/app/components/Modal";
 import ImagePicker from "@/app/components/Movies/ImagePicker";
 import { upload } from "@/app/constants/icons";
@@ -42,6 +43,11 @@ const NovoFilmePage = () => {
     // isLoading
   } = useTMDBMovieVideos(id);
   console.log("trailers", trailers);
+  const {
+    data: actors,
+    // isLoading
+  } = useTMDBMovieCast(id);
+  console.log("actors", actors);
   const [tmdbId, setTmdbId] = useState<number>(0);
   const [title, setTitle] = useState<string>("");
   const [originalTitle, setOriginalTitle] = useState<string>("");
@@ -58,7 +64,7 @@ const NovoFilmePage = () => {
   const [runtime, setRuntime] = useState<string>("");
   const [runtimeNum, setRuntimeNum] = useState<number>(0);
   const [distribuidora, setDistribuidora] = useState<string>("");
-  const [cast /** , setCast*/] = useState<string[]>([]);
+  const [cast, setCast] = useState<string>();
   const [trailerDublado, setTrailerDublado] = useState<string>("");
   const [trailerLegendado, setTrailerLegendado] = useState<string>("");
   const [overview, setOverview] = useState<string>("");
@@ -134,6 +140,12 @@ const NovoFilmePage = () => {
     setVideos(videosArr);
   }, [trailers]);
 
+  useEffect(() => {
+    if (actors) {
+      setCast(actors.join(", "));
+    }
+  }, [actors]);
+
   const handleAddTag = () => {
     if (tagInput && !tags.includes(tagInput)) {
       setTags([...tags, tagInput]);
@@ -157,7 +169,7 @@ const NovoFilmePage = () => {
       genres: genre,
       // diretor, // change
       runtime: runtimeNum, // change
-      // cast,
+      cast: cast || "",
       situacao: situacao as string,
       // trailerDublado, // change
       // trailerLegendado, // change
@@ -399,7 +411,7 @@ const NovoFilmePage = () => {
             <InputWrapper label="Elenco">
               <Input
                 placeholder="Elenco do Filme"
-                value={cast.join(", ")}
+                value={cast || ""}
                 setValue={() => {}} // change
               />
             </InputWrapper>
