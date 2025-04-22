@@ -34,20 +34,9 @@ const NovoFilmePage = () => {
   const { addMovie } = useMovieStore();
   const { id } = params as { id: string };
   const { data: movie, isLoading } = useTMDBMovie(id);
-  const {
-    data: images,
-    // isLoading
-  } = useTMDBMovieImages(id);
-  const {
-    data: trailers,
-    // isLoading
-  } = useTMDBMovieVideos(id);
-  console.log("trailers", trailers);
-  const {
-    data: actors,
-    // isLoading
-  } = useTMDBMovieCast(id);
-  console.log("actors", actors);
+  const { data: images } = useTMDBMovieImages(id);
+  const { data: trailers } = useTMDBMovieVideos(id);
+  const { data: actors } = useTMDBMovieCast(id);
   const [tmdbId, setTmdbId] = useState<number>(0);
   const [title, setTitle] = useState<string>("");
   const [originalTitle, setOriginalTitle] = useState<string>("");
@@ -65,8 +54,11 @@ const NovoFilmePage = () => {
   const [runtimeNum, setRuntimeNum] = useState<number>(0);
   const [distribuidora, setDistribuidora] = useState<string>("");
   const [cast, setCast] = useState<string>();
-  const [trailerDublado, setTrailerDublado] = useState<string>("");
-  const [trailerLegendado, setTrailerLegendado] = useState<string>("");
+  const [tituloTrailerDublado, setTituloTrailerDublado] = useState<string>("");
+  const [keyTrailerDublado, setKeyTrailerDublado] = useState<string>("");
+  const [tituloTrailerLegendado, setTituloTrailerLegendado] =
+    useState<string>("");
+  const [keyTrailerLegendado, setKeyTrailerLegendado] = useState<string>("");
   const [overview, setOverview] = useState<string>("");
   const [ativo, setAtivo] = useState<boolean>(true);
   const [posterPath, setPosterPath] = useState<string>("");
@@ -85,7 +77,6 @@ const NovoFilmePage = () => {
     if (!movie) return;
 
     const result = movie as TMDBMovie;
-    console.log("result", result);
 
     setTmdbId(result.id);
     setBackdropPath(result.backdrop_path);
@@ -118,7 +109,8 @@ const NovoFilmePage = () => {
       return trailerName.includes("dublado") || trailerName.includes("dub");
     });
     if (trailerDublado) {
-      setTrailerDublado(trailerDublado.key);
+      setTituloTrailerDublado(trailerDublado.name);
+      setKeyTrailerDublado(trailerDublado.key);
       videosArr.push({
         name: trailerDublado.name,
         key: trailerDublado.key,
@@ -130,7 +122,8 @@ const NovoFilmePage = () => {
       return trailerName.includes("legendado") || trailerName.includes("leg");
     });
     if (trailerLegendado) {
-      setTrailerLegendado(trailerLegendado.key);
+      setTituloTrailerLegendado(trailerLegendado.name);
+      setKeyTrailerLegendado(trailerLegendado.key);
       videosArr.push({
         name: trailerLegendado.name,
         key: trailerLegendado.key,
@@ -158,6 +151,19 @@ const NovoFilmePage = () => {
   };
 
   const handleSalvar = async (sair?: boolean) => {
+    if (tituloTrailerDublado && keyTrailerDublado) {
+      videos.push({
+        name: tituloTrailerDublado,
+        key: keyTrailerDublado,
+      });
+    }
+    if (tituloTrailerLegendado && keyTrailerLegendado) {
+      videos.push({
+        name: tituloTrailerLegendado,
+        key: keyTrailerLegendado,
+      });
+    }
+
     const newMovie: Movie = {
       tmdbId,
       title,
@@ -202,7 +208,7 @@ const NovoFilmePage = () => {
   //   console.log("Searching TMDB for:", tmdbSearch);
   // };
 
-  if (isLoading || !movie)
+  if (isLoading)
     return (
       <Centered className="h-screen">
         <Typography className="text-2xl" weight="400">
@@ -428,18 +434,35 @@ const NovoFilmePage = () => {
 
           {/* Trailers */}
           <Centered className="grid grid-cols-2 gap-x-4 gap-y-4">
-            <InputWrapper label="Trailer Dublado">
+            <InputWrapper label="Título do Trailer Dublado">
               <Input
-                placeholder="Link do Vídeo"
-                value={trailerDublado}
-                setValue={setTrailerDublado}
+                placeholder="Título do Trailer Dublado"
+                value={tituloTrailerDublado}
+                setValue={setTituloTrailerDublado}
               />
             </InputWrapper>
-            <InputWrapper label="Trailer Legendado">
+            <InputWrapper label="Key do Vídeo no YouTube">
               <Input
-                placeholder="Link do Vídeo"
-                value={trailerLegendado}
-                setValue={setTrailerLegendado}
+                placeholder="Ex: mjZgf6-ifCA"
+                value={keyTrailerDublado}
+                setValue={setKeyTrailerDublado}
+              />
+            </InputWrapper>
+          </Centered>
+
+          <Centered className="grid grid-cols-2 gap-x-4 gap-y-4">
+            <InputWrapper label="Título do Trailer Legendado">
+              <Input
+                placeholder="Título do Trailer Legendado"
+                value={tituloTrailerLegendado}
+                setValue={setTituloTrailerLegendado}
+              />
+            </InputWrapper>
+            <InputWrapper label="Key do Vídeo no YouTube">
+              <Input
+                placeholder="Ex: mjZgf6-ifCA"
+                value={keyTrailerLegendado}
+                setValue={setKeyTrailerLegendado}
               />
             </InputWrapper>
           </Centered>

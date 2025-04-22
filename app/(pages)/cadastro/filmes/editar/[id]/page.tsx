@@ -6,11 +6,8 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 
 import { classificacaoOpcoes, Movie, situacaoOpcoes } from "@/app/types/movie";
-import { TMDBVideo } from "@/app/types/tmdbVideo";
 import { formatRuntime, getFormattedDate } from "@/lib/utils";
 import { useTMDBMovieImages } from "@/app/hooks/useTMDBMovieImages";
-import { useTMDBMovieVideos } from "@/app/hooks/useTMDBMovieVideos";
-import { useTMDBMovieCast } from "@/app/hooks/useTMDBMovieCast";
 import Page from "@/app/components/ui/Page";
 import Centered from "@/app/components/ui/Centered";
 import Typography from "@/app/components/ui/Typography";
@@ -20,8 +17,8 @@ import ComboBox from "@/app/components/ui/ComboBox";
 import Input from "@/app/components/ui/Input";
 import AlertModal from "@/app/components/AlertModal";
 import InputWrapper from "@/app/components/InputWrapper";
-import { useMovieStore } from "@/app/store/movies";
 import { editMovie } from "@/app/services/movies";
+import { useMovieStore } from "@/app/store/movies";
 import Modal from "@/app/components/Modal";
 import ImagePicker from "@/app/components/Movies/ImagePicker";
 import { upload } from "@/app/constants/icons";
@@ -35,16 +32,6 @@ const NovoFilmePage = () => {
     // isLoading
   } = useTMDBMovieImages(id);
   console.log("imagens", images);
-  const {
-    data: trailers,
-    // isLoading
-  } = useTMDBMovieVideos(id);
-  console.log("trailers", trailers);
-  const {
-    data: actors,
-    // isLoading
-  } = useTMDBMovieCast(id);
-  console.log("actors", actors);
   const { getMovieById, updateMovieList } = useMovieStore();
   const movie = getMovieById(+id);
   console.log("movie gotten from store", movie);
@@ -66,8 +53,11 @@ const NovoFilmePage = () => {
   const [runtimeNum, setRuntimeNum] = useState<number>(0);
   const [distribuidora, setDistribuidora] = useState<string>("");
   const [cast, setCast] = useState<string>("");
-  const [trailerDublado, setTrailerDublado] = useState<string>("");
-  const [trailerLegendado, setTrailerLegendado] = useState<string>("");
+  const [tituloTrailerDublado, setTituloTrailerDublado] = useState<string>("");
+  const [keyTrailerDublado, setKeyTrailerDublado] = useState<string>("");
+  const [tituloTrailerLegendado, setTituloTrailerLegendado] =
+    useState<string>("");
+  const [keyTrailerLegendado, setKeyTrailerLegendado] = useState<string>("");
   const [overview, setOverview] = useState<string>("");
   const [ativo, setAtivo] = useState<boolean>(true);
   const [posterPath, setPosterPath] = useState<string>("");
@@ -80,22 +70,32 @@ const NovoFilmePage = () => {
   const [backdropModalOpen, setBackdropModalOpen] = useState<boolean>(false);
   const [posterImages, setPosterImages] = useState([]);
   const [backdropImages, setBackdropImages] = useState([]);
-  const [videos, setVideos] = useState<{ name: string; key: string }[]>([]);
 
   useEffect(() => {
     if (!movie) return;
 
     setTmdbId(movie.tmdbId);
-    setBackdropPath(movie.backdrop_path);
-    setGenre(movie.genres);
-    setOriginalTitle(movie.original_title);
-    setOverview(movie.overview);
     setPosterPath(movie.poster_path);
-    setReleaseDate(movie.release_date);
-    setRuntime(formatRuntime(movie.runtime));
-    setRuntimeNum(movie.runtime);
-    setSituacao(movie.situacao);
+    setBackdropPath(movie.backdrop_path);
     setTitle(movie.title);
+    setOriginalTitle(movie.original_title);
+    setReleaseDate(movie.release_date);
+    setSituacao(movie.situacao);
+    setGenre(movie.genres);
+    setRuntime(formatRuntime(movie.runtime));
+    setCast(movie.cast);
+    setOverview(movie.overview);
+    setRuntimeNum(movie.runtime);
+    if (movie.trailers) {
+      if (movie.trailers.length > 0) {
+        setTituloTrailerDublado(movie.trailers[0].name);
+        setKeyTrailerDublado(movie.trailers[0].key);
+      }
+      if (movie.trailers.length > 1) {
+        setTituloTrailerLegendado(movie.trailers[1].name);
+        setKeyTrailerLegendado(movie.trailers[1].key);
+      }
+    }
   }, [movie]);
 
   useEffect(() => {
@@ -104,42 +104,6 @@ const NovoFilmePage = () => {
       setBackdropImages(images.backdrops);
     }
   }, [images]);
-
-  useEffect(() => {
-    const videosArr: { name: string; key: string }[] = [];
-
-    const trailerDublado = trailers?.find((trailer: TMDBVideo) => {
-      const trailerName = trailer.name.toLowerCase();
-      return trailerName.includes("dublado") || trailerName.includes("dub");
-    });
-    if (trailerDublado) {
-      setTrailerDublado(trailerDublado.key);
-      videosArr.push({
-        name: trailerDublado.name,
-        key: trailerDublado.key,
-      });
-    }
-
-    const trailerLegendado = trailers?.find((trailer: TMDBVideo) => {
-      const trailerName = trailer.name.toLowerCase();
-      return trailerName.includes("legendado") || trailerName.includes("leg");
-    });
-    if (trailerLegendado) {
-      setTrailerLegendado(trailerLegendado.key);
-      videosArr.push({
-        name: trailerLegendado.name,
-        key: trailerLegendado.key,
-      });
-    }
-
-    setVideos(videosArr);
-  }, [trailers]);
-
-  useEffect(() => {
-    if (actors) {
-      setCast(actors.join(", "));
-    }
-  }, [actors]);
 
   const handleAddTag = () => {
     if (tagInput && !tags.includes(tagInput)) {
@@ -153,6 +117,20 @@ const NovoFilmePage = () => {
   };
 
   const handleSalvar = async (sair?: boolean) => {
+    const videos = [];
+    if (tituloTrailerDublado && keyTrailerDublado) {
+      videos.push({
+        name: tituloTrailerDublado,
+        key: keyTrailerDublado,
+      });
+    }
+    if (tituloTrailerLegendado && keyTrailerLegendado) {
+      videos.push({
+        name: tituloTrailerLegendado,
+        key: keyTrailerLegendado,
+      });
+    }
+
     const movieToUpdate: Movie = {
       tmdbId,
       title,
@@ -166,8 +144,6 @@ const NovoFilmePage = () => {
       runtime: runtimeNum, // change
       cast,
       situacao: situacao as string,
-      // trailerDublado, // change
-      // trailerLegendado, // change
       overview,
       ativo,
       trailers: videos,
@@ -361,7 +337,7 @@ const NovoFilmePage = () => {
                     onClick={() => handleRemoveTag(tag)}
                     className="text-gray-500 hover:text-gray-700"
                   >
-                    ×
+                    x
                   </button>
                 </div>
               ))}
@@ -414,18 +390,35 @@ const NovoFilmePage = () => {
 
           {/* Trailers */}
           <Centered className="grid grid-cols-2 gap-x-4 gap-y-4">
-            <InputWrapper label="Trailer Dublado">
+            <InputWrapper label="Título do Trailer Dublado">
               <Input
-                placeholder="Link do Vídeo"
-                value={trailerDublado}
-                setValue={setTrailerDublado}
+                placeholder="Título do Trailer Dublado"
+                value={tituloTrailerDublado}
+                setValue={setTituloTrailerDublado}
               />
             </InputWrapper>
-            <InputWrapper label="Trailer Legendado">
+            <InputWrapper label="Key do Vídeo no YouTube">
               <Input
-                placeholder="Link do Vídeo"
-                value={trailerLegendado}
-                setValue={setTrailerLegendado}
+                placeholder="Ex: mjZgf6-ifCA"
+                value={keyTrailerDublado}
+                setValue={setKeyTrailerDublado}
+              />
+            </InputWrapper>
+          </Centered>
+
+          <Centered className="grid grid-cols-2 gap-x-4 gap-y-4">
+            <InputWrapper label="Título do Trailer Legendado">
+              <Input
+                placeholder="Título do Trailer Legendado"
+                value={tituloTrailerLegendado}
+                setValue={setTituloTrailerLegendado}
+              />
+            </InputWrapper>
+            <InputWrapper label="Key do Vídeo no YouTube">
+              <Input
+                placeholder="Ex: mjZgf6-ifCA"
+                value={keyTrailerLegendado}
+                setValue={setKeyTrailerLegendado}
               />
             </InputWrapper>
           </Centered>
