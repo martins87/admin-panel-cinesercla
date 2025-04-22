@@ -261,7 +261,7 @@ const NovoFilmePage = () => {
                   height={1080}
                   src={`https://image.tmdb.org/t/p/original${backdropPath}`}
                   alt="Imagem"
-                  className="w-[548px] h-[395px] object-cover"
+                  className="w-auto h-[395px] object-cover"
                   priority
                 />
                 <Button
