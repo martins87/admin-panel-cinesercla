@@ -3,12 +3,13 @@ import { FC } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
+import { TMDBMovie } from "@/app/types/tmdbMovie";
+import { useMovieStore } from "@/app/store/movies";
+import { formatDateBR } from "@/lib/utils";
 import Centered from "../ui/Centered";
 import Typography from "../ui/Typography";
 import IconButton from "../ui/IconButton";
-import { TMDBMovie } from "@/app/types/tmdbMovie";
 import { checkBlue, plus } from "@/app/constants/icons";
-import { useMovieStore } from "@/app/store/movies";
 
 type TMDBResultprops = {
   result: TMDBMovie;
@@ -42,7 +43,7 @@ const TMDBResult: FC<TMDBResultprops> = ({ result }) => {
           Previsão de Lançamento:
         </Typography>
         <Typography className="text-base text-[#767676]">
-          {result.release_date}
+          {formatDateBR(result.release_date)}
         </Typography>
       </Centered>
       {isMovieAdded ? (

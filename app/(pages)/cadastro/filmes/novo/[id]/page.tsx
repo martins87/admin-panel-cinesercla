@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
 
 import { classificacaoOpcoes, Movie, situacaoOpcoes } from "@/app/types/movie";
 import { TMDBMovie } from "@/app/types/tmdbMovie";
@@ -14,7 +13,7 @@ import { useTMDBMovieVideos } from "@/app/hooks/useTMDBMovieVideos";
 import { useTMDBMovieCast } from "@/app/hooks/useTMDBMovieCast";
 import { createMovie } from "@/app/services/movies";
 import { useMovieStore } from "@/app/store/movies";
-import { formatRuntime, getFormattedDate } from "@/lib/utils";
+import { formatDateBR, formatRuntime, getFormattedDate } from "@/lib/utils";
 import Page from "@/app/components/ui/Page";
 import Centered from "@/app/components/ui/Centered";
 import Typography from "@/app/components/ui/Typography";
@@ -22,11 +21,12 @@ import Button from "@/app/components/ui/Button";
 import Switch from "@/components/ui/switch";
 import ComboBox from "@/app/components/ui/ComboBox";
 import Input from "@/app/components/ui/Input";
+import Textarea from "@/app/components/ui/Textarea";
 import AlertModal from "@/app/components/AlertModal";
 import InputWrapper from "@/app/components/InputWrapper";
 import Modal from "@/app/components/Modal";
 import ImagePicker from "@/app/components/Movies/ImagePicker";
-import { upload } from "@/app/constants/icons";
+import MovieImages from "@/app/components/Movies/MovieImages";
 
 const NovoFilmePage = () => {
   const router = useRouter();
@@ -52,7 +52,6 @@ const NovoFilmePage = () => {
   const [diretor, setDiretor] = useState<string>("");
   const [runtime, setRuntime] = useState<string>("");
   const [runtimeNum, setRuntimeNum] = useState<number>(0);
-  const [distribuidora, setDistribuidora] = useState<string>("");
   const [cast, setCast] = useState<string>();
   const [tituloTrailerDublado, setTituloTrailerDublado] = useState<string>("");
   const [keyTrailerDublado, setKeyTrailerDublado] = useState<string>("");
@@ -88,7 +87,7 @@ const NovoFilmePage = () => {
     setOriginalTitle(result.original_title);
     setOverview(result.overview);
     setPosterPath(result.poster_path);
-    setReleaseDate(result.release_date);
+    setReleaseDate(formatDateBR(result.release_date));
     setRuntime(formatRuntime(result.runtime));
     setRuntimeNum(result.runtime);
     setSituacao(result.status);
@@ -226,64 +225,12 @@ const NovoFilmePage = () => {
       >
         <Centered className="gap-y-6" direction="col">
           {/* Image upload section */}
-          <Centered className="gap-x-4" justify="start">
-            <Centered className="relative w-fit gap-y-2" direction="col">
-              <div className="relative w-full rounded-lg overflow-hidden">
-                <Image
-                  width={720}
-                  height={1080}
-                  src={`https://image.tmdb.org/t/p/original${posterPath}`}
-                  alt="Imagem"
-                  className="w-auto h-[395px] object-cover"
-                  priority
-                />
-                <Button
-                  className="absolute w-fit top-0 right-0 px-4 hover:bg-white/90"
-                  label="ALTERAR"
-                  secondary
-                  onClick={() => setPosterModalOpen(true)}
-                />
-              </div>
-              <Typography className="text-[#6C757D]" weight="500">
-                TAMANHO RECOMENDADO: XXXpx
-              </Typography>
-              <Button
-                label="ENVIAR IMAGEM"
-                tertiary
-                icon={upload}
-                className="w-full"
-                textClassname="font-medium"
-              />
-            </Centered>
-            <Centered className="relative w-fit gap-y-2" direction="col">
-              <div className="relative aspect-video w-full rounded-lg overflow-hidden">
-                <Image
-                  width={1920}
-                  height={1080}
-                  src={`https://image.tmdb.org/t/p/original${backdropPath}`}
-                  alt="Imagem"
-                  className="w-auto h-[395px] object-cover"
-                  priority
-                />
-                <Button
-                  className="absolute w-fit top-0 right-0 px-4 hover:bg-white/90"
-                  label="ALTERAR"
-                  secondary
-                  onClick={() => setBackdropModalOpen(true)}
-                />
-              </div>
-              <Typography className="text-[#6C757D]" weight="500">
-                TAMANHO RECOMENDADO: XXXpx
-              </Typography>
-              <Button
-                label="ENVIAR IMAGEM"
-                tertiary
-                icon={upload}
-                className="w-full"
-                textClassname="font-medium"
-              />
-            </Centered>
-          </Centered>
+          <MovieImages
+            posterPath={posterPath}
+            backdropPath={backdropPath}
+            posterModalFn={() => setPosterModalOpen(true)}
+            backdropModalFn={() => setBackdropModalOpen(true)}
+          />
 
           <div className="w-full border-t border-gray-200 my-2"></div>
 
@@ -331,9 +278,6 @@ const NovoFilmePage = () => {
                 value={releaseDate}
                 setValue={setReleaseDate}
               />
-              <div className="text-xs text-gray-500 mt-1">
-                O filme estará ativo automaticamente na data predefinida.
-              </div>
             </InputWrapper>
             <InputWrapper label="Situação" obrigatoria>
               <ComboBox
@@ -359,6 +303,43 @@ const NovoFilmePage = () => {
               />
             </InputWrapper>
           </Centered>
+
+          {/* More movie details */}
+          <Centered className="grid grid-cols-2 gap-x-4 gap-y-4">
+            <InputWrapper label="Gênero">
+              <Input
+                placeholder="Gênero do Filme"
+                value={genre}
+                setValue={setGenre}
+              />
+            </InputWrapper>
+            <InputWrapper label="Diretor">
+              <Input
+                placeholder="Diretor do filme"
+                value={diretor}
+                setValue={setDiretor}
+              />
+            </InputWrapper>
+            <InputWrapper label="Duração">
+              <Input placeholder="0min" value={runtime} setValue={setRuntime} />
+            </InputWrapper>
+            <InputWrapper label="Elenco">
+              <Input
+                placeholder="Elenco do Filme"
+                value={cast || ""}
+                setValue={() => {}} // change
+              />
+            </InputWrapper>
+          </Centered>
+
+          {/* Synopsis */}
+          <InputWrapper label="Sinopse">
+            <Textarea
+              placeholder="Escreva a sinopse do filme"
+              value={overview}
+              setValue={setOverview}
+            />
+          </InputWrapper>
 
           {/* Tags */}
           <InputWrapper label="Tags (Palavra-Chave)">
@@ -387,50 +368,6 @@ const NovoFilmePage = () => {
                 </div>
               ))}
             </div>
-          </InputWrapper>
-
-          {/* More movie details */}
-          <Centered className="grid grid-cols-2 gap-x-4 gap-y-4">
-            <InputWrapper label="Gênero">
-              <Input
-                placeholder="Gênero do Filme"
-                value={genre}
-                setValue={setGenre}
-              />
-            </InputWrapper>
-            <InputWrapper label="Diretor">
-              <Input
-                placeholder="Diretor do filme"
-                value={diretor}
-                setValue={setDiretor}
-              />
-            </InputWrapper>
-            <InputWrapper label="Duração">
-              <Input placeholder="0min" value={runtime} setValue={setRuntime} />
-            </InputWrapper>
-            <InputWrapper label="Distribuidora">
-              <Input
-                placeholder="Distribuidora do Filme"
-                value={distribuidora}
-                setValue={setDistribuidora}
-              />
-            </InputWrapper>
-            <InputWrapper label="Elenco">
-              <Input
-                placeholder="Elenco do Filme"
-                value={cast || ""}
-                setValue={() => {}} // change
-              />
-            </InputWrapper>
-          </Centered>
-
-          {/* Synopsis */}
-          <InputWrapper label="Sinopse">
-            <Input
-              placeholder="Escreva a sinopse do filme"
-              value={overview}
-              setValue={setOverview}
-            />
           </InputWrapper>
 
           {/* Trailers */}

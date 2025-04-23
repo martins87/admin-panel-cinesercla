@@ -1,15 +1,16 @@
 "use client";
 
+import { Dispatch, FC, SetStateAction } from "react";
 import { useRouter } from "next/navigation";
-
-import Centered from "../ui/Centered";
 import Image from "next/image";
+
+import { Movie } from "@/app/types/movie";
+import { formatDateBR } from "@/lib/utils";
+import Centered from "../ui/Centered";
 import Typography from "../ui/Typography";
 import IconButton from "../ui/IconButton";
-import { arrowDown, arrowUp, edit, trash } from "@/app/constants/icons";
 import Button from "../ui/Button";
-import { Movie } from "@/app/types/movie";
-import { Dispatch, FC, SetStateAction } from "react";
+import { arrowDown, arrowUp, edit, trash } from "@/app/constants/icons";
 
 type MovieRowProps = {
   movie: Movie;
@@ -49,7 +50,7 @@ const MovieRow: FC<MovieRowProps> = ({
           {movie.original_title}
         </Typography>
         <Typography className="text-base text-[#343A40]">
-          {movie.release_date}
+          {formatDateBR(movie.release_date)}
         </Typography>
         <Typography className="text-base text-[#767676]">
           Código TMDB: {movie.tmdbId}

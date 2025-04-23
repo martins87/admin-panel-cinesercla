@@ -13,6 +13,11 @@ export const getFormattedDate = (): string => {
   }).format(new Date());
 };
 
+export const formatDateBR = (dateString: string) => {
+  const date = new Date(dateString);
+  return new Intl.DateTimeFormat("pt-BR").format(date);
+};
+
 export const encodeQueryString = (query: string) => {
   return encodeURIComponent(query).replace(/%20/g, "+");
 };
