@@ -6,6 +6,7 @@ import arrowUpRight from "@/app/assets/icons/arrowUpRight.svg";
 import bell from "@/app/assets/icons/bell.svg";
 import cadastro from "@/app/assets/icons/cadastro.svg";
 import calendar from "@/app/assets/icons/calendar.svg";
+import checkBlue from "@/app/assets/icons/checkBlue.svg";
 import chevronDown from "@/app/assets/icons/chevronDown.svg";
 import chevronLeft from "@/app/assets/icons/chevronLeft.svg";
 import chevronRight from "@/app/assets/icons/chevronRight.svg";
@@ -46,6 +47,7 @@ export {
   bell,
   cadastro,
   calendar,
+  checkBlue,
   chevronDown,
   chevronLeft,
   chevronRight,

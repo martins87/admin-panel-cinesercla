@@ -7,7 +7,8 @@ import Centered from "../ui/Centered";
 import Typography from "../ui/Typography";
 import IconButton from "../ui/IconButton";
 import { TMDBMovie } from "@/app/types/tmdbMovie";
-import { plus } from "@/app/constants/icons";
+import { checkBlue, plus } from "@/app/constants/icons";
+import { useMovieStore } from "@/app/store/movies";
 
 type TMDBResultprops = {
   result: TMDBMovie;
@@ -15,6 +16,8 @@ type TMDBResultprops = {
 
 const TMDBResult: FC<TMDBResultprops> = ({ result }) => {
   const router = useRouter();
+  const { getMovieById } = useMovieStore();
+  const isMovieAdded = getMovieById(result.id) !== undefined;
 
   const handleAddMovie = () =>
     router.push(`/cadastro/filmes/novo/${result.id}`);
@@ -42,12 +45,21 @@ const TMDBResult: FC<TMDBResultprops> = ({ result }) => {
           {result.release_date}
         </Typography>
       </Centered>
-      <IconButton
-        className="h-12"
-        icon={plus}
-        tertiary
-        onClick={handleAddMovie}
-      />
+      {isMovieAdded ? (
+        <Centered className="w-72 gap-x-2" justify="end">
+          <Typography className="text-lg text-[#0057FC]">
+            Filme já adicionado
+          </Typography>
+          <Image src={checkBlue} alt="check" />
+        </Centered>
+      ) : (
+        <IconButton
+          className="h-12"
+          icon={plus}
+          tertiary
+          onClick={handleAddMovie}
+        />
+      )}
     </Centered>
   );
 };

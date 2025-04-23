@@ -7,7 +7,6 @@ import Centered from "./ui/Centered";
 
 type ModalProps = {
   open: boolean;
-  // setOpen: Dispatch<SetStateAction<boolean>>;
   children: ReactNode;
   className?: string;
 };

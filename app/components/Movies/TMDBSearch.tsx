@@ -64,7 +64,7 @@ const TMDBSearch: FC<TMDBSearchProps> = ({ setOpen }) => {
       {searchTerm === "" ? (
         <TMDBResultPlaceholder />
       ) : isLoading ? (
-        <Typography className="text-lg mt-4">
+        <Typography className="text-xl mt-4">
           Carregando resultados...
         </Typography>
       ) : totalResults > 0 ? (
