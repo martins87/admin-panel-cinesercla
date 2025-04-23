@@ -222,6 +222,7 @@ const NovoFilmePage = () => {
       <Page
         title={`Novo Filme: ${title}`}
         subtitle="Cadastre e gerencie novos filmes exibidos no cinema"
+        backArrow
       >
         <Centered className="gap-y-6" direction="col">
           {/* Image upload section */}

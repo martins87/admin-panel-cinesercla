@@ -1,18 +1,34 @@
+"use client";
+
 import { FC, ReactNode } from "react";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { twMerge } from "tailwind-merge";
 
 import Centered from "./Centered";
 import Typography from "./Typography";
 import Footer from "../Footer";
+import { arrowLeft } from "@/app/constants/icons";
 
 type PageProps = {
   children: ReactNode;
   title: string;
   subtitle?: string;
   className?: string;
+  backArrow?: boolean;
 };
 
-const Page: FC<PageProps> = ({ children, title, subtitle, className }) => {
+const Page: FC<PageProps> = ({
+  children,
+  title,
+  subtitle,
+  className,
+  backArrow,
+}) => {
+  const router = useRouter();
+
+  const navigateBack = () => router.back();
+
   return (
     <div
       className={twMerge(
@@ -26,9 +42,19 @@ const Page: FC<PageProps> = ({ children, title, subtitle, className }) => {
         items="start"
         justify="between"
       >
-        <Typography className="text-5xl" weight="500">
-          {title}
-        </Typography>
+        <Centered className="gap-x-2" justify="start">
+          {backArrow && (
+            <Image
+              className="w-14 aspect-auto hover:cursor-pointer hover:scale-110 transition-all duration-300 ease-in-out"
+              src={arrowLeft}
+              alt="arrow left"
+              onClick={navigateBack}
+            />
+          )}
+          <Typography className="text-5xl" weight="500">
+            {title}
+          </Typography>
+        </Centered>
         {subtitle && (
           <Typography className="text-xl" weight="400">
             {subtitle}
