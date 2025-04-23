@@ -10,6 +10,7 @@ import Page from "@/app/components/ui/Page";
 import TMDBSearch from "@/app/components/Movies/TMDBSearch";
 import MovieRow from "@/app/components/Movies/MovieRow";
 import AlertModal from "@/app/components/AlertModal";
+import Loading from "@/app/components/Loading";
 import { deleteMovie } from "@/app/services/movies";
 
 const FilmesPage = () => {
@@ -17,13 +18,17 @@ const FilmesPage = () => {
   const [tmdbModalOpen, setTmdbModalOpen] = useState<boolean>(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState<boolean>(false);
   const [toDeleteId, setToDeleteId] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchMovies = async () => {
       try {
+        setLoading(true);
         await fetchMovieList();
       } catch (error) {
         console.error("Failed to fetch movies", error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -52,16 +57,20 @@ const FilmesPage = () => {
           <Button label="NOVO FILME VIA TMDB" primary onClick={handleClick} />
         </Centered>
 
-        <Centered direction="col" className="gap-y-2">
-          {movieList.map((movie) => (
-            <MovieRow
-              key={movie._id}
-              movie={movie}
-              setModalOpen={setDeleteModalOpen}
-              setToDeleteId={setToDeleteId}
-            />
-          ))}
-        </Centered>
+        {loading ? (
+          <Loading />
+        ) : (
+          <Centered direction="col" className="gap-y-2">
+            {movieList.map((movie) => (
+              <MovieRow
+                key={movie._id}
+                movie={movie}
+                setModalOpen={setDeleteModalOpen}
+                setToDeleteId={setToDeleteId}
+              />
+            ))}
+          </Centered>
+        )}
       </Page>
       <Modal open={tmdbModalOpen}>
         <TMDBSearch setOpen={setTmdbModalOpen} />
