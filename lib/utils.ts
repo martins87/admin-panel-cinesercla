@@ -15,6 +15,11 @@ export const getFormattedDate = (): string => {
 
 export const formatDateBR = (dateString: string) => {
   const date = new Date(dateString);
+
+  if (isNaN(date.getTime())) {
+    return "";
+  }
+
   return new Intl.DateTimeFormat("pt-BR").format(date);
 };
 
