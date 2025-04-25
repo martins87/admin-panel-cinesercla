@@ -6,9 +6,9 @@ import { useRouter } from "next/navigation";
 import { TMDBMovie } from "@/app/types/tmdbMovie";
 import { useMovieStore } from "@/app/store/movies";
 import { formatDateBR } from "@/lib/utils";
-import Centered from "../ui/Centered";
-import Typography from "../ui/Typography";
-import IconButton from "../ui/IconButton";
+import Centered from "@/app/components/ui/Centered";
+import Typography from "@/app/components/ui/Typography";
+import IconButton from "@/app/components/ui/IconButton";
 import { checkBlue, plus } from "@/app/constants/icons";
 
 type TMDBResultprops = {

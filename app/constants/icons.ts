@@ -35,6 +35,7 @@ import spinner from "@/app/assets/icons/spinner.svg";
 import text from "@/app/assets/icons/text.svg";
 import trash from "@/app/assets/icons/trash.svg";
 import upload from "@/app/assets/icons/upload.svg";
+import uploadWhite from "@/app/assets/icons/uploadWhite.svg";
 import user from "@/app/assets/icons/user.svg";
 import users from "@/app/assets/icons/users.svg";
 
@@ -76,6 +77,7 @@ export {
   text,
   trash,
   upload,
+  uploadWhite,
   user,
   users,
 };

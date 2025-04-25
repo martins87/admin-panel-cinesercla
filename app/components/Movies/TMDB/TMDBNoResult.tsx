@@ -1,7 +1,7 @@
 import Image from "next/image";
 
-import Centered from "../ui/Centered";
-import Typography from "../ui/Typography";
+import Centered from "@/app/components/ui/Centered";
+import Typography from "@/app/components/ui/Typography";
 import NoMovieFound from "@/app/assets/images/no-movie-found.svg";
 
 const TMDBNoResult = () => (

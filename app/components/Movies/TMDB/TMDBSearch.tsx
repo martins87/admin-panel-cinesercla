@@ -4,11 +4,11 @@ import { Dispatch, FC, SetStateAction, useEffect, useState } from "react";
 
 import { TMDBMovie } from "@/app/types/tmdbMovie";
 import { useTMDBMovies } from "@/app/hooks/useTMDBMovies";
-import Centered from "../ui/Centered";
-import IconButton from "../ui/IconButton";
-import Typography from "../ui/Typography";
-import Button from "../ui/Button";
-import Search from "../Search";
+import Centered from "@/app/components/ui/Centered";
+import IconButton from "@/app/components/ui/IconButton";
+import Typography from "@/app/components/ui/Typography";
+import Button from "@/app/components/ui/Button";
+import Search from "@/app/components/Search";
 import TMDBResultList from "./TMDBResultList";
 import TMDBResultPlaceholder from "./TMDBResultPlaceholder";
 import TMDBNoResult from "./TMDBNoResult";

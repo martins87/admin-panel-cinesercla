@@ -2,7 +2,7 @@ import { FC } from "react";
 
 import { TMDBMovie } from "@/app/types/tmdbMovie";
 import TMDBResult from "./TMDBResult";
-import VerticalScroll from "../ui/VerticalScroll";
+import VerticalScroll from "@/app/components/ui/VerticalScroll";
 
 type TMDBResultListProps = {
   list: TMDBMovie[];

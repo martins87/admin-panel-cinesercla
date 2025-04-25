@@ -7,14 +7,16 @@ import Modal from "@/app/components/Modal";
 import Button from "@/app/components/ui/Button";
 import Centered from "@/app/components/ui/Centered";
 import Page from "@/app/components/ui/Page";
-import TMDBSearch from "@/app/components/Movies/TMDBSearch";
+import TMDBSearch from "@/app/components/Movies/TMDB/TMDBSearch";
 import MovieRow from "@/app/components/Movies/MovieRow";
 import AlertModal from "@/app/components/AlertModal";
 import Loading from "@/app/components/Loading";
 import { deleteMovie } from "@/app/services/movies";
+import FileImport from "@/app/components/Movies/Schedule/FileImport";
 
 const FilmesPage = () => {
   const { movieList, fetchMovieList, removeMovie } = useMovieStore();
+  const [csvModalOpen, setCsvModalOpen] = useState<boolean>(false);
   const [tmdbModalOpen, setTmdbModalOpen] = useState<boolean>(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState<boolean>(false);
   const [toDeleteId, setToDeleteId] = useState<string>("");
@@ -46,15 +48,22 @@ const FilmesPage = () => {
     if (deletedMovie) removeMovie(toDeleteId);
   };
 
-  const handleClick = () => setTmdbModalOpen(true);
+  const openCsvModal = () => setCsvModalOpen(true);
+
+  const openTMDBModal = () => setTmdbModalOpen(true);
 
   return (
     <>
       <Page title="Lista de Filmes" subtitle="Lista de Filmes / Estatísticas">
         <Centered justify="start" className="gap-x-2">
-          <Button label="IMPORTAR PROGRAMAÇÃO VIA CSV" secondary blue />
+          <Button
+            label="IMPORTAR PROGRAMAÇÃO VIA CSV"
+            secondary
+            blue
+            onClick={openCsvModal}
+          />
           <Button label="NOVO FILME" primary />
-          <Button label="NOVO FILME VIA TMDB" primary onClick={handleClick} />
+          <Button label="NOVO FILME VIA TMDB" primary onClick={openTMDBModal} />
         </Centered>
 
         {loading ? (
@@ -72,6 +81,9 @@ const FilmesPage = () => {
           </Centered>
         )}
       </Page>
+      <Modal open={csvModalOpen}>
+        <FileImport setOpen={setCsvModalOpen} />
+      </Modal>
       <Modal open={tmdbModalOpen}>
         <TMDBSearch setOpen={setTmdbModalOpen} />
       </Modal>
