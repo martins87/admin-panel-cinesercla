@@ -9,13 +9,30 @@ export const createSchedule = async (scheduleList: Schedule[]) => {
     });
 
     if (!response.ok) {
-      throw new Error(`Failed to create schedule. Status: ${response.status}`);
+      throw new Error(`Failed to fetch schedule. Status: ${response.status}`);
     }
 
     return await response.json();
   } catch (error) {
-    console.log("Error creating schedule", error);
+    console.error("Error fetching schedule", error);
 
+    return null;
+  }
+};
+
+export const getSchedule = async () => {
+  try {
+    const response = await fetch("/api/schedule", {
+      method: "GET",
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch schedules. Status: ${response.status}`);
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error("Error fetching schedule", error);
     return null;
   }
 };

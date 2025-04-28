@@ -3,6 +3,7 @@ import arrowLeft from "@/app/assets/icons/arrowLeft.svg";
 import arrowRight from "@/app/assets/icons/arrowRight.svg";
 import arrowUp from "@/app/assets/icons/arrowUp.svg";
 import arrowUpRight from "@/app/assets/icons/arrowUpRight.svg";
+import audio from "@/app/assets/icons/audio.svg";
 import bell from "@/app/assets/icons/bell.svg";
 import cadastro from "@/app/assets/icons/cadastro.svg";
 import calendar from "@/app/assets/icons/calendar.svg";
@@ -11,6 +12,7 @@ import chevronDown from "@/app/assets/icons/chevronDown.svg";
 import chevronLeft from "@/app/assets/icons/chevronLeft.svg";
 import chevronRight from "@/app/assets/icons/chevronRight.svg";
 import chevronUp from "@/app/assets/icons/chevronUp.svg";
+import clock from "@/app/assets/icons/clock.svg";
 import close from "@/app/assets/icons/close.svg";
 import dashboard from "@/app/assets/icons/dashboard.svg";
 import download from "@/app/assets/icons/download.svg";
@@ -45,6 +47,7 @@ export {
   arrowRight,
   arrowUp,
   arrowUpRight,
+  audio,
   bell,
   cadastro,
   calendar,
@@ -53,6 +56,7 @@ export {
   chevronLeft,
   chevronRight,
   chevronUp,
+  clock,
   close,
   dashboard,
   download,

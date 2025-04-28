@@ -3,6 +3,23 @@ import { NextRequest, NextResponse } from "next/server";
 import connectToDatabase from "@/lib/db/connection";
 import Schedule from "@/app/models/schedule";
 
+export async function GET() {
+  try {
+    await connectToDatabase();
+
+    const scheduleList = await Schedule.find().lean();
+
+    return NextResponse.json(scheduleList, { status: 200 });
+  } catch (error) {
+    console.error("Error fetching schedule list:", error);
+
+    return NextResponse.json(
+      { error: "Failed to fetch schedule list" },
+      { status: 500 }
+    );
+  }
+}
+
 export async function POST(request: NextRequest) {
   try {
     await connectToDatabase();

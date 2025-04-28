@@ -1,3 +1,5 @@
+import { Schedule } from "./schedule";
+
 export type Movie = {
   _id?: string;
   tmdbId: number;
@@ -23,6 +25,11 @@ export type Movie = {
     key: string;
   }[];
   cast: string;
+};
+
+export type MovieSchedule = {
+  idHtticket: string;
+  scheduleList: Schedule[];
 };
 
 export const situacaoOpcoes = [
