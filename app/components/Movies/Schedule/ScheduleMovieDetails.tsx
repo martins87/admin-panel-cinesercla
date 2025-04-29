@@ -21,7 +21,7 @@ const ScheduleMovieDetails: FC<ScheduleMovieDetailsProps> = ({
     : placeholderImg;
   const title = movie
     ? movie.title
-    : `Atenção: Vincule o filme de ID ${idHtticket}`;
+    : `Atenção: Vincule o filme de ID htticket ${idHtticket}`;
   const originalTitle = movie ? movie.original_title : "-";
   const releaseDate = movie ? movie.release_date : "dd/mm/aaaa";
   const genre = movie ? movie.genres : "-";
