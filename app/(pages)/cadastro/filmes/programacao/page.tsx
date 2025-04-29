@@ -12,15 +12,33 @@ import ComboBox from "@/app/components/ui/ComboBox";
 import ScheduleMovie from "@/app/components/Movies/Schedule/ScheduleMovie";
 import Loading from "@/app/components/Loading";
 import { unidades } from "@/app/constants/unidades";
+import { useMovieStore } from "@/app/store/movies";
 
 const ProgramacaoPage = () => {
+  const { fetchMovieList } = useMovieStore();
   const [idUnidade, setIdUnidade] = useState<string | boolean>("1");
   const [movies, setMovies] = useState<MovieSchedule[]>([]);
   const {
     data: scheduleList,
-    isLoading,
+    isLoading: scheduleLoading,
     // isError
   } = useSchedule();
+  const [moviesLoading, setMoviesLoading] = useState<boolean>(false);
+
+  useEffect(() => {
+    const fetchMovies = async () => {
+      try {
+        setMoviesLoading(true);
+        await fetchMovieList();
+      } catch (error) {
+        console.error("Failed to fetch movies", error);
+      } finally {
+        setMoviesLoading(false);
+      }
+    };
+
+    fetchMovies();
+  }, [fetchMovieList]);
 
   useEffect(() => {
     if (scheduleList) {
@@ -38,6 +56,7 @@ const ProgramacaoPage = () => {
       title="Programação"
       subtitle="Válida do dia 17/04/2025 a 23/04/2025"
       backArrow
+      backUrl="/cadastro/filmes"
     >
       <ComboBox
         label="Selecione"
@@ -45,7 +64,7 @@ const ProgramacaoPage = () => {
         value={idUnidade}
         setValue={setIdUnidade}
       />
-      {isLoading ? (
+      {scheduleLoading || moviesLoading ? (
         <Loading />
       ) : (
         <Centered className="gap-y-4" direction="col">

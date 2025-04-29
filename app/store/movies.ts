@@ -7,6 +7,7 @@ type MovieStore = {
   hasFetched: boolean;
   fetchMovieList: () => Promise<void>;
   getMovieById: (id: number) => Movie | undefined;
+  getMovieByIdHtticket: (id: string) => Movie | undefined;
   updateMovieList: (movie: Movie) => void;
   addMovie: (movie: Movie) => void;
   removeMovie: (id: string) => void;
@@ -26,6 +27,9 @@ export const useMovieStore = create<MovieStore>((set, get) => ({
 
   getMovieById: (id: number) =>
     get().movieList.find((movie) => movie.tmdbId === id),
+
+  getMovieByIdHtticket: (id: string) =>
+    get().movieList.find((movie) => movie.idHtticket === id),
 
   updateMovieList: (updatedMovie: Movie) => {
     set((state) => ({

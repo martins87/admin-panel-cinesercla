@@ -25,6 +25,7 @@ export type Movie = {
     key: string;
   }[];
   cast: string;
+  idHtticket: string;
 };
 
 export type MovieSchedule = {

@@ -16,6 +16,7 @@ type PageProps = {
   subtitle?: string;
   className?: string;
   backArrow?: boolean;
+  backUrl?: string;
 };
 
 const Page: FC<PageProps> = ({
@@ -24,10 +25,11 @@ const Page: FC<PageProps> = ({
   subtitle,
   className,
   backArrow,
+  backUrl,
 }) => {
   const router = useRouter();
 
-  const navigateBack = () => router.back();
+  const navigateBack = () => (backUrl ? router.push(backUrl) : router.back());
 
   return (
     <div

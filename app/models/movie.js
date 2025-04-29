@@ -32,6 +32,7 @@ const movieSchema = new Schema(
       },
     ],
     cast: String,
+    idHtticket: String,
   },
   { timestamps: true, collection: "movie" }
 );
