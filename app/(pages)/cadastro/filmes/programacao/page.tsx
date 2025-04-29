@@ -13,6 +13,7 @@ import ScheduleMovie from "@/app/components/Movies/Schedule/ScheduleMovie";
 import Loading from "@/app/components/Loading";
 import { unidades } from "@/app/constants/unidades";
 import { useMovieStore } from "@/app/store/movies";
+import Typography from "@/app/components/ui/Typography";
 
 const ProgramacaoPage = () => {
   const { fetchMovieList } = useMovieStore();
@@ -54,24 +55,30 @@ const ProgramacaoPage = () => {
   return (
     <Page
       title="Programação"
-      subtitle="Válida do dia 17/04/2025 a 23/04/2025"
+      subtitle={
+        movies.length > 0 ? "Válida do dia 17/04/2025 a 23/04/2025" : undefined
+      }
       backArrow
       backUrl="/cadastro/filmes"
     >
-      <ComboBox
-        label="Selecione"
-        list={unidades}
-        value={idUnidade}
-        setValue={setIdUnidade}
-      />
       {scheduleLoading || moviesLoading ? (
         <Loading />
-      ) : (
+      ) : movies.length > 0 ? (
         <Centered className="gap-y-4" direction="col">
+          <ComboBox
+            label="Selecione"
+            list={unidades}
+            value={idUnidade}
+            setValue={setIdUnidade}
+          />
           {movies.map((movie) => (
             <ScheduleMovie key={movie.idHtticket} movie={movie} />
           ))}
         </Centered>
+      ) : (
+        <Typography className="text-lg">
+          Programação não encontrada. Por favor, retorne à página de filmes.
+        </Typography>
       )}
     </Page>
   );
