@@ -22,7 +22,9 @@ const ScheduleMovieDetails: FC<ScheduleMovieDetailsProps> = ({
   const title = movie
     ? movie.title
     : `Atenção: Vincule o filme de ID htticket ${idHtticket}`;
-  const originalTitle = movie ? movie.original_title : "-";
+  const originalTitle = movie
+    ? movie.original_title
+    : "Adicione o ID htticket correspondente na página de edição do filme";
   const releaseDate = movie ? movie.release_date : "dd/mm/aaaa";
   const genre = movie ? movie.genres : "-";
   const runtime = movie ? movie.runtime : 0;
