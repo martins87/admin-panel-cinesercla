@@ -38,6 +38,7 @@ const NovoFilmePage = () => {
   const { data: trailers } = useTMDBMovieVideos(id);
   const { data: actors } = useTMDBMovieCast(id);
   const [tmdbId, setTmdbId] = useState<number>(0);
+  const [idHtticket, setIdHtticket] = useState<string>("");
   const [title, setTitle] = useState<string>("");
   const [originalTitle, setOriginalTitle] = useState<string>("");
   const [releaseDate, setReleaseDate] = useState<string>("");
@@ -77,6 +78,7 @@ const NovoFilmePage = () => {
 
     const result = movie as TMDBMovie;
 
+    setIdHtticket(result.idHtticket);
     setTmdbId(result.id);
     setBackdropPath(result.backdrop_path);
     setGenre(
@@ -181,6 +183,7 @@ const NovoFilmePage = () => {
       overview,
       ativo,
       trailers: videos,
+      idHtticket,
     };
 
     console.log("new movie", newMovie);
@@ -255,6 +258,16 @@ const NovoFilmePage = () => {
               <Button label="PESQUISAR" primary onClick={handlePesquisarTMDB} />
             </div>
           </div> */}
+
+          <Centered className="">
+            <InputWrapper label="Id do Filme no Htticket" obrigatoria>
+              <Input
+                placeholder="Id do filme no Htticket"
+                value={idHtticket}
+                setValue={setIdHtticket}
+              />
+            </InputWrapper>
+          </Centered>
 
           {/* Movie details */}
           <Centered className="grid grid-cols-2 gap-x-4 gap-y-4">
