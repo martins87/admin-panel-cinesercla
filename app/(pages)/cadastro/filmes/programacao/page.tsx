@@ -10,6 +10,7 @@ import Centered from "@/app/components/ui/Centered";
 import Page from "@/app/components/ui/Page";
 import ComboBox from "@/app/components/ui/ComboBox";
 import ScheduleMovie from "@/app/components/Movies/Schedule/ScheduleMovie";
+import Loading from "@/app/components/Loading";
 import { unidades } from "@/app/constants/unidades";
 
 const ProgramacaoPage = () => {
@@ -45,7 +46,7 @@ const ProgramacaoPage = () => {
         setValue={setIdUnidade}
       />
       {isLoading ? (
-        <Centered>Carregando...</Centered>
+        <Loading />
       ) : (
         <Centered className="gap-y-4" direction="col">
           {movies.map((movie) => (
