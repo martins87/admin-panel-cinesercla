@@ -32,7 +32,7 @@ const movieSchema = new Schema(
       },
     ],
     cast: String,
-    idHtticket: String,
+    idERP: String,
   },
   { timestamps: true, collection: "movie" }
 );

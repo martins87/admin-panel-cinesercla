@@ -16,7 +16,7 @@ export type Schedule = {
   horario6: string;
   horario7: string;
   idHtticket: string;
-  idFilmeERPCinesercla: string;
+  idERP: string;
   idFilme: string;
   filmeUrl: string;
 };

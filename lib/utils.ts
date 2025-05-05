@@ -33,23 +33,23 @@ export const encodeQueryString = (query: string) => {
 export const formatRuntime = (minutes: number) => {
   const hours = Math.floor(minutes / 60);
   const mins = minutes % 60;
-  return `${hours}h${mins}m`;
+  return `${hours}h ${mins}m`;
 };
 
 export const groupScheduleByMovie = (schedule: Schedule[]): MovieSchedule[] => {
   if (schedule.length === 0) return [];
 
   let movieIndex = 0;
-  let idHtticket = schedule[0].idHtticket;
-  const movieScheduleList: MovieSchedule[] = [{ idHtticket, scheduleList: [] }];
+  let idERP = schedule[0].idERP;
+  const movieScheduleList: MovieSchedule[] = [{ idERP, scheduleList: [] }];
 
   for (let i = 0; i < schedule.length; i++) {
-    if (schedule[i].idHtticket === idHtticket) {
+    if (schedule[i].idERP === idERP) {
       movieScheduleList[movieIndex].scheduleList.push(schedule[i]);
     } else {
       movieIndex++;
-      idHtticket = schedule[i].idHtticket;
-      movieScheduleList.push({ idHtticket, scheduleList: [schedule[i]] });
+      idERP = schedule[i].idERP;
+      movieScheduleList.push({ idERP, scheduleList: [schedule[i]] });
     }
   }
 

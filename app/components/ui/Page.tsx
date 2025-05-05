@@ -14,6 +14,7 @@ type PageProps = {
   children: ReactNode;
   title: string;
   subtitle?: string;
+  pageHeader?: ReactNode;
   className?: string;
   backArrow?: boolean;
   backUrl?: string;
@@ -23,6 +24,7 @@ const Page: FC<PageProps> = ({
   children,
   title,
   subtitle,
+  pageHeader,
   className,
   backArrow,
   backUrl,
@@ -39,7 +41,7 @@ const Page: FC<PageProps> = ({
       )}
     >
       <Centered
-        className="gap-y-4 mb-10"
+        className="gap-y-4 mb-4"
         direction="col"
         items="start"
         justify="between"
@@ -62,9 +64,10 @@ const Page: FC<PageProps> = ({
             {subtitle}
           </Typography>
         )}
+        {pageHeader}
       </Centered>
       <Centered
-        className="h-full border rounded-lg bg-white p-4 gap-y-4"
+        className="h-full border rounded-lg bg-white p-4 mt-10 gap-y-4"
         direction="col"
         items="start"
         justify="start"

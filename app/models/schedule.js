@@ -19,7 +19,7 @@ const scheduleSchema = new Schema(
     horario6: String,
     horario7: String,
     idHtticket: String,
-    idFilmeERPCinesercla: String,
+    idERP: String,
     idFilme: String,
     filmeUrl: String,
   },

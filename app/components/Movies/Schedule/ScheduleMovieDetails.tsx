@@ -8,23 +8,19 @@ import ScheduleMovieDetail from "./ScheduleMovieDetail";
 import placeholderImg from "@/app/assets/images/placeholder.png";
 
 type ScheduleMovieDetailsProps = {
-  idHtticket: string;
+  idERP: string;
 };
 
-const ScheduleMovieDetails: FC<ScheduleMovieDetailsProps> = ({
-  idHtticket,
-}) => {
+const ScheduleMovieDetails: FC<ScheduleMovieDetailsProps> = ({ idERP }) => {
   const { getMovieByIdHtticket } = useMovieStore();
-  const movie = getMovieByIdHtticket(idHtticket);
+  const movie = getMovieByIdHtticket(idERP);
   const posterPath = movie
     ? `https://image.tmdb.org/t/p/original${movie.poster_path}`
     : placeholderImg;
-  const title = movie
-    ? movie.title
-    : `Atenção: Vincule o filme de ID htticket ${idHtticket}`;
+  const title = movie ? movie.title : `Atenção: Vincule o filme de ID ${idERP}`;
   const originalTitle = movie
     ? movie.original_title
-    : "Adicione o ID htticket correspondente na página de edição do filme";
+    : "Adicione o ID ERP Cinesercla correspondente na página de edição do filme";
   const releaseDate = movie ? movie.release_date : "dd/mm/aaaa";
   const genre = movie ? movie.genres : "-";
   const runtime = movie ? movie.runtime : 0;
@@ -56,7 +52,7 @@ const ScheduleMovieDetails: FC<ScheduleMovieDetailsProps> = ({
       </Centered>
       <Centered className="h-full" direction="col" justify="between">
         <ScheduleMovieDetail label="Diretor" value="-" />
-        <ScheduleMovieDetail label="htticket ID" value={idHtticket} />
+        <ScheduleMovieDetail label="ID" value={idERP} />
       </Centered>
     </Centered>
   );

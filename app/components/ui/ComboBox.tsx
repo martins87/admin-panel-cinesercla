@@ -13,15 +13,23 @@ import Image from "next/image";
 import Centered from "./Centered";
 import Typography from "./Typography";
 import { chevronDown } from "@/app/constants/icons";
+import { twMerge } from "tailwind-merge";
 
 type ComboBoxProps = {
   label: string;
   list: { value: string | boolean; label: string }[];
   value: string | boolean;
   setValue: Dispatch<SetStateAction<string | boolean>>;
+  className?: string;
 };
 
-const ComboBox: FC<ComboBoxProps> = ({ list, value, setValue, label }) => {
+const ComboBox: FC<ComboBoxProps> = ({
+  list,
+  value,
+  setValue,
+  label,
+  className,
+}) => {
   const comboBoxRef = useRef<HTMLDivElement>(null);
   const [showItems, setShowItems] = useState(false);
 
@@ -43,7 +51,10 @@ const ComboBox: FC<ComboBoxProps> = ({ list, value, setValue, label }) => {
 
   return (
     <Centered
-      className="relative px-2 py-2 gap-x-0 gap-y-1 rounded-lg bg-white border"
+      className={twMerge(
+        "relative px-2 py-2 gap-x-0 gap-y-1 rounded-lg bg-white border",
+        className
+      )}
       direction="col"
       onClick={() => setShowItems(!showItems)}
       ref={comboBoxRef}

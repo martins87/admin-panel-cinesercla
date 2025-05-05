@@ -38,7 +38,7 @@ const NovoFilmePage = () => {
   const { data: trailers } = useTMDBMovieVideos(id);
   const { data: actors } = useTMDBMovieCast(id);
   const [tmdbId, setTmdbId] = useState<number>(0);
-  const [idHtticket, setIdHtticket] = useState<string>("");
+  const [idERP, setIdERP] = useState<string>("");
   const [title, setTitle] = useState<string>("");
   const [originalTitle, setOriginalTitle] = useState<string>("");
   const [releaseDate, setReleaseDate] = useState<string>("");
@@ -78,7 +78,7 @@ const NovoFilmePage = () => {
 
     const result = movie as TMDBMovie;
 
-    setIdHtticket(result.idHtticket);
+    setIdERP(result.idERP);
     setTmdbId(result.id);
     setBackdropPath(result.backdrop_path);
     setGenre(
@@ -183,7 +183,7 @@ const NovoFilmePage = () => {
       overview,
       ativo,
       trailers: videos,
-      idHtticket,
+      idERP,
     };
 
     console.log("new movie", newMovie);
@@ -260,11 +260,11 @@ const NovoFilmePage = () => {
           </div> */}
 
           <Centered className="">
-            <InputWrapper label="Id do Filme no Htticket" obrigatoria>
+            <InputWrapper label="Id do Filme" obrigatoria>
               <Input
-                placeholder="Id do filme no Htticket"
-                value={idHtticket}
-                setValue={setIdHtticket}
+                placeholder="Id do filme"
+                value={idERP}
+                setValue={setIdERP}
               />
             </InputWrapper>
           </Centered>

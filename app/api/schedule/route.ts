@@ -3,11 +3,22 @@ import { NextRequest, NextResponse } from "next/server";
 import connectToDatabase from "@/lib/db/connection";
 import Schedule from "@/app/models/schedule";
 
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
     await connectToDatabase();
 
-    const scheduleList = await Schedule.find().lean();
+    const { searchParams } = new URL(request.url);
+    const idERP = searchParams.get("idERP");
+    const idUnidade = searchParams.get("idUnidade");
+
+    let query = {};
+
+    if (idERP && idUnidade) {
+      query = { idERP, idUnidade };
+    }
+
+    const scheduleList = await Schedule.find(query).lean();
+    // const scheduleList = await Schedule.find().lean();
 
     return NextResponse.json(scheduleList, { status: 200 });
   } catch (error) {
@@ -51,7 +62,7 @@ export async function POST(request: NextRequest) {
       horario6: schedule[14],
       horario7: schedule[15],
       idHtticket: schedule[16],
-      idFilmeERPCinesercla: schedule[17],
+      idERP: schedule[17],
       idFilme: schedule[18],
       filmeUrl: `${schedule[19]}${schedule[16]}`,
     }));

@@ -20,5 +20,5 @@ export type TMDBMovie = {
   title: string;
   vote_average: number;
   vote_count: number;
-  idHtticket: string;
+  idERP: string;
 };

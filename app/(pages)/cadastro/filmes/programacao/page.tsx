@@ -4,16 +4,16 @@ import { useEffect, useState } from "react";
 
 import { Schedule } from "@/app/types/schedule";
 import { MovieSchedule } from "@/app/types/movie";
-import { useSchedule } from "@/app/hooks/useSchedule";
 import { groupScheduleByMovie } from "@/lib/utils";
+import { useSchedule } from "@/app/hooks/useSchedule";
+import { useMovieStore } from "@/app/store/movies";
 import Centered from "@/app/components/ui/Centered";
 import Page from "@/app/components/ui/Page";
 import ComboBox from "@/app/components/ui/ComboBox";
 import ScheduleMovie from "@/app/components/Movies/Schedule/ScheduleMovie";
 import Loading from "@/app/components/Loading";
-import { unidades } from "@/app/constants/unidades";
-import { useMovieStore } from "@/app/store/movies";
 import Typography from "@/app/components/ui/Typography";
+import { unidades } from "@/app/constants/unidades";
 
 const ProgramacaoPage = () => {
   const { fetchMovieList } = useMovieStore();
@@ -58,23 +58,26 @@ const ProgramacaoPage = () => {
       subtitle={
         movies.length > 0 ? "Válida do dia 17/04/2025 a 23/04/2025" : undefined
       }
+      pageHeader={
+        movies.length > 0 && (
+          <Centered className="gap-y-4" direction="col" items="start">
+            <ComboBox
+              className="w-[360px] mt-10"
+              label="Selecione"
+              list={unidades}
+              value={idUnidade}
+              setValue={setIdUnidade}
+            />
+          </Centered>
+        )
+      }
       backArrow
       backUrl="/cadastro/filmes"
     >
       {scheduleLoading || moviesLoading ? (
         <Loading />
       ) : movies.length > 0 ? (
-        <Centered className="gap-y-4" direction="col">
-          <ComboBox
-            label="Selecione"
-            list={unidades}
-            value={idUnidade}
-            setValue={setIdUnidade}
-          />
-          {movies.map((movie) => (
-            <ScheduleMovie key={movie.idHtticket} movie={movie} />
-          ))}
-        </Centered>
+        movies.map((movie) => <ScheduleMovie key={movie.idERP} movie={movie} />)
       ) : (
         <Typography className="text-lg">
           Programação não encontrada. Por favor, retorne à página de filmes.
