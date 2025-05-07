@@ -20,10 +20,10 @@ export const createSchedule = async (scheduleList: Schedule[]) => {
   }
 };
 
-export const getSchedule = async (idERP?: string, idUnidade?: string) => {
+export const getSchedule = async (idFilme?: string, idUnidade?: string) => {
   try {
     const queryParams =
-      idERP && idUnidade ? `?idERP=${idERP}&idUnidade=${idUnidade}` : "";
+      idFilme && idUnidade ? `?idFilme=${idFilme}&idUnidade=${idUnidade}` : "";
 
     const response = await fetch(`/api/schedule${queryParams}`, {
       method: "GET",

@@ -25,11 +25,11 @@ export type Movie = {
     key: string;
   }[];
   cast: string;
-  idERP: string;
+  idFilme: string;
 };
 
 export type MovieSchedule = {
-  idERP: string;
+  idFilme: string;
   scheduleList: Schedule[];
 };
 

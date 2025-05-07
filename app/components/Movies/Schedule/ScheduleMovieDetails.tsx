@@ -8,16 +8,18 @@ import ScheduleMovieDetail from "./ScheduleMovieDetail";
 import placeholderImg from "@/app/assets/images/placeholder.png";
 
 type ScheduleMovieDetailsProps = {
-  idERP: string;
+  idFilme: string;
 };
 
-const ScheduleMovieDetails: FC<ScheduleMovieDetailsProps> = ({ idERP }) => {
+const ScheduleMovieDetails: FC<ScheduleMovieDetailsProps> = ({ idFilme }) => {
   const { getMovieByIdHtticket } = useMovieStore();
-  const movie = getMovieByIdHtticket(idERP);
+  const movie = getMovieByIdHtticket(idFilme);
   const posterPath = movie
     ? `https://image.tmdb.org/t/p/original${movie.poster_path}`
     : placeholderImg;
-  const title = movie ? movie.title : `Atenção: Vincule o filme de ID ${idERP}`;
+  const title = movie
+    ? movie.title
+    : `Atenção: Vincule o filme de ID ${idFilme}`;
   const originalTitle = movie
     ? movie.original_title
     : "Adicione o ID ERP Cinesercla correspondente na página de edição do filme";
@@ -52,7 +54,7 @@ const ScheduleMovieDetails: FC<ScheduleMovieDetailsProps> = ({ idERP }) => {
       </Centered>
       <Centered className="h-full" direction="col" justify="between">
         <ScheduleMovieDetail label="Diretor" value="-" />
-        <ScheduleMovieDetail label="ID" value={idERP} />
+        <ScheduleMovieDetail label="ID" value={idFilme} />
       </Centered>
     </Centered>
   );

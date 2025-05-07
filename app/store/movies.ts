@@ -29,7 +29,7 @@ export const useMovieStore = create<MovieStore>((set, get) => ({
     get().movieList.find((movie) => movie.tmdbId === id),
 
   getMovieByIdHtticket: (id: string) =>
-    get().movieList.find((movie) => movie.idERP === id),
+    get().movieList.find((movie) => movie.idFilme === id),
 
   updateMovieList: (updatedMovie: Movie) => {
     set((state) => ({

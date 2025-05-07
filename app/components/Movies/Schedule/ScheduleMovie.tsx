@@ -15,7 +15,7 @@ const ScheduleMovie: FC<ScheduleMovieProps> = ({ movie }) => {
       className="bg-[#F8F9FA] border border-[#E9ECEF] rounded-lg p-4 gap-y-4"
       direction="col"
     >
-      <ScheduleMovieDetails idERP={movie.idERP} />
+      <ScheduleMovieDetails idFilme={movie.idFilme} />
       <Centered
         className="bg-white border border-[#E9ECEF] rounded-lg gap-y-2 p-4"
         direction="col"

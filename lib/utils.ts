@@ -40,16 +40,16 @@ export const groupScheduleByMovie = (schedule: Schedule[]): MovieSchedule[] => {
   if (schedule.length === 0) return [];
 
   let movieIndex = 0;
-  let idERP = schedule[0].idERP;
-  const movieScheduleList: MovieSchedule[] = [{ idERP, scheduleList: [] }];
+  let idFilme = schedule[0].idFilme;
+  const movieScheduleList: MovieSchedule[] = [{ idFilme, scheduleList: [] }];
 
   for (let i = 0; i < schedule.length; i++) {
-    if (schedule[i].idERP === idERP) {
+    if (schedule[i].idFilme === idFilme) {
       movieScheduleList[movieIndex].scheduleList.push(schedule[i]);
     } else {
       movieIndex++;
-      idERP = schedule[i].idERP;
-      movieScheduleList.push({ idERP, scheduleList: [schedule[i]] });
+      idFilme = schedule[i].idFilme;
+      movieScheduleList.push({ idFilme, scheduleList: [schedule[i]] });
     }
   }
 

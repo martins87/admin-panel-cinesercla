@@ -35,7 +35,7 @@ const NovoFilmePage = () => {
   console.log("movie gotten from store", movie);
 
   const [tmdbId, setTmdbId] = useState<number>(0);
-  const [idERP, setIdERP] = useState<string>("");
+  const [idFilme, setIdFilme] = useState<string>("");
   const [title, setTitle] = useState<string>("");
   const [originalTitle, setOriginalTitle] = useState<string>("");
   const [releaseDate, setReleaseDate] = useState<string>("");
@@ -71,7 +71,7 @@ const NovoFilmePage = () => {
   useEffect(() => {
     if (!movie) return;
 
-    setIdERP(movie.idERP);
+    setIdFilme(movie.idFilme);
     setTmdbId(movie.tmdbId);
     setPosterPath(movie.poster_path);
     setBackdropPath(movie.backdrop_path);
@@ -145,7 +145,7 @@ const NovoFilmePage = () => {
       overview,
       ativo,
       trailers: videos,
-      idERP,
+      idFilme,
     };
 
     console.log("edited movie", movieToUpdate);
@@ -196,8 +196,8 @@ const NovoFilmePage = () => {
             <InputWrapper label="Id do Filme" obrigatoria>
               <Input
                 placeholder="Id do filme"
-                value={idERP}
-                setValue={setIdERP}
+                value={idFilme}
+                setValue={setIdFilme}
               />
             </InputWrapper>
           </Centered>

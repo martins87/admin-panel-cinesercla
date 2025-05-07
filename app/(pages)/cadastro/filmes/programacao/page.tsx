@@ -77,7 +77,9 @@ const ProgramacaoPage = () => {
       {scheduleLoading || moviesLoading ? (
         <Loading />
       ) : movies.length > 0 ? (
-        movies.map((movie) => <ScheduleMovie key={movie.idERP} movie={movie} />)
+        movies.map((movie) => (
+          <ScheduleMovie key={movie.idFilme} movie={movie} />
+        ))
       ) : (
         <Typography className="text-lg">
           Programação não encontrada. Por favor, retorne à página de filmes.
