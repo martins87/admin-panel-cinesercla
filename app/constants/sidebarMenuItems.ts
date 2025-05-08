@@ -26,6 +26,10 @@ export const sidebarMenuItems = [
         url: "/cadastro/filmes",
       },
       {
+        title: "PROGRAMAÇÃO",
+        url: "/cadastro/filmes/programacao",
+      },
+      {
         title: "PERGUNTAS FREQUENTES",
         url: "/cadastro/perguntas-frequentes",
       },
