@@ -22,7 +22,7 @@ const ScheduleMovieDetails: FC<ScheduleMovieDetailsProps> = ({ idFilme }) => {
     : `Atenção: Vincule o filme de ID ${idFilme}`;
   const originalTitle = movie
     ? movie.original_title
-    : "Adicione o ID ERP Cinesercla correspondente na página de edição do filme";
+    : "Adicione o ID correspondente na página de edição do filme";
   const releaseDate = movie ? movie.release_date : "dd/mm/aaaa";
   const genre = movie ? movie.genres : "-";
   const runtime = movie ? movie.runtime : 0;
