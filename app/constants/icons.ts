@@ -40,6 +40,7 @@ import upload from "@/app/assets/icons/upload.svg";
 import uploadWhite from "@/app/assets/icons/uploadWhite.svg";
 import user from "@/app/assets/icons/user.svg";
 import users from "@/app/assets/icons/users.svg";
+import login from "@/app/assets/images/login.jpg";
 
 export {
   arrowDown,
@@ -84,4 +85,5 @@ export {
   uploadWhite,
   user,
   users,
+  login,
 };
