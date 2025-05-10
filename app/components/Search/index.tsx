@@ -43,13 +43,15 @@ const Search: FC<SearchProps> = ({ searchTerm, setSearchTerm, onClickFn }) => {
         onKeyDown={handleKeyDown}
         placeholder="Digite o nome do filme..."
       />
-      <Typography
-        className="text-[#0057FC] text-base hover:cursor-pointer hover:scale-105 transition-all ease-in-out duration-200"
-        weight="500"
-        onClick={onClickFn}
-      >
-        PESQUISAR
-      </Typography>
+      {onClickFn && (
+        <Typography
+          className="text-[#0057FC] text-base hover:cursor-pointer hover:scale-105 transition-all ease-in-out duration-200"
+          weight="500"
+          onClick={onClickFn}
+        >
+          PESQUISAR
+        </Typography>
+      )}
     </Centered>
   );
 };
