@@ -12,6 +12,7 @@ import { arrowLeft } from "@/app/constants/icons";
 
 type PageProps = {
   children: ReactNode;
+  rightColumn?: ReactNode;
   title: string;
   subtitle?: string;
   pageHeader?: ReactNode;
@@ -22,6 +23,7 @@ type PageProps = {
 
 const Page: FC<PageProps> = ({
   children,
+  rightColumn,
   title,
   subtitle,
   pageHeader,
@@ -64,15 +66,22 @@ const Page: FC<PageProps> = ({
             {subtitle}
           </Typography>
         )}
-        {pageHeader}
+        {pageHeader && (
+          <Centered className="mt-6" justify="start">
+            {pageHeader}
+          </Centered>
+        )}
       </Centered>
-      <Centered
-        className="h-full border rounded-lg bg-white p-4 mt-10 gap-y-4"
-        direction="col"
-        items="start"
-        justify="start"
-      >
-        {children}
+      <Centered className="gap-x-4" items="start" justify="start">
+        <Centered
+          className="h-full border rounded-lg p-4 gap-y-4 bg-white"
+          direction="col"
+          items="start"
+          justify="start"
+        >
+          {children}
+        </Centered>
+        {rightColumn}
       </Centered>
       <Footer />
     </div>
