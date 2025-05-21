@@ -54,18 +54,26 @@ const FilmesPage = () => {
 
   return (
     <>
-      <Page title="Lista de Filmes" subtitle="Lista de Filmes / Estatísticas">
-        <Centered justify="start" className="gap-x-2">
-          <Button
-            label="IMPORTAR PROGRAMAÇÃO VIA CSV"
-            secondary
-            blue
-            onClick={openCsvModal}
-          />
-          <Button label="NOVO FILME" primary />
-          <Button label="NOVO FILME VIA TMDB" primary onClick={openTMDBModal} />
-        </Centered>
-
+      <Page
+        title="Lista de Filmes"
+        subtitle="Lista de Filmes / Estatísticas"
+        pageHeader={
+          <Centered justify="start" className="gap-x-2">
+            <Button
+              label="IMPORTAR PROGRAMAÇÃO VIA CSV"
+              secondary
+              blue
+              onClick={openCsvModal}
+            />
+            <Button label="NOVO FILME" primary />
+            <Button
+              label="NOVO FILME VIA TMDB"
+              primary
+              onClick={openTMDBModal}
+            />
+          </Centered>
+        }
+      >
         {loading ? (
           <Loading />
         ) : (
