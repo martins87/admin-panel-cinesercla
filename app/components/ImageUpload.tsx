@@ -1,17 +1,20 @@
 import Image from "next/image";
-import { useRef, useState } from "react";
+import { FC, useRef, useState } from "react";
 
-import { Input } from "@/components/ui/input";
 import Centered from "./ui/Centered";
 import Button from "./ui/Button";
 import Typography from "./ui/Typography";
 import ImageFallback from "./ImageFallback";
 import { upload } from "@/app/constants/icons";
 
-const ImageUpload = () => {
+type ImageUploadProps = {
+  file: File | null;
+  setFile: (file: File | null) => void;
+};
+
+const ImageUpload: FC<ImageUploadProps> = ({ file, setFile }) => {
   const [image, setImage] = useState<string>("");
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [file, setFile] = useState<File | null>(null);
 
   const handleClick = () => {
     if (fileInputRef.current) {
@@ -25,10 +28,7 @@ const ImageUpload = () => {
       setFile(uploadedFile);
 
       const reader = new FileReader();
-      reader.onloadend = () => {
-        console.log("reader.result", reader.result);
-        setImage(reader.result as string);
-      };
+      reader.onloadend = () => setImage(reader.result as string);
       reader.readAsDataURL(uploadedFile);
     }
   };
@@ -51,7 +51,7 @@ const ImageUpload = () => {
       <Typography className="text-[#6C757D]" weight="500">
         TAMANHO RECOMENDADO: XXXpx
       </Typography>
-      <Input
+      <input
         className="hidden"
         type="file"
         ref={fileInputRef}

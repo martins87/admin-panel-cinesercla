@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
+import { Bomboniere } from "@/app/types/bomboniere";
+import { createProduct } from "@/app/services/bomboniere";
 import Switch from "@/components/ui/switch";
 import Page from "@/app/components/ui/Page";
 import Centered from "@/app/components/ui/Centered";
@@ -28,13 +30,74 @@ const NovoProdutoPage = () => {
   const [nome, setNome] = useState<string>("");
   const [preco, setPreco] = useState<string>("");
   const [ordem, setOrdem] = useState<string>("");
+  const [file, setFile] = useState<File | null>(null);
   const [salvarModalOpen, setSalvarModalOpen] = useState<boolean>(false);
   const [salvarESairModalOpen, setSalvarESairModalOpen] =
     useState<boolean>(false);
 
   const handleVoltar = () => router.push("/cadastro/bomboniere");
 
-  const handleSalvar = async () => {};
+  const handleSalvar = async (sair?: boolean) => {
+    // let uploadedFileData = null;
+    // let imageUrl: string | undefined;
+
+    if (file) {
+      const formData = new FormData();
+      formData.append("file", file);
+
+      // make a fetch here to upload the file. endpoint: /api/upload
+      // method: POST
+      // body: formData
+      // threat error if file is not uploaded
+      // give feedback to user
+      // try {
+      const response = await fetch("/api/upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(
+          errorData.error || "Failed to upload image. Please try again."
+        );
+      }
+
+      const data = await response.json();
+      console.log("Image uploaded successfully:", data);
+      // Assuming your upload API returns fileId or filename which you can use as reference
+      // imageUrl = data.fileId || data.filename; // Or whatever field holds the identifier for the image
+      // } catch (error) {
+      //   console.error("Error uploading image:", error);
+      //   alert(
+      //     `Erro ao enviar a imagem: ${
+      //       error instanceof Error ? error.message : "Erro desconhecido"
+      //     }`
+      //   );
+      // }
+    }
+
+    const newProduct: Bomboniere = {
+      categoria: String(categoria),
+      nome,
+      preco,
+    };
+
+    try {
+      const createdProduct = await createProduct(newProduct);
+
+      if (createdProduct) {
+        // Updates the local state with the new movie
+        // addMovie(createdProduct);
+        console.log("Product created successfully:", createdProduct);
+        if (sair) router.push("/cadastro/bomboniere");
+      } else {
+        console.error("Failed to create product.");
+      }
+    } catch (error) {
+      console.error("Error creating product:", error);
+    }
+  };
 
   return (
     <>
@@ -42,7 +105,7 @@ const NovoProdutoPage = () => {
         title="Novo Produto"
         subtitle="Registre um novo item para a bomboniere com todas as especificações"
         backArrow
-        rightColumn={<ImageUpload />}
+        rightColumn={<ImageUpload file={file} setFile={setFile} />}
       >
         <Centered className="gap-x-2" items="center" justify="start">
           <Typography weight="500">Ativo</Typography>
@@ -87,8 +150,7 @@ const NovoProdutoPage = () => {
         message="Ao confirmar, ação não poderá ser desfeita."
         confirmLabel="SALVAR"
         onCancel={() => setSalvarModalOpen(false)}
-        // onConfirm={() => handleSalvar(false)}
-        onConfirm={() => handleSalvar()}
+        onConfirm={() => handleSalvar(false)}
         hideOnOutsideClick={true}
       />
       <AlertModal
@@ -97,8 +159,7 @@ const NovoProdutoPage = () => {
         message="Ao confirmar, ação não poderá ser desfeita."
         confirmLabel="SALVAR E SAIR"
         onCancel={() => setSalvarESairModalOpen(false)}
-        // onConfirm={() => handleSalvar(true)}
-        onConfirm={() => handleSalvar()}
+        onConfirm={() => handleSalvar(true)}
         hideOnOutsideClick={true}
       />
     </>
