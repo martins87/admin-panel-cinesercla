@@ -1,8 +1,8 @@
 export type Bomboniere = {
   _id?: string;
+  categoria: string;
   nome: string;
   preco: string;
-  categoria: string;
+  imageFileId: string;
   ordem?: number;
-  imagem?: string;
 };

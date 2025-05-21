@@ -5,6 +5,7 @@ const movieSchema = new Schema(
     categoria: String,
     nome: String,
     preco: String,
+    imageFileId: String,
   },
   { timestamps: true, collection: "bomboniere" }
 );

@@ -38,64 +38,60 @@ const NovoProdutoPage = () => {
   const handleVoltar = () => router.push("/cadastro/bomboniere");
 
   const handleSalvar = async (sair?: boolean) => {
-    // let uploadedFileData = null;
-    // let imageUrl: string | undefined;
+    let imageFileId: string;
 
     if (file) {
       const formData = new FormData();
       formData.append("file", file);
 
-      // make a fetch here to upload the file. endpoint: /api/upload
-      // method: POST
-      // body: formData
-      // threat error if file is not uploaded
-      // give feedback to user
-      // try {
-      const response = await fetch("/api/upload", {
-        method: "POST",
-        body: formData,
-      });
+      try {
+        const response = await fetch("/api/upload", {
+          method: "POST",
+          body: formData,
+        });
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(
-          errorData.error || "Failed to upload image. Please try again."
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(
+            errorData.error || "Failed to upload image. Please try again."
+          );
+        }
+
+        const data = await response.json();
+        console.log("Image uploaded successfully:", data);
+        alert(`Imagem enviada com sucesso: ${data.fileId}`);
+        // Assuming your upload API returns fileId or filename which you can use as reference
+        imageFileId = data.fileId;
+      } catch (error) {
+        console.error("Error uploading image:", error);
+        alert(
+          `Erro ao enviar a imagem: ${
+            error instanceof Error ? error.message : "Erro desconhecido"
+          }`
         );
+        return;
       }
 
-      const data = await response.json();
-      console.log("Image uploaded successfully:", data);
-      // Assuming your upload API returns fileId or filename which you can use as reference
-      // imageUrl = data.fileId || data.filename; // Or whatever field holds the identifier for the image
-      // } catch (error) {
-      //   console.error("Error uploading image:", error);
-      //   alert(
-      //     `Erro ao enviar a imagem: ${
-      //       error instanceof Error ? error.message : "Erro desconhecido"
-      //     }`
-      //   );
-      // }
-    }
+      try {
+        const newProduct: Bomboniere = {
+          categoria: String(categoria),
+          nome,
+          preco,
+          imageFileId,
+        };
 
-    const newProduct: Bomboniere = {
-      categoria: String(categoria),
-      nome,
-      preco,
-    };
+        const createdProduct = await createProduct(newProduct);
 
-    try {
-      const createdProduct = await createProduct(newProduct);
-
-      if (createdProduct) {
-        // Updates the local state with the new movie
-        // addMovie(createdProduct);
-        console.log("Product created successfully:", createdProduct);
-        if (sair) router.push("/cadastro/bomboniere");
-      } else {
-        console.error("Failed to create product.");
+        if (createdProduct) {
+          // TODO: update local state with new product
+          console.log("Product created successfully:", createdProduct);
+          if (sair) router.push("/cadastro/bomboniere");
+        } else {
+          console.error("Failed to create product.");
+        }
+      } catch (error) {
+        console.error("Error creating product:", error);
       }
-    } catch (error) {
-      console.error("Error creating product:", error);
     }
   };
 
