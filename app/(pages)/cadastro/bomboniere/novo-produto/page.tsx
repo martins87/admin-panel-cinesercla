@@ -15,6 +15,7 @@ import ComboBox from "@/app/components/ui/ComboBox";
 import Button from "@/app/components/ui/Button";
 import AlertModal from "@/app/components/AlertModal";
 import ImageUpload from "@/app/components/ImageUpload";
+import { useProductStore } from "@/app/store/product";
 
 const categoriaList = [
   { value: "pipocas", label: "Pipocas" },
@@ -25,6 +26,7 @@ const categoriaList = [
 
 const NovoProdutoPage = () => {
   const router = useRouter();
+  const { addProduct } = useProductStore();
   const [ativo, setAtivo] = useState<boolean>(true);
   const [categoria, setCategoria] = useState<string | boolean>("pipocas");
   const [nome, setNome] = useState<string>("");
@@ -83,7 +85,7 @@ const NovoProdutoPage = () => {
         const createdProduct = await createProduct(newProduct);
 
         if (createdProduct) {
-          // TODO: update local state with new product
+          addProduct(createdProduct);
           console.log("Product created successfully:", createdProduct);
           if (sair) router.push("/cadastro/bomboniere");
         } else {

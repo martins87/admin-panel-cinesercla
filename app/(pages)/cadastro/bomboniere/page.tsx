@@ -1,18 +1,38 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
-import { useBomboniere } from "@/app/hooks/useBomboniere";
+import { useProductStore } from "@/app/store/product";
 import Button from "@/app/components/ui/Button";
 import Page from "@/app/components/ui/Page";
-import Typography from "@/app/components/ui/Typography";
 import Loading from "@/app/components/Loading";
 import BomboniereRow from "@/app/components/Bomboniere/BomboniereRow";
 
 const BombonierePage = () => {
   const router = useRouter();
-  const { data: productList, isFetching, isSuccess, isError } = useBomboniere();
+  const {
+    productList,
+    fetchProductList,
+    // removeProduct
+  } = useProductStore();
   console.log("product list", productList);
+  const [loading, setLoading] = useState<boolean>(false);
+
+  useEffect(() => {
+    const fetchMovies = async () => {
+      try {
+        setLoading(true);
+        await fetchProductList();
+      } catch (error) {
+        console.error("Failed to fetch products", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchMovies();
+  }, [fetchProductList]);
 
   const handleNovoProduto = () =>
     router.push("/cadastro/bomboniere/novo-produto");
@@ -25,15 +45,13 @@ const BombonierePage = () => {
         <Button label="NOVO PRODUTO" primary onClick={handleNovoProduto} />
       }
     >
-      {isFetching ? (
+      {loading ? (
         <Loading />
-      ) : isSuccess ? (
+      ) : (
         productList?.map((product) => (
           <BomboniereRow key={product._id} product={product} />
         ))
-      ) : isError ? (
-        <Typography>Erro buscando lista de produtos</Typography>
-      ) : null}
+      )}
     </Page>
   );
 };

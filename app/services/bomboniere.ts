@@ -20,9 +20,7 @@ export const getProductList = async (): Promise<Bomboniere[]> => {
   }
 };
 
-export const createProduct = async (
-  product: Omit<Bomboniere, "_id">
-): Promise<Bomboniere | null> => {
+export const createProduct = async (product: Bomboniere) => {
   try {
     const response = await fetch("/api/bomboniere/", {
       method: "POST",
