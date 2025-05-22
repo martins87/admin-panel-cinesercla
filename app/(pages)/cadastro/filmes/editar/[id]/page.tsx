@@ -30,8 +30,8 @@ const NovoFilmePage = () => {
   const params = useParams();
   const { id } = params as { id: string };
   const { data: images } = useTMDBMovieImages(id);
-  const { getMovieById, updateMovieList } = useMovieStore();
-  const movie = getMovieById(+id);
+  const { getMovieByTMDBId, updateMovieList } = useMovieStore();
+  const movie = getMovieByTMDBId(+id);
   console.log("movie gotten from store", movie);
 
   const [tmdbId, setTmdbId] = useState<number>(0);
