@@ -1,22 +1,24 @@
 import { Bomboniere } from "@/app/types/bomboniere";
 
-// export const getMovies = async (): Promise<Movie[]> => {
-//   try {
-//     const response = await fetch("/api/movies/", {
-//       cache: "no-store",
-//     });
+export const getProductList = async (): Promise<Bomboniere[]> => {
+  try {
+    const response = await fetch("/api/bomboniere/", {
+      cache: "no-store",
+    });
 
-//     if (!response.ok) {
-//       throw new Error(`Failed to fetch movie list. Status: ${response.status}`);
-//     }
+    if (!response.ok) {
+      throw new Error(
+        `Failed to fetch product list. Status: ${response.status}`
+      );
+    }
 
-//     return await response.json();
-//   } catch (error) {
-//     console.log("Error retrieving movie list", error);
+    return await response.json();
+  } catch (error) {
+    console.log("Error retrieving product list", error);
 
-//     return [];
-//   }
-// };
+    return [];
+  }
+};
 
 export const createProduct = async (
   product: Omit<Bomboniere, "_id">

@@ -2,12 +2,18 @@
 
 import { useRouter } from "next/navigation";
 
+import { useBomboniere } from "@/app/hooks/useBomboniere";
 import Button from "@/app/components/ui/Button";
 import Page from "@/app/components/ui/Page";
-import Typography from "@/app/components/ui/Typography";
+import BomboniereRow from "@/app/components/Bomboniere/BomboniereRow";
 
 const BombonierePage = () => {
   const router = useRouter();
+  const {
+    data: productList,
+    // isFetching
+  } = useBomboniere();
+  console.log("product list", productList);
 
   const handleNovoProduto = () =>
     router.push("/cadastro/bomboniere/novo-produto");
@@ -20,7 +26,9 @@ const BombonierePage = () => {
         <Button label="NOVO PRODUTO" primary onClick={handleNovoProduto} />
       }
     >
-      <Typography>BombonierePage</Typography>
+      {productList?.map((product) => (
+        <BomboniereRow key={product._id} product={product} />
+      ))}
     </Page>
   );
 };
