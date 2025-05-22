@@ -12,8 +12,8 @@ type ScheduleMovieDetailsProps = {
 };
 
 const ScheduleMovieDetails: FC<ScheduleMovieDetailsProps> = ({ idFilme }) => {
-  const { getMovieByIdHtticket } = useMovieStore();
-  const movie = getMovieByIdHtticket(idFilme);
+  const { getMovieById } = useMovieStore();
+  const movie = getMovieById(idFilme);
   const posterPath = movie
     ? `https://image.tmdb.org/t/p/original${movie.poster_path}`
     : placeholderImg;

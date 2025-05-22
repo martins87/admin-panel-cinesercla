@@ -17,8 +17,8 @@ type TMDBResultprops = {
 
 const TMDBResult: FC<TMDBResultprops> = ({ result }) => {
   const router = useRouter();
-  const { getMovieById } = useMovieStore();
-  const isMovieAdded = getMovieById(result.id) !== undefined;
+  const { getMovieByTMDBId } = useMovieStore();
+  const isMovieAdded = getMovieByTMDBId(result.id) !== undefined;
 
   const handleAddMovie = () =>
     router.push(`/cadastro/filmes/novo/${result.id}`);
