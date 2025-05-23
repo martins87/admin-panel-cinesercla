@@ -29,8 +29,8 @@ export const useProductStore = create<ProductStore>((set, get) => ({
 
   updateproductList: (updatedProduct: Bomboniere) => {
     set((state) => ({
-      productList: state.productList.map((Product) =>
-        Product._id === updatedProduct._id ? updatedProduct : Product
+      productList: state.productList.map((product) =>
+        product._id === updatedProduct._id ? updatedProduct : product
       ),
     }));
   },
@@ -43,7 +43,7 @@ export const useProductStore = create<ProductStore>((set, get) => ({
 
   removeProduct: (id: string) => {
     set((state) => ({
-      productList: state.productList.filter((Product) => Product._id !== id),
+      productList: state.productList.filter((product) => product._id !== id),
     }));
   },
 }));

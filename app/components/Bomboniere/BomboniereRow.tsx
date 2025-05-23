@@ -1,6 +1,6 @@
 "use client";
 
-import { FC } from "react";
+import { Dispatch, FC, SetStateAction } from "react";
 import Image from "next/image";
 
 import { Bomboniere } from "@/app/types/bomboniere";
@@ -12,12 +12,14 @@ import { arrowDown, arrowUp, edit, trash } from "@/app/constants/icons";
 
 type BomboniereRowProps = {
   product: Bomboniere;
+  setModalOpen: Dispatch<SetStateAction<boolean>>;
+  setToDeleteId: Dispatch<SetStateAction<string>>;
 };
 
 const BomboniereRow: FC<BomboniereRowProps> = ({
   product,
-  // setModalOpen,
-  // setToDeleteId,
+  setModalOpen,
+  setToDeleteId,
 }) => {
   // const router = useRouter();
 
@@ -26,8 +28,8 @@ const BomboniereRow: FC<BomboniereRowProps> = ({
     {};
 
   const handleDelete = () => {
-    // setToDeleteId(movie._id!);
-    // setModalOpen(true);
+    setToDeleteId(product._id!);
+    setModalOpen(true);
   };
 
   return (

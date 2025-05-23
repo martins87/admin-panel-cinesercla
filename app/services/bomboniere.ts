@@ -40,39 +40,39 @@ export const createProduct = async (product: Bomboniere) => {
   }
 };
 
-// export const editMovie = async (movie: Movie): Promise<Movie | null> => {
+// export const editProduct = async (Product: Product): Promise<Product | null> => {
 //   try {
-//     const response = await fetch(`/api/movies/${movie.tmdbId}`, {
+//     const response = await fetch(`/api/Products/${Product.tmdbId}`, {
 //       method: "PUT",
 //       headers: { "Content-type": "application/json" },
-//       body: JSON.stringify(movie),
+//       body: JSON.stringify(Product),
 //     });
 
 //     if (!response.ok) {
-//       throw new Error(`Failed to edit movie. Status: ${response.status}`);
+//       throw new Error(`Failed to edit Product. Status: ${response.status}`);
 //     }
 
 //     return await response.json();
 //   } catch (error) {
-//     console.log("Error editing movie", error);
+//     console.log("Error editing Product", error);
 
 //     return null;
 //   }
 // };
 
-// export const deleteMovie = async (id: string): Promise<boolean> => {
-//   try {
-//     const response = await fetch(`/api/movies/${id}`, {
-//       method: "DELETE",
-//     });
+export const deleteProduct = async (id: string): Promise<boolean> => {
+  try {
+    const response = await fetch(`/api/bomboniere/${id}`, {
+      method: "DELETE",
+    });
 
-//     if (response.status !== 200) {
-//       throw new Error(`Failed to delete movie. Status: ${response.status}`);
-//     }
+    if (response.status !== 200) {
+      throw new Error(`Failed to delete product. Status: ${response.status}`);
+    }
 
-//     return true;
-//   } catch (error) {
-//     console.log("Error deleting movie", error);
-//     return false;
-//   }
-// };
+    return true;
+  } catch (error) {
+    console.log("Error deleting product", error);
+    return false;
+  }
+};
