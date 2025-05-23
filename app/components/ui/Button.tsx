@@ -44,7 +44,8 @@ const Button: FC<ButtonProps> = ({
           : tertiary
           ? "bg-white text-gray-700 border border-[#CED4DA] hover:bg-[#CED4DA]/20"
           : "",
-        disabled && "bg-[#E9ECEF] hover:bg-[#E9ECEF] hover:cursor-not-allowed",
+        disabled &&
+          "bg-[#E9ECEF] border-0 hover:bg-[#E9ECEF] hover:cursor-not-allowed",
         full && "w-full",
         blue && "border-[#0057FC] hover:bg-[#0057FC]/10",
         className
