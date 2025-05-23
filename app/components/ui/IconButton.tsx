@@ -51,7 +51,8 @@ const IconButton = ({
           : tertiary
           ? "bg-white text-gray-700 border border-[#CED4DA] hover:bg-white/90"
           : "",
-        disabled && "bg-[#E9ECEF] hover:bg-[#E9ECEF] hover:cursor-not-allowed",
+        disabled &&
+          "bg-[#E9ECEF] border-0 hover:bg-[#E9ECEF] hover:cursor-not-allowed",
         sizeClasses[size],
         rounded ? "rounded-full" : "rounded-lg",
         className
