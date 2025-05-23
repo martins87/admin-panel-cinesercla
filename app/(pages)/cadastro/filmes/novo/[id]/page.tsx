@@ -47,8 +47,6 @@ const NovoFilmePage = () => {
     "Não Definida"
   );
   const [ordem, setOrdem] = useState<string>("");
-  const [tags, setTags] = useState<string[]>([]);
-  const [tagInput, setTagInput] = useState<string>("");
   const [genre, setGenre] = useState<string>("");
   const [diretor, setDiretor] = useState<string>("");
   const [runtime, setRuntime] = useState<string>("");
@@ -63,7 +61,6 @@ const NovoFilmePage = () => {
   const [ativo, setAtivo] = useState<boolean>(true);
   const [posterPath, setPosterPath] = useState<string>("");
   const [backdropPath, setBackdropPath] = useState<string>("");
-  // const [tmdbSearch, setTmdbSearch] = useState<string>("");
   const [salvarModalOpen, setSalvarModalOpen] = useState<boolean>(false);
   const [salvarESairModalOpen, setSalvarESairModalOpen] =
     useState<boolean>(false);
@@ -140,17 +137,6 @@ const NovoFilmePage = () => {
     }
   }, [actors]);
 
-  const handleAddTag = () => {
-    if (tagInput && !tags.includes(tagInput)) {
-      setTags([...tags, tagInput]);
-      setTagInput("");
-    }
-  };
-
-  const handleRemoveTag = (tag: string) => {
-    setTags(tags.filter((t) => t !== tag));
-  };
-
   const handleSalvar = async (sair?: boolean) => {
     if (tituloTrailerDublado && keyTrailerDublado) {
       videos.push({
@@ -206,10 +192,6 @@ const NovoFilmePage = () => {
 
   const handleVoltar = () => router.push("/cadastro/filmes");
 
-  // const handlePesquisarTMDB = () => {
-  //   console.log("Searching TMDB for:", tmdbSearch);
-  // };
-
   if (isLoading)
     return (
       <Centered className="h-screen">
@@ -224,40 +206,22 @@ const NovoFilmePage = () => {
       <Page
         title={`Novo Filme: ${title}`}
         subtitle="Cadastre e gerencie novos filmes exibidos no cinema"
-        backArrow
-      >
-        <Centered className="gap-y-6" direction="col">
-          {/* Image upload section */}
+        topActions={
           <MovieImages
             posterPath={posterPath}
             backdropPath={backdropPath}
             posterModalFn={() => setPosterModalOpen(true)}
             backdropModalFn={() => setBackdropModalOpen(true)}
           />
-
-          <div className="w-full border-t border-gray-200 my-2"></div>
-
+        }
+        backArrow
+      >
+        <Centered className="gap-y-6" direction="col">
           {/* Active toggle */}
           <Centered className="gap-x-2" items="center" justify="start">
             <Typography weight="500">Ativo</Typography>
             <Switch value={ativo} setValue={setAtivo} />
           </Centered>
-
-          {/* TMDB search */}
-          {/* <div className="w-full">
-            <Typography weight="500" className="mb-2">
-              Carregar via TMDB
-            </Typography>
-            <div className="flex gap-2">
-              <Input
-                placeholder="Digite o nome do filme..."
-                value={tmdbSearch}
-                setValue={setTmdbSearch}
-                className="flex-grow"
-              />
-              <Button label="PESQUISAR" primary onClick={handlePesquisarTMDB} />
-            </div>
-          </div> */}
 
           <Centered className="">
             <InputWrapper label="Id do Filme" obrigatoria>
@@ -352,35 +316,6 @@ const NovoFilmePage = () => {
               value={overview}
               setValue={setOverview}
             />
-          </InputWrapper>
-
-          {/* Tags */}
-          <InputWrapper label="Tags (Palavra-Chave)">
-            <div className="flex gap-2 mb-2">
-              <Input
-                placeholder="Adicionar tag"
-                value={tagInput}
-                setValue={setTagInput}
-                className="flex-grow"
-              />
-              <Button label="+" primary onClick={handleAddTag} />
-            </div>
-            <div className="flex flex-wrap gap-2">
-              {tags.map((tag, index) => (
-                <div
-                  key={index}
-                  className="bg-gray-200 rounded-md px-3 py-1 flex items-center gap-2"
-                >
-                  <span>{tag}</span>
-                  <button
-                    onClick={() => handleRemoveTag(tag)}
-                    className="text-gray-500 hover:text-gray-700"
-                  >
-                    ×
-                  </button>
-                </div>
-              ))}
-            </div>
           </InputWrapper>
 
           {/* Trailers */}
