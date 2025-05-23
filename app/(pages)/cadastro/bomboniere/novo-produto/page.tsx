@@ -98,7 +98,13 @@ const NovoProdutoPage = () => {
       title="Novo Produto"
       subtitle="Registre um novo item para a bomboniere com todas as especificações"
       backArrow
-      rightColumn={<ImageUpload file={file} setFile={setFile} />}
+      rightColumn={
+        <ImageUpload
+          description="Anexe uma imagem do produto"
+          file={file}
+          setFile={setFile}
+        />
+      }
     >
       <Centered className="gap-x-2" items="center" justify="start">
         <Typography weight="500">Ativo</Typography>

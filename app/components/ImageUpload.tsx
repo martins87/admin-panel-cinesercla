@@ -8,11 +8,12 @@ import ImageFallback from "./ImageFallback";
 import { upload } from "@/app/constants/icons";
 
 type ImageUploadProps = {
+  description: string;
   file: File | null;
   setFile: (file: File | null) => void;
 };
 
-const ImageUpload: FC<ImageUploadProps> = ({ file, setFile }) => {
+const ImageUpload: FC<ImageUploadProps> = ({ description, file, setFile }) => {
   const [image, setImage] = useState<string>("");
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -45,7 +46,7 @@ const ImageUpload: FC<ImageUploadProps> = ({ file, setFile }) => {
             priority
           />
         ) : (
-          <ImageFallback label="Anexe uma imagem do produto" />
+          <ImageFallback description={description} />
         )}
       </div>
       <Typography className="text-[#6C757D]" weight="500">

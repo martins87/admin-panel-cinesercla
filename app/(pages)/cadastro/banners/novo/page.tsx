@@ -38,7 +38,13 @@ const NovoProdutoPage = () => {
       subtitle="Adicione novos banners para cada página e seção selecionada"
       backArrow
       backUrl="/cadastro/banners"
-      rightColumn={<ImageUpload file={file} setFile={setFile} />}
+      rightColumn={
+        <ImageUpload
+          description="Selecione uma página e seção para ver a prévia"
+          file={file}
+          setFile={setFile}
+        />
+      }
     >
       <Centered className="gap-x-2" items="center" justify="start">
         <Typography weight="500">Ativo</Typography>
