@@ -43,12 +43,17 @@ const BannerRow: FC<BannerRowProps> = ({ banner, index }) => {
       </Centered>
       <Centered className="gap-y-2" direction="col">
         <Centered className="flex-1 ml-auto gap-x-2" justify="end">
-          <IconButton tertiary icon={arrowDown} />
-          <IconButton tertiary icon={arrowUp} />
-          <IconButton tertiary icon={edit} onClick={() => {}} />
-          <IconButton tertiary icon={trash} onClick={() => {}} />
+          <IconButton tertiary icon={arrowDown} disabled />
+          <IconButton tertiary icon={arrowUp} disabled />
+          <IconButton tertiary icon={edit} disabled />
+          <IconButton tertiary icon={trash} disabled />
         </Centered>
-        <Button className="w-[184px] ml-auto" label="Ocultar" secondary />
+        <Button
+          className="w-[184px] ml-auto"
+          label="Ocultar"
+          secondary
+          disabled
+        />
       </Centered>
     </Centered>
   );
