@@ -34,13 +34,14 @@ const BomboniereRow: FC<BomboniereRowProps> = ({
 
   return (
     <Centered className="h-auto border border-[#CED4DA] rounded-lg pl-2 pr-4 py-2 gap-x-10">
-      <Image
-        width={94}
-        height={140}
-        className="rounded-sm"
-        src={`/api/files/${product.imageFileId}`}
-        alt=""
-      />
+      <div className="relative w-64 aspect-square">
+        <Image
+          className="rounded-sm"
+          fill
+          src={`/api/files/${product.imageFileId}`}
+          alt=""
+        />
+      </div>
       <Centered direction="col" items="start" justify="between">
         <Typography className="text-lg text-[#212529]" weight="500">
           {product.nome}
