@@ -47,6 +47,7 @@ const MovieImages: FC<MovieImagesProps> = ({
           icon={upload}
           className="w-full"
           textClassname="font-medium"
+          disabled
         />
       </Centered>
       <Centered className="relative w-fit gap-y-2" direction="col">
@@ -75,6 +76,7 @@ const MovieImages: FC<MovieImagesProps> = ({
           icon={upload}
           className="w-full"
           textClassname="font-medium"
+          disabled
         />
       </Centered>
     </Centered>
