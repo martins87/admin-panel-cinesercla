@@ -53,7 +53,7 @@ const BombonierePage = () => {
       <Page
         title="Lista de Produtos da Bomboniere"
         subtitle="Gerencie os produtos disponíveis para venda no cinema"
-        pageHeader={
+        topActions={
           <Button label="NOVO PRODUTO" primary onClick={handleNovoProduto} />
         }
       >

@@ -57,7 +57,7 @@ const FilmesPage = () => {
       <Page
         title="Lista de Filmes"
         subtitle="Lista de Filmes / Estatísticas"
-        pageHeader={
+        topActions={
           <Centered justify="start" className="gap-x-2">
             <Button
               label="IMPORTAR PROGRAMAÇÃO VIA CSV"

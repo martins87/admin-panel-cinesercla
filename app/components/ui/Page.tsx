@@ -15,7 +15,7 @@ type PageProps = {
   rightColumn?: ReactNode;
   title: string;
   subtitle?: string;
-  pageHeader?: ReactNode;
+  topActions?: ReactNode;
   className?: string;
   backArrow?: boolean;
   backUrl?: string;
@@ -26,7 +26,7 @@ const Page: FC<PageProps> = ({
   rightColumn,
   title,
   subtitle,
-  pageHeader,
+  topActions,
   className,
   backArrow,
   backUrl,
@@ -66,9 +66,9 @@ const Page: FC<PageProps> = ({
             {subtitle}
           </Typography>
         )}
-        {pageHeader && (
+        {topActions && (
           <Centered className="mt-6" justify="start">
-            {pageHeader}
+            {topActions}
           </Centered>
         )}
       </Centered>

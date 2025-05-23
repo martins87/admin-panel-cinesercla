@@ -58,7 +58,7 @@ const ProgramacaoPage = () => {
       subtitle={
         movies.length > 0 ? "Válida do dia 17/04/2025 a 23/04/2025" : undefined
       }
-      pageHeader={
+      topActions={
         movies.length > 0 && (
           <Centered className="gap-y-4" direction="col" items="start">
             <ComboBox
