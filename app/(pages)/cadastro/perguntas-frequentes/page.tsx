@@ -41,14 +41,16 @@ const FaqPage = () => {
       <Page
         title="Lista de Perguntas Frequentes"
         subtitle="Visualize e gerencie todas as perguntas frequentes"
+        topActions={
+          <Centered justify="start">
+            <Button
+              label="NOVA PERGUNTA FREQUENTE"
+              primary
+              onClick={() => router.push("/cadastro/perguntas-frequentes/nova")}
+            />
+          </Centered>
+        }
       >
-        <Centered justify="start">
-          <Button
-            label="NOVA PERGUNTA FREQUENTE"
-            primary
-            onClick={() => router.push("/cadastro/perguntas-frequentes/nova")}
-          />
-        </Centered>
         <Centered direction="col" className="gap-y-4">
           {faqList.map((faq: Faq, index: number) => (
             <PerguntaFrequente
