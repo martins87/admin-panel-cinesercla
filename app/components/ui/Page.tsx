@@ -74,7 +74,7 @@ const Page: FC<PageProps> = ({
       </Centered>
       <Centered className="gap-x-4" items="start" justify="start">
         <Centered
-          className="h-full border rounded-lg p-4 gap-y-4 bg-white"
+          className="h-fit border rounded-lg p-4 gap-y-4 bg-white"
           direction="col"
           items="start"
           justify="start"
