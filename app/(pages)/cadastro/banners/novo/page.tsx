@@ -13,6 +13,8 @@ import ImageUpload from "@/app/components/ImageUpload";
 import PageBottomActionButtons from "@/app/components/PageBottomActionButtons";
 import Input from "@/app/components/ui/Input";
 import BannerNomeELink from "@/app/components/Banner/BannerNomeELink";
+import BannerDataInicioFim from "@/app/components/Banner/BannerDataInicioFim";
+import BannerListaFilmes from "@/app/components/Banner/BannerListaFilmes";
 
 const paginaList = [
   { value: "inicial", label: "Inicial" },
@@ -39,7 +41,10 @@ const NovoProdutoPage = () => {
   const [pagina, setPagina] = useState<string | boolean>("");
   const [secao, setSecao] = useState<string | boolean>("");
   const [tipoConteudo, setTipoConteudo] = useState<string | boolean>("pipocas");
+  const [tituloConteudo, setTituloConteudo] = useState<string>("");
   const [ordem, setOrdem] = useState<string>("");
+  const [filmeId, setFilmeId] = useState<string | boolean>("");
+  const [situacao, setSituacao] = useState<string | boolean>("ativo");
   const [dataInicio, setDataInicio] = useState<string>("");
   const [dataExpiracao, setDataExpiracao] = useState<string>("");
   const [nomeBanner, setNomeBanner] = useState<string>("");
@@ -49,6 +54,7 @@ const NovoProdutoPage = () => {
   const [imgMobile, setImgMobile] = useState<File | null>(null);
 
   const paginaESecao = pagina !== "" && secao !== "";
+  const destaqueOuConteudo = secao === "destaque" || secao === "conteudo";
   const conteudoOuFilme = secao === "conteudo" || tipoConteudo === "filme";
 
   const handleVoltar = () => router.push("/cadastro/banners");
@@ -106,14 +112,14 @@ const NovoProdutoPage = () => {
           />
         </InputWrapper>
       )}
-      {(secao === "destaque" || secao === "conteudo") && (
+      {destaqueOuConteudo && (
         <Centered className="grid grid-cols-2 gap-x-4 gap-y-4">
           {secao === "conteudo" ? (
             <InputWrapper label="Título do Conteúdo" obrigatoria>
               <Input
                 placeholder="Título do Conteúdo"
-                value={ordem}
-                setValue={setOrdem}
+                value={tituloConteudo}
+                setValue={setTituloConteudo}
               />
             </InputWrapper>
           ) : (
@@ -142,42 +148,20 @@ const NovoProdutoPage = () => {
         </InputWrapper>
       )}
       {tipoConteudo === "filme" && (
-        <>
-          <InputWrapper label="Selecione um Filme a Ser Exibido" obrigatoria>
-            <ComboBox
-              label="Selecione um Filme"
-              list={paginaList}
-              value={tipoConteudo}
-              setValue={setTipoConteudo}
-            />
-          </InputWrapper>
-          <InputWrapper label="Situação" obrigatoria>
-            <ComboBox
-              label="Selecionar"
-              list={paginaList}
-              value={tipoConteudo}
-              setValue={setTipoConteudo}
-            />
-          </InputWrapper>
-        </>
+        <BannerListaFilmes
+          filmeId={filmeId}
+          setFilmeId={setFilmeId}
+          situacao={situacao}
+          setSituacao={setSituacao}
+        />
       )}
       {conteudoOuFilme && (
-        <Centered className="grid grid-cols-2 gap-x-4 gap-y-4">
-          <InputWrapper label="Data Início">
-            <Input
-              placeholder="03/06/2025"
-              value={dataInicio}
-              setValue={setDataInicio}
-            />
-          </InputWrapper>
-          <InputWrapper label="Data Expiração">
-            <Input
-              placeholder="30/06/2025"
-              value={dataExpiracao}
-              setValue={setDataExpiracao}
-            />
-          </InputWrapper>
-        </Centered>
+        <BannerDataInicioFim
+          dataInicio={dataInicio}
+          setDataInicio={setDataInicio}
+          dataExpiracao={dataExpiracao}
+          setDataExpiracao={setDataExpiracao}
+        />
       )}
       {paginaESecao && (
         <BannerNomeELink
