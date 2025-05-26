@@ -1,6 +1,7 @@
 export const paginaList = [
   { value: "inicial", label: "Inicial" },
   { value: "institucional", label: "Institucional" },
+  { value: "corporativo", label: "Corporativo" },
   { value: "promocoes", label: "Promoções" },
 ];
 
