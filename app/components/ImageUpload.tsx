@@ -38,13 +38,7 @@ const ImageUpload: FC<ImageUploadProps> = ({ description, file, setFile }) => {
     <Centered className="relative w-fit gap-y-2" direction="col">
       <div className="relative w-[360px] h-[360px] rounded-lg overflow-hidden border">
         {file ? (
-          <Image
-            className="object-cover"
-            fill
-            src={image}
-            alt="Imagem do produto"
-            priority
-          />
+          <Image className="object-cover" fill src={image} alt="" priority />
         ) : (
           <ImageFallback description={description} />
         )}

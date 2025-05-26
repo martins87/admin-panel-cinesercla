@@ -3,10 +3,10 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-import Switch from "@/components/ui/switch";
 import Page from "@/app/components/ui/Page";
 import Centered from "@/app/components/ui/Centered";
 import Typography from "@/app/components/ui/Typography";
+import Switch from "@/components/ui/switch";
 import InputWrapper from "@/app/components/InputWrapper";
 import ComboBox from "@/app/components/ui/ComboBox";
 import PageBottomActionButtons from "@/app/components/PageBottomActionButtons";
@@ -14,13 +14,13 @@ import Input from "@/app/components/ui/Input";
 import BannerNomeELink from "@/app/components/Banner/BannerNomeELink";
 import BannerDataInicioFim from "@/app/components/Banner/BannerDataInicioFim";
 import BannerListaFilmes from "@/app/components/Banner/BannerListaFilmes";
+import BannerImageUpload from "@/app/components/Banner/BannerImageUpload";
 import { unidades } from "@/app/constants/unidades";
 import {
   paginaList,
   secaoList,
   tipoConteudoList,
 } from "@/app/constants/banner";
-import BannerImageUpload from "@/app/components/Banner/BannerImageUpload";
 
 const NovoProdutoPage = () => {
   const router = useRouter();
@@ -61,6 +61,8 @@ const NovoProdutoPage = () => {
       backUrl="/cadastro/banners"
       rightColumn={
         <BannerImageUpload
+          pagina={pagina}
+          secao={secao}
           file={file}
           setFile={setFile}
           imgCarousel={imgCarousel}
