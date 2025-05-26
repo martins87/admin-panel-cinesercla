@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 
-import { classificacaoOpcoes, Movie, situacaoOpcoes } from "@/app/types/movie";
+import { Movie } from "@/app/types/movie";
 import { TMDBMovie } from "@/app/types/tmdbMovie";
 import { TMDBVideo } from "@/app/types/tmdbVideo";
 import { useTMDBMovie } from "@/app/hooks/useTMDBMovie";
@@ -27,6 +27,10 @@ import InputWrapper from "@/app/components/InputWrapper";
 import Modal from "@/app/components/Modal";
 import ImagePicker from "@/app/components/Movies/ImagePicker";
 import MovieImages from "@/app/components/Movies/MovieImages";
+import {
+  classificacaoOpcoes,
+  situacaoOpcoes,
+} from "@/app/constants/movieDetails";
 
 const NovoFilmePage = () => {
   const router = useRouter();

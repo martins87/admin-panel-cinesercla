@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 
-import { classificacaoOpcoes, Movie, situacaoOpcoes } from "@/app/types/movie";
+import { Movie } from "@/app/types/movie";
 import { formatDateBR, formatRuntime, getFormattedDate } from "@/lib/utils";
 import { useTMDBMovieImages } from "@/app/hooks/useTMDBMovieImages";
 import { editMovie } from "@/app/services/movies";
@@ -24,6 +24,10 @@ import ImagePicker from "@/app/components/Movies/ImagePicker";
 import MovieImages from "@/app/components/Movies/MovieImages";
 import MovieTrailers from "@/app/components/Movies/MovieTrailers";
 import { YOUTUBE_URL_PREFIX } from "@/app/constants/youtube";
+import {
+  classificacaoOpcoes,
+  situacaoOpcoes,
+} from "@/app/constants/movieDetails";
 
 const NovoFilmePage = () => {
   const router = useRouter();

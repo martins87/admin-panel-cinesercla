@@ -9,31 +9,18 @@ import Centered from "@/app/components/ui/Centered";
 import Typography from "@/app/components/ui/Typography";
 import InputWrapper from "@/app/components/InputWrapper";
 import ComboBox from "@/app/components/ui/ComboBox";
-import ImageUpload from "@/app/components/ImageUpload";
 import PageBottomActionButtons from "@/app/components/PageBottomActionButtons";
 import Input from "@/app/components/ui/Input";
 import BannerNomeELink from "@/app/components/Banner/BannerNomeELink";
 import BannerDataInicioFim from "@/app/components/Banner/BannerDataInicioFim";
 import BannerListaFilmes from "@/app/components/Banner/BannerListaFilmes";
-
-const paginaList = [
-  { value: "inicial", label: "Inicial" },
-  { value: "institucional", label: "Institucional" },
-  { value: "promocoes", label: "Promoções" },
-];
-
-const secaoList = [
-  { value: "destaque", label: "Destaque" },
-  { value: "banner-destaque", label: "Banner Destaque" },
-  { value: "conteudo", label: "Conteúdo" },
-];
-
-const tipoConteudoList = [
-  { value: "filme", label: "Filme" },
-  { value: "promocao", label: "Promoção" },
-  { value: "produto-bomboniere", label: "Produto da Bomboniere" },
-  { value: "sessao-especial", label: "Sessão Especial" },
-];
+import { unidades } from "@/app/constants/unidades";
+import {
+  paginaList,
+  secaoList,
+  tipoConteudoList,
+} from "@/app/constants/banner";
+import BannerImageUpload from "@/app/components/Banner/BannerImageUpload";
 
 const NovoProdutoPage = () => {
   const router = useRouter();
@@ -43,6 +30,7 @@ const NovoProdutoPage = () => {
   const [tipoConteudo, setTipoConteudo] = useState<string | boolean>("pipocas");
   const [tituloConteudo, setTituloConteudo] = useState<string>("");
   const [ordem, setOrdem] = useState<string>("");
+  const [unidade, setUnidade] = useState<string | boolean>("");
   const [filmeId, setFilmeId] = useState<string | boolean>("");
   const [situacao, setSituacao] = useState<string | boolean>("ativo");
   const [dataInicio, setDataInicio] = useState<string>("");
@@ -54,7 +42,8 @@ const NovoProdutoPage = () => {
   const [imgMobile, setImgMobile] = useState<File | null>(null);
 
   const paginaESecao = pagina !== "" && secao !== "";
-  const destaqueOuConteudo = secao === "destaque" || secao === "conteudo";
+  const destaqueOuConteudo =
+    secao === "banner-destaque" || secao === "conteudo";
   const conteudoOuFilme = secao === "conteudo" || tipoConteudo === "filme";
 
   const handleVoltar = () => router.push("/cadastro/banners");
@@ -71,23 +60,14 @@ const NovoProdutoPage = () => {
       backArrow
       backUrl="/cadastro/banners"
       rightColumn={
-        <Centered className="w-fit gap-y-4" direction="col">
-          <ImageUpload
-            description="Selecione uma página e seção para ver a prévia"
-            file={file}
-            setFile={setFile}
-          />
-          <ImageUpload
-            description="Envie uma imagem para exibir no carrossel"
-            file={imgCarousel}
-            setFile={setImgCarousel}
-          />
-          <ImageUpload
-            description="Envie uma imagem para exibir em celulares"
-            file={imgMobile}
-            setFile={setImgMobile}
-          />
-        </Centered>
+        <BannerImageUpload
+          file={file}
+          setFile={setFile}
+          imgCarousel={imgCarousel}
+          setImgCarousel={setImgCarousel}
+          imgMobile={imgMobile}
+          setImgMobile={setImgMobile}
+        />
       }
     >
       <Centered className="gap-x-2" items="center" justify="start">
@@ -141,9 +121,9 @@ const NovoProdutoPage = () => {
         <InputWrapper label="Unidade(s) Participante(s)" obrigatoria>
           <ComboBox
             label="Selecione uma Unidade"
-            list={paginaList}
-            value={tipoConteudo}
-            setValue={setTipoConteudo}
+            list={unidades}
+            value={unidade}
+            setValue={setUnidade}
           />
         </InputWrapper>
       )}

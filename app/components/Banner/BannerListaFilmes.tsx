@@ -2,6 +2,7 @@ import React, { Dispatch, FC, SetStateAction } from "react";
 
 import InputWrapper from "../InputWrapper";
 import ComboBox from "../ui/ComboBox";
+import { situacaoOpcoes } from "@/app/constants/movieDetails";
 
 type BannerListaFilmesProps = {
   filmeId: string | boolean;
@@ -35,7 +36,7 @@ const BannerListaFilmes: FC<BannerListaFilmesProps> = ({
       <InputWrapper label="Situação" obrigatoria>
         <ComboBox
           label="Selecionar"
-          list={paginaList}
+          list={situacaoOpcoes}
           value={situacao}
           setValue={setSituacao}
         />
