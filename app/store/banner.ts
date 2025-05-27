@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { Banner } from "@/app/types/banner";
-import { getBannerList } from "@/lib/db/banner";
+import { getBannerList } from "../services/banner";
 
 type BannerStore = {
   bannerList: Banner[];
