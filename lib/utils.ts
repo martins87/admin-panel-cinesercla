@@ -55,3 +55,37 @@ export const groupScheduleByMovie = (schedule: Schedule[]): MovieSchedule[] => {
 
   return movieScheduleList;
 };
+
+export async function uploadFile(file: File): Promise<string> {
+  const formData = new FormData();
+  formData.append("file", file);
+
+  const response = await fetch("/api/upload", {
+    method: "POST",
+    body: formData,
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(errorData.error || "Failed to upload image.");
+  }
+
+  const data = await response.json();
+  return data.fileId as string;
+}
+
+export async function uploadFiles(files: File[]): Promise<string[]> {
+  const fileIds: string[] = [];
+
+  for (const file of files) {
+    try {
+      const fileId = await uploadFile(file);
+      fileIds.push(fileId);
+    } catch (error) {
+      console.error("Error uploading file:", error);
+      throw error; // Re-throw to handle it in the calling function
+    }
+  }
+
+  return fileIds;
+}

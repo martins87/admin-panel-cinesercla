@@ -25,7 +25,7 @@ const BannerRow: FC<BannerRowProps> = ({ banner, index }) => {
           className="rounded-sm"
           width={100}
           height={100}
-          src={banner.image}
+          src={`/api/files/${banner.images[0].fileId}`}
           alt={banner.nome}
         />
       </Centered>

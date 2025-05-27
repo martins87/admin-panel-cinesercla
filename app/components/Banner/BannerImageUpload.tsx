@@ -6,23 +6,23 @@ import ImageFallback from "../ImageFallback";
 type BannerImageUploadProps = {
   pagina: string | boolean;
   secao: string | boolean;
-  file: File | null;
-  setFile: Dispatch<SetStateAction<File | null>>;
-  imgCarousel: File | null;
-  setImgCarousel: Dispatch<SetStateAction<File | null>>;
-  imgMobile: File | null;
-  setImgMobile: Dispatch<SetStateAction<File | null>>;
+  img1: File | null;
+  setImg1: Dispatch<SetStateAction<File | null>>;
+  img2: File | null;
+  setImg2: Dispatch<SetStateAction<File | null>>;
+  img3: File | null;
+  setImg3: Dispatch<SetStateAction<File | null>>;
 };
 
 const BannerImageUpload: FC<BannerImageUploadProps> = ({
   pagina,
   secao,
-  file,
-  setFile,
-  imgCarousel,
-  setImgCarousel,
-  imgMobile,
-  setImgMobile,
+  img1,
+  setImg1,
+  img2,
+  setImg2,
+  img3,
+  setImg3,
 }) => {
   return (
     <>
@@ -30,18 +30,18 @@ const BannerImageUpload: FC<BannerImageUploadProps> = ({
         <Centered className="w-fit gap-y-4" direction="col">
           <ImageUpload
             description="Selecione uma página e seção para ver a prévia"
-            file={file}
-            setFile={setFile}
+            file={img1}
+            setFile={setImg1}
           />
           <ImageUpload
             description="Envie uma imagem para exibir no carrossel"
-            file={imgCarousel}
-            setFile={setImgCarousel}
+            file={img2}
+            setFile={setImg2}
           />
           <ImageUpload
             description="Envie uma imagem para exibir em celulares"
-            file={imgMobile}
-            setFile={setImgMobile}
+            file={img3}
+            setFile={setImg3}
           />
         </Centered>
       ) : (

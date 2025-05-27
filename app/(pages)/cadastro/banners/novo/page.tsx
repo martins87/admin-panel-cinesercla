@@ -3,6 +3,9 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
+import { Banner } from "@/app/types/banner";
+import { uploadFile } from "@/lib/utils";
+import { createBanner } from "@/app/services/banner";
 import Page from "@/app/components/ui/Page";
 import Centered from "@/app/components/ui/Centered";
 import Typography from "@/app/components/ui/Typography";
@@ -15,6 +18,7 @@ import BannerNomeELink from "@/app/components/Banner/BannerNomeELink";
 import BannerDataInicioFim from "@/app/components/Banner/BannerDataInicioFim";
 import BannerListaFilmes from "@/app/components/Banner/BannerListaFilmes";
 import BannerImageUpload from "@/app/components/Banner/BannerImageUpload";
+import Loading from "@/app/components/Loading";
 import { unidades } from "@/app/constants/unidades";
 import {
   paginaList,
@@ -37,9 +41,10 @@ const NovoProdutoPage = () => {
   const [dataExpiracao, setDataExpiracao] = useState<string>("");
   const [nomeBanner, setNomeBanner] = useState<string>("");
   const [linkBanner, setLinkBanner] = useState<string>("");
-  const [file, setFile] = useState<File | null>(null);
-  const [imgCarousel, setImgCarousel] = useState<File | null>(null);
-  const [imgMobile, setImgMobile] = useState<File | null>(null);
+  const [img1, setImg1] = useState<File | null>(null);
+  const [img2, setImg2] = useState<File | null>(null);
+  const [img3, setImg3] = useState<File | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const paginaESecao = pagina !== "" && secao !== "";
   const destaqueOuConteudo =
@@ -49,8 +54,89 @@ const NovoProdutoPage = () => {
   const handleVoltar = () => router.push("/cadastro/banners");
 
   const handleSalvar = async (sair?: boolean) => {
-    console.log(sair);
-    router.push("/cadastro/banners");
+    setLoading(true);
+    let img1FileId;
+    let img2FileId;
+    let img3FileId;
+    const imgFiles = [];
+
+    if (img1) {
+      try {
+        img1FileId = await uploadFile(img1);
+        console.log(`Imagem enviada com sucesso: ${img1FileId}`);
+        if (img1FileId) imgFiles.push({ fileId: img1FileId });
+      } catch (error) {
+        console.error("Error uploading image 1:", error);
+        alert(
+          `Erro ao enviar a imagem: ${
+            error instanceof Error ? error.message : "Erro desconhecido"
+          }`
+        );
+      }
+    }
+
+    if (img2) {
+      try {
+        img2FileId = await uploadFile(img2);
+        console.log(`Imagem enviada com sucesso: ${img2FileId}`);
+        if (img2FileId) imgFiles.push({ fileId: img2FileId });
+      } catch (error) {
+        console.error("Error uploading image 2:", error);
+        alert(
+          `Erro ao enviar a imagem: ${
+            error instanceof Error ? error.message : "Erro desconhecido"
+          }`
+        );
+      }
+    }
+
+    if (img3) {
+      try {
+        img3FileId = await uploadFile(img3);
+        console.log(`Imagem enviada com sucesso: ${img3FileId}`);
+        if (img3FileId) imgFiles.push({ fileId: img3FileId });
+      } catch (error) {
+        console.error("Error uploading image 3:", error);
+        alert(
+          `Erro ao enviar a imagem: ${
+            error instanceof Error ? error.message : "Erro desconhecido"
+          }`
+        );
+      }
+    }
+
+    try {
+      const newBanner: Banner = {
+        pagina: pagina as string,
+        secao: secao as string,
+        tipoConteudo: tipoConteudo as string,
+        ordem: ordem || "1",
+        unidadesParticipantes: unidade
+          ? [{ unidadeId: unidade as string }]
+          : [],
+        idFilme: filmeId as string,
+        situacao: situacao as string,
+        dataInicio: dataInicio || new Date().toISOString(),
+        dataFim: dataExpiracao || new Date().toISOString(),
+        nome: nomeBanner || "",
+        link: linkBanner || "",
+        images: imgFiles,
+      };
+
+      const createdBanner = createBanner(newBanner);
+      if (createdBanner) {
+        console.log("Banner created successfully:", createdBanner);
+      } else {
+        console.error("Failed to create banner.");
+      }
+
+      console.log("new banner", newBanner);
+    } catch (error) {
+      console.error("Error creating banner:", error);
+    } finally {
+      if (sair) router.push("/cadastro/banners");
+      setLoading(false);
+    }
   };
 
   return (
@@ -63,12 +149,12 @@ const NovoProdutoPage = () => {
         <BannerImageUpload
           pagina={pagina}
           secao={secao}
-          file={file}
-          setFile={setFile}
-          imgCarousel={imgCarousel}
-          setImgCarousel={setImgCarousel}
-          imgMobile={imgMobile}
-          setImgMobile={setImgMobile}
+          img1={img1}
+          setImg1={setImg1}
+          img2={img2}
+          setImg2={setImg2}
+          img3={img3}
+          setImg3={setImg3}
         />
       }
     >
@@ -159,6 +245,7 @@ const NovoProdutoPage = () => {
         saveBtnDisabled={false}
         saveAndReturnBtnDisabled={false}
       />
+      {loading && <Loading />}
     </Page>
   );
 };

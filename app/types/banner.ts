@@ -1,10 +1,20 @@
-import { StaticImageData } from "next/image";
-
 export type Banner = {
-  _id: string;
-  nome: string;
+  _id?: string;
   pagina: string;
   secao: string;
+  tipoConteudo: string;
   ordem: string;
-  image: StaticImageData | string;
+  unidadesParticipantes: {
+    unidadeId: string;
+  }[];
+  idFilme: string;
+  situacao: string;
+  dataInicio: string;
+  dataFim: string;
+  nome: string;
+  link: string;
+  // descricao: string;
+  images: {
+    fileId: string;
+  }[];
 };
