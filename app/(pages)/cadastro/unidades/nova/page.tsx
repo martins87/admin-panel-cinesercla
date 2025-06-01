@@ -23,10 +23,21 @@ const categoriaList = [
 const NovaUnidadePage = () => {
   const router = useRouter();
   const [ativo, setAtivo] = useState<boolean>(true);
-  const [categoria, setCategoria] = useState<string | boolean>("pipocas");
   const [nome, setNome] = useState<string>("");
-  const [preco, setPreco] = useState<string>("");
-  const [file, setFile] = useState<File | null>(null);
+  const [shopping, setShopping] = useState<string>("");
+  const [endereco, setEndereco] = useState<string>("");
+  const [estado, setEstado] = useState<string | boolean>("");
+  const [cidade, setCidade] = useState<string | boolean>("");
+  const [urlMapa, setUrlMapa] = useState<string>("");
+  const [telefone, setTelefone] = useState<string>("");
+  const [numeroSalas, setNumeroSalas] = useState<string>("");
+  const [capacidade, setCapacidade] = useState<string>("");
+  const [dataInauguracao, setDataInauguracao] = useState<string>("");
+  const [situacao, setSituacao] = useState<string | boolean>("");
+  const [idIntranet, setIdIntranet] = useState<string>("");
+  const [idUnidade, setIdUnidade] = useState<string>("");
+  const [file1, setFile1] = useState<File | null>(null);
+  const [file2, setFile2] = useState<File | null>(null);
 
   const handleSalvar = () => {};
 
@@ -38,11 +49,18 @@ const NovaUnidadePage = () => {
       subtitle="Adicione uma nova unidade e defina seus detalhes operacionais"
       backArrow
       rightColumn={
-        <ImageUpload
-          description="Anexe uma imagem da unidade"
-          file={file}
-          setFile={setFile}
-        />
+        <Centered className="w-fit gap-y-4" direction="col">
+          <ImageUpload
+            description="Anexe uma imagem da unidade"
+            file={file1}
+            setFile={setFile1}
+          />
+          <ImageUpload
+            description="Anexe uma imagem da unidade"
+            file={file2}
+            setFile={setFile2}
+          />
+        </Centered>
       }
     >
       <Centered className="gap-x-2" items="center" justify="start">
@@ -55,11 +73,10 @@ const NovaUnidadePage = () => {
           <Input placeholder="Nome" value={nome} setValue={setNome} />
         </InputWrapper>
         <InputWrapper label="Shopping" obrigatoria>
-          <ComboBox
-            label="Selecione"
-            list={categoriaList}
-            value={categoria}
-            setValue={setCategoria}
+          <Input
+            placeholder="Shopping da Unidade"
+            value={shopping}
+            setValue={setShopping}
           />
         </InputWrapper>
       </Centered>
@@ -67,8 +84,8 @@ const NovaUnidadePage = () => {
       <InputWrapper label="Endereço" obrigatoria>
         <Input
           placeholder="Digite o endereço da unidade"
-          value={nome}
-          setValue={setNome}
+          value={endereco}
+          setValue={setEndereco}
         />
       </InputWrapper>
 
@@ -77,16 +94,16 @@ const NovaUnidadePage = () => {
           <ComboBox
             label="Selecione um Estado"
             list={categoriaList}
-            value={categoria}
-            setValue={setCategoria}
+            value={estado}
+            setValue={setEstado}
           />
         </InputWrapper>
         <InputWrapper label="Cidade" obrigatoria>
           <ComboBox
             label="Selecione uma Cidade"
             list={categoriaList}
-            value={categoria}
-            setValue={setCategoria}
+            value={cidade}
+            setValue={setCidade}
           />
         </InputWrapper>
       </Centered>
@@ -95,15 +112,15 @@ const NovaUnidadePage = () => {
         <InputWrapper label="Link para o mapa">
           <Input
             placeholder="Link para o mapa"
-            value={preco}
-            setValue={setPreco}
+            value={urlMapa}
+            setValue={setUrlMapa}
           />
         </InputWrapper>
         <InputWrapper label="Telefone" obrigatoria>
           <Input
             placeholder="Digite o telefone"
-            value={preco}
-            setValue={setPreco}
+            value={telefone}
+            setValue={setTelefone}
           />
         </InputWrapper>
       </Centered>
@@ -112,15 +129,15 @@ const NovaUnidadePage = () => {
         <InputWrapper label="Número de salas">
           <Input
             placeholder="Digite o número de salas"
-            value={preco}
-            setValue={setPreco}
+            value={numeroSalas}
+            setValue={setNumeroSalas}
           />
         </InputWrapper>
         <InputWrapper label="Capacidade">
           <Input
             placeholder="Digite a capacidade"
-            value={preco}
-            setValue={setPreco}
+            value={capacidade}
+            setValue={setCapacidade}
           />
         </InputWrapper>
       </Centered>
@@ -129,46 +146,29 @@ const NovaUnidadePage = () => {
         <InputWrapper label="Data de inauguração">
           <Input
             placeholder="Digite uma data"
-            value={preco}
-            setValue={setPreco}
+            value={dataInauguracao}
+            setValue={setDataInauguracao}
           />
         </InputWrapper>
         <InputWrapper label="Situação" obrigatoria>
           <ComboBox
             label="Escolha uma opção"
             list={categoriaList}
-            value={categoria}
-            setValue={setCategoria}
-          />
-        </InputWrapper>
-      </Centered>
-
-      <Centered className="grid grid-cols-2 gap-x-4 gap-y-4">
-        <InputWrapper label="Número de salas">
-          <Input
-            placeholder="Digite o número de salas"
-            value={preco}
-            setValue={setPreco}
-          />
-        </InputWrapper>
-        <InputWrapper label="Capacidade">
-          <Input
-            placeholder="Digite a capacidade"
-            value={preco}
-            setValue={setPreco}
+            value={situacao}
+            setValue={setSituacao}
           />
         </InputWrapper>
       </Centered>
 
       <Centered className="grid grid-cols-2 gap-x-4 gap-y-4">
         <InputWrapper label="ID Intranet">
-          <Input placeholder="0" value={preco} setValue={setPreco} />
+          <Input placeholder="0" value={idIntranet} setValue={setIdIntranet} />
         </InputWrapper>
         <InputWrapper label="ID da unidade">
           <Input
             placeholder="ID da unidade ao final do cadastro da unidade"
-            value={preco}
-            setValue={setPreco}
+            value={idUnidade}
+            setValue={setIdUnidade}
           />
         </InputWrapper>
       </Centered>
