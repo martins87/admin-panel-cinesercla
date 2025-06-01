@@ -4,7 +4,11 @@ import { useEffect, useState } from "react";
 
 import { Schedule } from "@/app/types/schedule";
 import { MovieSchedule } from "@/app/types/movie";
-import { groupScheduleByMovie } from "@/lib/utils";
+import {
+  formatDateToBR,
+  getScheduleDateRange,
+  groupScheduleByMovie,
+} from "@/lib/utils";
 import { useSchedule } from "@/app/hooks/useSchedule";
 import { useMovieStore } from "@/app/store/movies";
 import Centered from "@/app/components/ui/Centered";
@@ -25,6 +29,8 @@ const ProgramacaoPage = () => {
     // isError
   } = useSchedule();
   const [moviesLoading, setMoviesLoading] = useState<boolean>(false);
+  const [dataInicio, setDataInicio] = useState<string>("");
+  const [dataFim, setDataFim] = useState<string>("");
 
   useEffect(() => {
     const fetchMovies = async () => {
@@ -49,6 +55,10 @@ const ProgramacaoPage = () => {
 
       const groupedMovies = groupScheduleByMovie(exibicoes);
       setMovies(groupedMovies);
+
+      const { oldestStart, newestEnd } = getScheduleDateRange(scheduleList);
+      setDataInicio(oldestStart as string);
+      setDataFim(newestEnd as string);
     }
   }, [idUnidade, scheduleList]);
 
@@ -56,7 +66,11 @@ const ProgramacaoPage = () => {
     <Page
       title="Programação"
       subtitle={
-        movies.length > 0 ? "Válida do dia 17/04/2025 a 23/04/2025" : undefined
+        movies.length > 0
+          ? `Válida do dia ${formatDateToBR(dataInicio)} a ${formatDateToBR(
+              dataFim
+            )}`
+          : undefined
       }
       topActions={
         movies.length > 0 && (

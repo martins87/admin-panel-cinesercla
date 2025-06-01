@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import Centered from "../../ui/Centered";
 import Typography from "../../ui/Typography";
 import { Schedule } from "@/app/types/schedule";
-import { formatDateBR } from "@/lib/utils";
+import { formatDateToBR } from "@/lib/utils";
 import Image from "next/image";
 import { audio, calendar, clock } from "@/app/constants/icons";
 
@@ -51,9 +51,9 @@ const TheaterRow: FC<TheaterRowProps> = ({ schedule }) => {
         justify="start"
       >
         <Image src={calendar} alt="calendar icon" />
-        <Typography className="text-[#343A40]">{`${formatDateBR(
+        <Typography className="text-[#343A40]">{`${formatDateToBR(
           schedule.dataInicio
-        )} a ${formatDateBR(schedule.dataFim)}`}</Typography>
+        )} a ${formatDateToBR(schedule.dataFim)}`}</Typography>
       </Centered>
       <Centered className="gap-x-2" justify="start">
         <Image src={audio} alt="audio icon" />

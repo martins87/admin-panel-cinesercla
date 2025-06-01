@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 
 import { Movie } from "@/app/types/movie";
-import { formatDateBR } from "@/lib/utils";
 import Centered from "../ui/Centered";
 import Typography from "../ui/Typography";
 import IconButton from "../ui/IconButton";
@@ -48,9 +47,6 @@ const MovieRow: FC<MovieRowProps> = ({
         </Typography>
         <Typography className="text-base text-[#767676]">
           {movie.original_title}
-        </Typography>
-        <Typography className="text-base text-[#343A40]">
-          {formatDateBR(movie.release_date)}
         </Typography>
         <Typography className="text-base text-[#767676]">
           Código TMDB: {movie.tmdbId}

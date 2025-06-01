@@ -13,7 +13,7 @@ import { useTMDBMovieVideos } from "@/app/hooks/useTMDBMovieVideos";
 import { useTMDBMovieCast } from "@/app/hooks/useTMDBMovieCast";
 import { createMovie } from "@/app/services/movies";
 import { useMovieStore } from "@/app/store/movies";
-import { formatDateBR, formatRuntime, getFormattedDate } from "@/lib/utils";
+import { formatDateToBR, formatRuntime, getFormattedDate } from "@/lib/utils";
 import Page from "@/app/components/ui/Page";
 import Centered from "@/app/components/ui/Centered";
 import Typography from "@/app/components/ui/Typography";
@@ -90,7 +90,7 @@ const NovoFilmePage = () => {
     setOriginalTitle(result.original_title);
     setOverview(result.overview);
     setPosterPath(result.poster_path);
-    setReleaseDate(formatDateBR(result.release_date));
+    setReleaseDate(formatDateToBR(result.release_date));
     setRuntime(formatRuntime(result.runtime));
     setRuntimeNum(result.runtime);
     setSituacao(result.status);

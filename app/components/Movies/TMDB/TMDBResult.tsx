@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 
 import { TMDBMovie } from "@/app/types/tmdbMovie";
 import { useMovieStore } from "@/app/store/movies";
-import { formatDateBR } from "@/lib/utils";
+import { formatDateToBR } from "@/lib/utils";
 import Centered from "@/app/components/ui/Centered";
 import Typography from "@/app/components/ui/Typography";
 import IconButton from "@/app/components/ui/IconButton";
@@ -43,7 +43,7 @@ const TMDBResult: FC<TMDBResultprops> = ({ result }) => {
           Previsão de Lançamento:
         </Typography>
         <Typography className="text-base text-[#767676]">
-          {formatDateBR(result.release_date)}
+          {formatDateToBR(result.release_date)}
         </Typography>
       </Centered>
       {isMovieAdded ? (

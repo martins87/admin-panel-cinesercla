@@ -26,6 +26,11 @@ export const formatDateBR = (dateString: string) => {
   return new Intl.DateTimeFormat("pt-BR").format(date);
 };
 
+export function formatDateToBR(date: string): string {
+  const [year, month, day] = date.split("-");
+  return `${day}/${month}/${year}`;
+}
+
 export const encodeQueryString = (query: string) => {
   return encodeURIComponent(query).replace(/%20/g, "+");
 };
@@ -88,4 +93,24 @@ export async function uploadFiles(files: File[]): Promise<string[]> {
   }
 
   return fileIds;
+}
+
+export function getScheduleDateRange(schedules: Schedule[]) {
+  if (schedules.length === 0) {
+    return { oldestStart: null, newestEnd: null };
+  }
+
+  let oldestStart = schedules[0].dataInicio;
+  let newestEnd = schedules[0].dataFim;
+
+  for (const schedule of schedules) {
+    if (schedule.dataInicio < oldestStart) {
+      oldestStart = schedule.dataInicio;
+    }
+    if (schedule.dataFim > newestEnd) {
+      newestEnd = schedule.dataFim;
+    }
+  }
+
+  return { oldestStart, newestEnd };
 }
