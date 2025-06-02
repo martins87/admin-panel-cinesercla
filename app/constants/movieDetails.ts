@@ -6,13 +6,13 @@ export const situacaoOpcoes = [
 ];
 
 export const classificacaoOpcoes = [
-  { value: "Não Definida", label: "Não Definida" },
-  { value: "Livre", label: "Livre" },
-  { value: "10 anos", label: "10 anos" },
-  { value: "12 anos", label: "12 anos" },
-  { value: "14 anos", label: "14 anos" },
-  { value: "16 anos", label: "16 anos" },
-  { value: "18 anos", label: "18 anos" },
+  { value: "ND", label: "Não Definida" },
+  { value: "L", label: "Livre" },
+  { value: "10", label: "10 anos" },
+  { value: "12", label: "12 anos" },
+  { value: "14", label: "14 anos" },
+  { value: "16", label: "16 anos" },
+  { value: "18", label: "18 anos" },
 ];
 
 export const generoOpcoes = [

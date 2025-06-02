@@ -17,6 +17,7 @@ export type Movie = {
   release_date: string;
   runtime: number;
   situacao: string;
+  classificacao: string;
   title: string;
   vote_average?: number;
   vote_count?: number;

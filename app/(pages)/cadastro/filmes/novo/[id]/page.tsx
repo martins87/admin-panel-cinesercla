@@ -168,8 +168,7 @@ const NovoFilmePage = () => {
       runtime: runtimeNum, // change
       cast: cast || "",
       situacao: situacao as string,
-      // trailerDublado, // change
-      // trailerLegendado, // change
+      classificacao: classificacao as string,
       overview,
       ativo,
       trailers: videos,

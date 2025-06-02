@@ -83,6 +83,7 @@ const NovoFilmePage = () => {
     setOriginalTitle(movie.original_title);
     setReleaseDate(formatDateBR(movie.release_date));
     setSituacao(movie.situacao);
+    setClassificacao(movie.classificacao);
     setGenre(movie.genres);
     setRuntime(formatRuntime(movie.runtime));
     setCast(movie.cast);
@@ -146,6 +147,7 @@ const NovoFilmePage = () => {
       runtime: runtimeNum, // change
       cast,
       situacao: situacao as string,
+      classificacao: classificacao as string,
       overview,
       ativo,
       trailers: videos,
