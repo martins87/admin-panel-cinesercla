@@ -42,6 +42,7 @@ const MovieImages: FC<MovieImagesProps> = ({
             label="ALTERAR"
             secondary
             onClick={posterModalFn}
+            disabled={posterPath === null}
           />
         </div>
         <Typography className="text-[#6C757D]" weight="500">
@@ -79,6 +80,7 @@ const MovieImages: FC<MovieImagesProps> = ({
             label="ALTERAR"
             secondary
             onClick={backdropModalFn}
+            disabled={noBannerImg}
           />
         </div>
         <Typography className="text-[#6C757D]" weight="500">
