@@ -10,6 +10,7 @@ import Typography from "../ui/Typography";
 import IconButton from "../ui/IconButton";
 import Button from "../ui/Button";
 import { arrowDown, arrowUp, edit, trash } from "@/app/constants/icons";
+import noPoster from "@/app/assets/images/no_poster.png";
 
 type MovieRowProps = {
   movie: Movie;
@@ -23,6 +24,9 @@ const MovieRow: FC<MovieRowProps> = ({
   setToDeleteId,
 }) => {
   const router = useRouter();
+  const poster = movie.poster_path
+    ? `https://image.tmdb.org/t/p/original${movie.poster_path}`
+    : noPoster;
 
   const handleEdit = () =>
     router.push(`/cadastro/filmes/editar/${movie.tmdbId}`);
@@ -38,7 +42,7 @@ const MovieRow: FC<MovieRowProps> = ({
         width={94}
         height={140}
         className="rounded-sm"
-        src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
+        src={poster}
         alt=""
       />
       <Centered direction="col" items="start" justify="between">

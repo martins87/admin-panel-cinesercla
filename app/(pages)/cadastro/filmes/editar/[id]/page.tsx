@@ -179,19 +179,17 @@ const NovoFilmePage = () => {
       <Page
         title={`Editar Filme: ${title}`}
         subtitle="Cadastre e gerencie novos filmes exibidos no cinema"
-        backArrow
-      >
-        <Centered className="gap-y-6" direction="col">
-          {/* Image upload section */}
+        topActions={
           <MovieImages
             posterPath={posterPath}
             backdropPath={backdropPath}
             posterModalFn={() => setPosterModalOpen(true)}
             backdropModalFn={() => setBackdropModalOpen(true)}
           />
-
-          <div className="w-full border-t border-gray-200 my-2" />
-
+        }
+        backArrow
+      >
+        <Centered className="gap-y-6" direction="col">
           {/* Active toggle */}
           <Centered className="gap-x-2" items="center" justify="start">
             <Typography weight="500">Ativo</Typography>

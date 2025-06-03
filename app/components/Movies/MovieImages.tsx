@@ -5,6 +5,7 @@ import Centered from "../ui/Centered";
 import Button from "../ui/Button";
 import Typography from "../ui/Typography";
 import { upload } from "@/app/constants/icons";
+import noPoster from "@/app/assets/images/no_poster.png";
 
 type MovieImagesProps = {
   posterPath: string;
@@ -20,6 +21,9 @@ const MovieImages: FC<MovieImagesProps> = ({
   backdropModalFn,
 }) => {
   const noBannerImg = backdropPath === null;
+  const poster = posterPath
+    ? `https://image.tmdb.org/t/p/original${posterPath}`
+    : noPoster;
 
   return (
     <Centered className="gap-x-4" justify="start">
@@ -28,7 +32,7 @@ const MovieImages: FC<MovieImagesProps> = ({
           <Image
             width={720}
             height={1080}
-            src={`https://image.tmdb.org/t/p/original${posterPath}`}
+            src={poster}
             alt="Imagem"
             className="w-auto h-[395px] object-cover"
             priority
